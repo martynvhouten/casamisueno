@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Neem contact op met Casa Mi Sueño voor vragen of reserveringen. Vind onze contactgegevens en locatie.">
+    <title>Contact - Casa Mi Sueño</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Link Font Awesome if you are using its icons for social media -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Spring naar hoofdinhoud</a>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">Casa Mi Sueño</a>
+            <button class="nav-toggle" aria-label="menu openen/sluiten" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">Over het huis</a></li>
+                    <li><a href="omgeving.html">De Omgeving</a></li>
+                    <li><a href="gallery.html">Foto's</a></li>
+                    <li><a href="booking.html">Beschikbaarheid & Reserveren</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-section contact-page">
+            <div class="container">
+                <h2 class="text-center">Contacteer Ons</h2>
+                <p class="text-center fade-in" style="max-width: 800px; margin-left:auto; margin-right:auto;">Heeft u vragen of wilt u reserveren? Neem gerust contact met ons op per mail of telefoon. U kunt ons ook volgen via social media.</p>
+
+                <div class="form-section fade-in" style="margin-top: 2rem;">
+                    <h3 class="text-center">Stuur ons een bericht</h3>
+                    <form class="contact-form">
+                        <label for="name">Naam:</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" name="email" required>
+
+                        <label for="message">Bericht:</label>
+                        <textarea id="message" name="message" required></textarea>
+
+                        <div class="text-center" style="margin-top: 1.5rem;">
+                            <button type="submit" class="cta-button">Verstuur Bericht</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="contact-info-map-grid fade-in" style="margin-top: 3rem;">
+                    <div class="contact-details-wrapper">
+                        <h3>Onze Contactgegevens:</h3>
+                        <p><strong>E-mail:</strong> <a href="mailto:esversteeg@hotmail.com">esversteeg@hotmail.com</a></p>
+                        <p><strong>Telefoon:</strong> <a href="tel:0683645489">0683645489</a></p>
+                        
+                        <h3 style="margin-top: 1.5rem;">Volg Ons:</h3>
+                        <div class="footer-social" style="justify-content: flex-start;"> <!-- Re-using footer-social for consistency -->
+                            <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i> <span class="sr-only">Facebook</span></a>
+                            <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i> <span class="sr-only">Instagram</span></a>
+                            <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i> <span class="sr-only">YouTube</span></a>
+                             <!-- Vervang # met uw daadwerkelijke social media links -->
+                        </div>
+                    </div>
+                    <div class="map-wrapper">
+                        <h3>Locatie:</h3>
+                        <p>Alfaz del Pi, Spanje</p>
+                        <!-- Google Maps Embed -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12493.90779981829!2d-0.09130710677591288!3d38.58091932577299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd620858887c19c9%3A0x11f2a2817f8e059!2sL'Alf%C3%A0s%20del%20Pi%2C%20Alicante%2C%20Spain!5e0!3m2!1snl!2snl!4v1678886040772!5m2!1snl!2snl" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <a href="index.html" class="footer-logo">Casa Mi Sueño</a>
+            <div class="footer-contact">
+                <p>E-mail: <a href="mailto:esversteeg@hotmail.com">esversteeg@hotmail.com</a></p>
+                <p>Telefoon: <a href="tel:0683645489">0683645489</a></p>
+            </div>
+            <div class="footer-social">
+                <p>Volg ons:</p>
+                <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i> <span class="sr-only">Facebook</span></a>
+                <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i> <span class="sr-only">Instagram</span></a>
+                <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i> <span class="sr-only">YouTube</span></a>
+            </div>
+            <p class="copyright">&copy; <span id="current-year">2024</span> Casa Mi Sueño. Alle rechten voorbehouden.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/31683645489?text=Hallo%2C%20ik%20heb%20een%20vraag%20over%20Casa%20mi%20sue%C3%B1o." class="whatsapp-float" target="_blank" aria-label="Stel een vraag via WhatsApp">
+        <span class="wa-icon"></span>
+    </a>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 
