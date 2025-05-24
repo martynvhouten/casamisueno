@@ -18,113 +18,251 @@
  * 5. Optional: Add fallback dates in fallbackDates array for when the sheet is unavailable
  */
 
+// Helper function (can be defined early)
+function validateEmail(email) {
+    return email.includes('@') && email.length > 3;
+}
+
+// ---- PRICE CALCULATION LOGIC (Defined globally for access) ----
+function isHighSeason(date) {
+    const month = date.getMonth(); // 0 (Jan) to 11 (Dec)
+    // June, July, August, September are high season
+    return month >= 5 && month <= 8; 
+}
+
+function isDateRangeInHighSeason(startDate, endDate) {
+    if (!startDate || !endDate || startDate >= endDate) {
+        return false; 
+    }
+    let current = new Date(startDate);
+    while (current < endDate) { 
+        if (!isHighSeason(current)) {
+            return false; 
+        }
+        current.setDate(current.getDate() + 1);
+    }
+    return true; 
+}
+
+function calculateAndDisplayPrice() {
+    const checkinInput = document.getElementById('checkin');
+    const checkoutInput = document.getElementById('checkout');
+    const priceResultDiv = document.getElementById('price-calculation-result');
+
+    if (!checkinInput || !checkoutInput || !priceResultDiv) {
+        return; 
+    }
+
+    const checkinDateStr = checkinInput.value;
+    const checkoutDateStr = checkoutInput.value;
+
+    if (checkinDateStr && checkoutDateStr) {
+        const checkinDate = new Date(checkinDateStr);
+        const checkoutDate = new Date(checkoutDateStr);
+
+        if (checkoutDate <= checkinDate) {
+            priceResultDiv.innerHTML = '<p style="color: #e74c3c;">Vertrekdatum moet na aankomstdatum zijn.</p>';
+            return;
+        }
+
+        const oneDay = 24 * 60 * 60 * 1000;
+        const nights = Math.round(Math.abs((checkoutDate - checkinDate) / oneDay));
+
+        if (nights <= 0) {
+            priceResultDiv.innerHTML = ''; 
+            return;
+        }
+
+        const highSeasonRate = 165;
+        const inHighSeason = isDateRangeInHighSeason(checkinDate, checkoutDate);
+
+        let message = '';
+        if (inHighSeason) {
+            const totalCost = nights * highSeasonRate;
+            message = `Verblijf: ${nights} ${nights === 1 ? 'nacht' : 'nachten'} × €${highSeasonRate} = <strong>€${totalCost}</strong>`;
+        } else {
+            message = `Verblijf: ${nights} ${nights === 1 ? 'nacht' : 'nachten'} – prijs in overleg. <br><small>Indicatief vanaf €120 per nacht bij langer verblijf.</small>`;
+        }
+        priceResultDiv.innerHTML = `<p>${message}</p>`;
+
+    } else {
+        priceResultDiv.innerHTML = '<p>Selecteer aankomst- en vertrekdatum om de prijsindicatie te zien.</p>';
+    }
+}
+// ---- END OF PRICE CALCULATION LOGIC ----
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('header nav a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-
         const targetId = this.getAttribute('href');
         const targetElement = document.querySelector(targetId);
-
         if (targetElement) {
             window.scrollTo({
-                top: targetElement.offsetTop - 70, // Adjust for sticky header height
+                top: targetElement.offsetTop - 70, 
                 behavior: 'smooth'
             });
         }
     });
 });
 
-// Enhanced form validation
+// Enhanced form validation for all forms
 const forms = document.querySelectorAll('form');
 forms.forEach(form => {
     form.addEventListener('submit', function(event) {
         let isValid = true;
         const requiredFields = this.querySelectorAll('[required]');
         
-        // Clear previous error states
         this.querySelectorAll('.error-message').forEach(error => {
             error.style.display = 'none';
         });
         this.querySelectorAll('input, textarea').forEach(input => {
             input.style.borderColor = 'var(--color-border)';
+            input.removeAttribute('aria-invalid');
         });
 
         requiredFields.forEach(input => {
             const errorElement = document.getElementById(input.getAttribute('aria-describedby'));
-            
             if (!input.value.trim()) {
                 isValid = false;
                 input.style.borderColor = '#e74c3c';
-                if (errorElement) {
-                    errorElement.style.display = 'block';
-                }
+                input.setAttribute('aria-invalid', 'true');
+                if (errorElement) errorElement.style.display = 'block';
             } else if (input.type === 'email' && !validateEmail(input.value)) {
                 isValid = false;
                 input.style.borderColor = '#e74c3c';
+                input.setAttribute('aria-invalid', 'true');
                 if (errorElement) {
                     errorElement.textContent = 'Vul een geldig e-mailadres in (moet @ bevatten)';
                     errorElement.style.display = 'block';
                 }
-            } else {
-                input.style.borderColor = 'var(--color-border)';
-                if (errorElement) {
-                    errorElement.style.display = 'none';
-                }
             }
         });
 
-        // Additional validation for date fields
         const checkinField = this.querySelector('#checkin');
         const checkoutField = this.querySelector('#checkout');
         
-        if (checkinField && checkoutField && checkinField.value && checkoutField.value) {
-            const checkinDate = new Date(checkinField.value);
-            const checkoutDate = new Date(checkoutField.value);
-            const today = new Date();
-            today.setHours(0,0,0,0);
+        if (checkinField && checkoutField) { // Specific validation for booking form dates
+            const checkinErrorElement = document.getElementById('checkin-error');
+            const checkoutErrorElement = document.getElementById('checkout-error');
+            if (checkinErrorElement) checkinErrorElement.style.display = 'none';
+            if (checkoutErrorElement) checkoutErrorElement.style.display = 'none';
             
-            if (checkinDate < today) {
-                isValid = false;
-                checkinField.style.borderColor = '#e74c3c';
-                const errorElement = document.getElementById('checkin-error');
-                if (errorElement) {
-                    errorElement.textContent = 'Aankomstdatum kan niet in het verleden liggen';
-                    errorElement.style.display = 'block';
+            if (checkinField.value && checkoutField.value) {
+                const checkinDate = new Date(checkinField.value);
+                const checkoutDate = new Date(checkoutField.value);
+                const today = new Date();
+                today.setHours(0,0,0,0);
+
+                if (checkinDate < today) {
+                    isValid = false;
+                    checkinField.style.borderColor = '#e74c3c';
+                    checkinField.setAttribute('aria-invalid', 'true');
+                    if (checkinErrorElement) {
+                        checkinErrorElement.textContent = 'Aankomstdatum kan niet in het verleden liggen';
+                        checkinErrorElement.style.display = 'block';
+                    }
                 }
+                if (checkoutDate <= checkinDate) {
+                    isValid = false;
+                    checkoutField.style.borderColor = '#e74c3c';
+                    checkoutField.setAttribute('aria-invalid', 'true');
+                    if (checkoutErrorElement) {
+                        checkoutErrorElement.textContent = 'Vertrekdatum moet na de aankomstdatum zijn';
+                        checkoutErrorElement.style.display = 'block';
+                    }
+                }
+            } else { // Handle cases where one or both date fields are empty but required
+                if (checkinField.hasAttribute('required') && !checkinField.value) {
+                    isValid = false;
+                    checkinField.style.borderColor = '#e74c3c';
+                    checkinField.setAttribute('aria-invalid', 'true');
+                    if (checkinErrorElement) {
+                        checkinErrorElement.textContent = 'Selecteer een aankomstdatum';
+                        checkinErrorElement.style.display = 'block';
             }
-            
-            if (checkoutDate <= checkinDate) {
-                isValid = false;
-                checkoutField.style.borderColor = '#e74c3c';
-                const errorElement = document.getElementById('checkout-error');
-                if (errorElement) {
-                    errorElement.textContent = 'Vertrekdatum moet na de aankomstdatum zijn';
-                    errorElement.style.display = 'block';
+                }
+                if (checkoutField.hasAttribute('required') && !checkoutField.value) {
+                    isValid = false;
+                    checkoutField.style.borderColor = '#e74c3c';
+                    checkoutField.setAttribute('aria-invalid', 'true');
+                    if (checkoutErrorElement) {
+                        checkoutErrorElement.textContent = 'Selecteer een vertrekdatum';
+                        checkoutErrorElement.style.display = 'block';
+                    }
                 }
             }
         }
 
         if (!isValid) {
             event.preventDefault();
-            // Focus on first error field
-            const firstError = this.querySelector('input[style*="border-color: rgb(231, 76, 60)"], input[style*="border-color: #e74c3c"]');
-            if (firstError) {
-                firstError.focus();
-            }
+            const firstError = this.querySelector('[aria-invalid="true"]');
+            if (firstError) firstError.focus();
         }
-        // If valid, allow form to submit naturally to Formspree
     });
 });
 
-// Email validation helper function
-function validateEmail(email) {
-    return email.includes('@') && email.length > 3;
+// Modal variables (declared globally, initialized in DOMContentLoaded)
+let modal, modalImg, modalCaption, closeBtn, modalTitle, modalFigure;
+let currentGalleryImages = [];
+let currentIndex = 0;
+
+// ---- MODAL HELPER FUNCTIONS (defined globally) ----
+function openModal(imgElement) {
+    if (!modal || !modalImg || !modalCaption) return; 
+    modal.style.display = 'block';
+    modalImg.src = imgElement.src;
+    modalImg.alt = imgElement.alt;
+    modalCaption.textContent = imgElement.alt;
+    document.body.style.overflow = 'hidden';
+    
+    const parentGallery = imgElement.closest('.image-gallery-grid, .omgeving-showcase, .inspiration-grid');
+    const allImagesInScope = document.querySelectorAll('.image-grid img, .gallery-image, .showcase-item img, .inspiration-image img');
+
+    if (parentGallery) {
+        currentGalleryImages = Array.from(parentGallery.querySelectorAll('.gallery-image, .showcase-item img, .inspiration-image img'));
+        currentIndex = currentGalleryImages.indexOf(imgElement);
+         if (currentIndex === -1) { 
+            currentGalleryImages = Array.from(allImagesInScope);
+            currentIndex = currentGalleryImages.indexOf(imgElement);
+        }
+    } else {
+        currentGalleryImages = Array.from(allImagesInScope);
+        currentIndex = currentGalleryImages.indexOf(imgElement);
+    }
+    if (closeBtn) closeBtn.focus();
 }
 
-// Enhanced image gallery modal with keyboard navigation
-const galleryImages = document.querySelectorAll('.image-grid img, .gallery-image');
-const modal = document.createElement('div');
+function closeModal() {
+    if (!modal) return;
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Global listener for modal keyboard navigation
+document.addEventListener('keydown', function(e) {
+    if (modal && modal.style.display === 'block') {
+        if (e.key === 'ArrowRight') {
+            if (currentGalleryImages.length > 0) {
+                currentIndex = (currentIndex + 1) % currentGalleryImages.length;
+                openModal(currentGalleryImages[currentIndex]);
+            }
+        } else if (e.key === 'ArrowLeft') {
+            if (currentGalleryImages.length > 0) {
+                currentIndex = (currentIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+                openModal(currentGalleryImages[currentIndex]);
+            }
+        } else if (e.key === 'Escape') {
+            closeModal();
+        }
+    }
+});
+
+// THE ONE AND ONLY DOMContentLoaded LISTENER
+document.addEventListener('DOMContentLoaded', () => {
+    // ---- MODAL DOM SETUP ----
+    const galleryImageElements = document.querySelectorAll('.image-grid img, .gallery-image, .showcase-item img, .inspiration-image img');
+    modal = document.createElement('div');
 modal.id = 'imageModal';
 modal.style.display = 'none';
 modal.style.position = 'fixed';
@@ -135,21 +273,21 @@ modal.style.width = '100%';
 modal.style.height = '100%';
 modal.style.overflow = 'auto';
 modal.style.backgroundColor = 'rgba(0,0,0,0.9)';
-modal.setAttribute('role', 'dialog');
-modal.setAttribute('aria-modal', 'true');
-modal.setAttribute('aria-labelledby', 'modal-title');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'modal-title');
 
-const modalImg = document.createElement('img');
-modalImg.style.margin = 'auto';
-modalImg.style.display = 'block';
-modalImg.style.maxWidth = '80%';
-modalImg.style.maxHeight = '80%';
-modalImg.style.position = 'absolute';
-modalImg.style.left = '50%';
-modalImg.style.top = '50%';
-modalImg.style.transform = 'translate(-50%, -50%)';
+    modalTitle = document.createElement('h2');
+    modalTitle.id = 'modal-title';
+    modalTitle.style.position = 'absolute';
+    modalTitle.style.top = '10px';
+    modalTitle.style.left = '20px';
+    modalTitle.style.color = '#f1f1f1';
+    modalTitle.style.fontSize = '1.2rem';
+    modalTitle.textContent = 'Vergrote afbeelding';
+    modalTitle.style.display = 'none'; // Kept for consistency, though not explicitly shown
 
-const closeBtn = document.createElement('span');
+    closeBtn = document.createElement('span');
 closeBtn.innerHTML = '&times;';
 closeBtn.style.position = 'absolute';
 closeBtn.style.top = '20px';
@@ -158,709 +296,475 @@ closeBtn.style.color = '#f1f1f1';
 closeBtn.style.fontSize = '40px';
 closeBtn.style.fontWeight = 'bold';
 closeBtn.style.cursor = 'pointer';
-closeBtn.setAttribute('aria-label', 'Sluit vergrote afbeelding');
-closeBtn.setAttribute('tabindex', '0');
+    closeBtn.setAttribute('aria-label', 'Sluit vergrote afbeelding');
+    closeBtn.setAttribute('tabindex', '0');
 
-const modalTitle = document.createElement('h2');
-modalTitle.id = 'modal-title';
-modalTitle.style.position = 'absolute';
-modalTitle.style.top = '10px';
-modalTitle.style.left = '20px';
-modalTitle.style.color = '#f1f1f1';
-modalTitle.style.fontSize = '1.2rem';
-modalTitle.textContent = 'Vergrote afbeelding';
-modalTitle.style.display = 'none'; // Hidden but available for screen readers
+    modalFigure = document.createElement('figure');
+    modalFigure.style.margin = '0';
+    modalFigure.style.width = '100%';
+    modalFigure.style.height = '100%';
+    modalFigure.style.display = 'flex';
+    modalFigure.style.flexDirection = 'column';
+    modalFigure.style.justifyContent = 'center';
+    modalFigure.style.alignItems = 'center';
 
-modal.appendChild(modalTitle);
+    modalImg = document.createElement('img');
+    modalImg.style.margin = 'auto'; 
+    modalImg.style.display = 'block';
+    modalImg.style.maxWidth = '80%';
+    modalImg.style.maxHeight = '80%';
+
+    modalCaption = document.createElement('figcaption');
+    modalCaption.id = 'modalCaption';
+    modalCaption.className = 'modal-caption'; // Use class for styling from style.css
+    
+    modalFigure.appendChild(modalImg);
+    modalFigure.appendChild(modalCaption);
+    modal.appendChild(modalTitle);
 modal.appendChild(closeBtn);
-modal.appendChild(modalImg);
+    modal.appendChild(modalFigure);
 document.body.appendChild(modal);
 
-galleryImages.forEach(img => {
-    // Make images keyboard accessible
-    if (!img.hasAttribute('tabindex')) {
-        img.setAttribute('tabindex', '0');
-    }
-    
-    img.addEventListener('click', function() {
-        openModal(this);
-    });
-    
-    img.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openModal(this);
+    galleryImageElements.forEach(img => {
+        if (!img.hasAttribute('tabindex')) {
+            img.setAttribute('tabindex', '0');
         }
+        img.addEventListener('click', function() { openModal(this); });
+        img.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault(); openModal(this);
+            }
     });
 });
 
-function openModal(imgElement) {
-    modal.style.display = 'block';
-    modalImg.src = imgElement.src;
-    modalImg.alt = imgElement.alt;
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
-    closeBtn.focus(); // Focus on close button for accessibility
-}
+    closeBtn.onclick = closeModal;
+    closeBtn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeModal(); }
+    });
+    modal.addEventListener('click', function(event) {
+        if (event.target === modal) { closeModal(); }
+    });
+    // ---- END MODAL DOM SETUP ----
 
-function closeModal() {
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
-closeBtn.onclick = closeModal;
-
-closeBtn.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        closeModal();
-    }
-});
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        closeModal();
-    }
-}
-
-console.log("Casa Mi Sueño JavaScript loaded.");
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Check for form submission success from URL parameter
+    // ---- FORMSPREE SUCCESS ----
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('success') === '1') {
-        // Show appropriate thank you message based on page
         const thankYouMessage = document.querySelector('.thank-you-message');
         if (thankYouMessage) {
-            const form = document.querySelector('form');
-            if (form) {
-                form.style.display = 'none';
-            }
+            const formToHide = thankYouMessage.closest('form') || document.querySelector('form.contact-form, form.booking-form');
+            if (formToHide) formToHide.style.display = 'none';
             thankYouMessage.style.display = 'block';
             thankYouMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-        
-        // Clean URL by removing success parameter
         const cleanUrl = window.location.pathname;
-        window.history.replaceState(null, '', cleanUrl);
+        try { window.history.replaceState(null, '', cleanUrl); }
+        catch (e) { console.warn("Could not clean URL:", e); }
     }
+    // ---- END FORMSPREE SUCCESS ----
 
-    // Mobile Navigation Toggle
+    // ---- MOBILE NAVIGATION ----
     const navToggle = document.querySelector('.nav-toggle');
     const mainNav = document.querySelector('.main-nav');
-
     if (navToggle && mainNav) {
         navToggle.addEventListener('click', () => {
+            const isExpanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+            navToggle.setAttribute('aria-expanded', String(!isExpanded));
             mainNav.classList.toggle('active');
-            const isExpanded = mainNav.classList.contains('active');
-            navToggle.setAttribute('aria-expanded', isExpanded);
-            navToggle.classList.toggle('active'); // For hamburger icon animation
         });
     }
+    // ---- END MOBILE NAVIGATION ----
 
-    // Active Navigation Link
-    // This simple version highlights based on URL. More complex logic might be needed for sections on the same page.
+    // ---- FOOTER YEAR ----
+    const currentYearSpan = document.getElementById('current-year');
+    if (currentYearSpan) {
+        currentYearSpan.textContent = new Date().getFullYear();
+    }
+    // ---- END FOOTER YEAR ----
+    
+    // ---- ACTIVE NAVIGATION LINK ----
     const currentLocation = window.location.href;
     const navLinks = document.querySelectorAll('.main-nav a');
     navLinks.forEach(link => {
-        if (link.href === currentLocation) {
+        link.classList.remove('active');
+        const linkPath = new URL(link.href, document.baseURI).pathname;
+        const currentPath = new URL(currentLocation, document.baseURI).pathname;
+        if (linkPath === currentPath || (linkPath.endsWith('index.html') && currentPath === '/')) {
             link.classList.add('active');
         }
-        // Remove active class from Home if another link is active, unless we are on index.html
-        if (!currentLocation.endsWith('index.html') && currentLocation !== (window.location.origin + '/')){
-            if(link.getAttribute('href') === 'index.html' && link.classList.contains('active')) {
-                 if(currentLocation.split('/').pop() !== '' && currentLocation.split('/').pop() !== 'index.html') {
-                    link.classList.remove('active');
-                 }
-            }
-        }
-        // Ensure home is active on root path
-        if ((currentLocation.endsWith('/') || currentLocation.endsWith('index.html')) && link.getAttribute('href') === 'index.html'){
-             link.classList.add('active');
-        }
     });
+     // If no link is active (e.g. on root path without index.html explicitly) and home link exists, activate home.
+    if (!document.querySelector('.main-nav a.active')) {
+        const homeLink = document.querySelector('.main-nav a[href="index.html"], .main-nav a[href="/"]');
+         if (homeLink && (new URL(currentLocation, document.baseURI).pathname === '/' || new URL(currentLocation, document.baseURI).pathname.endsWith('/index.html'))) {
+            homeLink.classList.add('active');
+        }
+    }
+    // ---- END ACTIVE NAVIGATION LINK ----
 
-    // Smooth Scroll for internal links (if any specific targeting is needed beyond CSS)
-    // The CSS html { scroll-behavior: smooth; } handles most cases.
-    // This can be extended for more complex scrolling logic, e.g., with offsets for sticky header if not handled by CSS scroll-padding-top.
-
-    // Simple Fade-in Animation on Scroll
+    // ---- FADE-IN ANIMATION ON SCROLL ----
     const fadeElements = document.querySelectorAll('.fade-in');
-    const observerOptions = {
-        root: null, // relative to document viewport 
-        rootMargin: '0px',
-        threshold: 0.1 // 10% of item has to be visible
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
+    if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Optional: unobserve after animation to save resources
-                // observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    fadeElements.forEach(el => {
-        observer.observe(el);
-    });
-
-    // Enhanced Image Gallery Modal
-    const galleryImages = document.querySelectorAll('.gallery-image'); // Use this class for clickable gallery images
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    const modalCaption = document.getElementById('modalCaption'); // Get the caption element
-    const closeModal = document.getElementById('modalClose');
-
-    if (modal && modalImg && closeModal && galleryImages.length > 0) {
-        galleryImages.forEach(image => {
-            image.addEventListener('click', function() {
-                modal.style.display = 'block';
-                modalImg.src = this.src;
-                modalImg.alt = this.alt; // Set alt for the modal image too for accessibility
-                if (modalCaption) { // Check if caption element exists
-                    modalCaption.textContent = this.alt; // Use alt text as caption
+                
+                // Special handling for enhanced booking page elements
+                if (entry.target.classList.contains('enhanced-calendar')) {
+                    entry.target.classList.add('visible');
                 }
-                document.body.style.overflow = 'hidden';
-                closeModal.focus();
-            });
-            
-            // Keyboard support for gallery images
-            image.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    modal.style.display = 'block';
-                    modalImg.src = this.src;
-                    modalImg.alt = this.alt;
-                    if (modalCaption) {
-                        modalCaption.textContent = this.alt;
+                if (entry.target.querySelector('.form-wrapper')) {
+                    const formWrapper = entry.target.querySelector('.form-wrapper');
+                    if (formWrapper) {
+                        setTimeout(() => {
+                            formWrapper.classList.add('visible');
+                        }, 300); // Delay for staggered animation
                     }
-                    document.body.style.overflow = 'hidden';
-                    closeModal.focus();
+                }
                 }
             });
-        });
-
-        closeModal.addEventListener('click', () => {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        });
-
-        // Close modal when clicking outside the image
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) { // Check if the click is on the modal background itself
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'block') {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+    } else { 
+        fadeElements.forEach(el => {
+            el.classList.add('visible');
+            // Fallback for browsers without IntersectionObserver
+            const formWrapper = el.querySelector('.form-wrapper');
+            if (formWrapper) formWrapper.classList.add('visible');
         });
     }
-
-    // Update Copyright Year
-    const yearSpan = document.getElementById('current-year');
-    if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-    }
-
-    // Generate Star Ratings for Testimonials
+    // ---- END FADE-IN ANIMATION ----
+    
+    // ---- TESTIMONIAL STAR RATINGS ----
     const testimonialRatings = document.querySelectorAll('.testimonial-rating');
     testimonialRatings.forEach(ratingElement => {
         const rating = parseInt(ratingElement.dataset.rating, 10);
         if (!isNaN(rating) && rating >= 0 && rating <= 5) {
-            ratingElement.innerHTML = ''; // Clear any existing content
+            ratingElement.innerHTML = ''; 
             for (let i = 1; i <= 5; i++) {
                 const starSpan = document.createElement('span');
                 starSpan.classList.add('star');
-                if (i <= rating) {
-                    starSpan.innerHTML = '&#9733;'; // Filled star Unicode
-                    starSpan.classList.add('filled');
-                } else {
-                    starSpan.innerHTML = '&#9734;'; // Empty star Unicode
-                    starSpan.classList.add('empty');
-                }
+                starSpan.innerHTML = (i <= rating) ? '&#9733;' : '&#9734;'; 
+                if (i <= rating) starSpan.classList.add('filled');
                 ratingElement.appendChild(starSpan);
             }
         }
     });
+    // ---- END TESTIMONIAL STAR RATINGS ----
 
-    // Booking Page Calendar Logic with Google Sheets Integration
+    // ---- BOOKING PAGE SPECIFIC LOGIC ----
     const calendarDaysContainer = document.getElementById('calendarDays');
     const currentMonthYearElement = document.getElementById('currentMonthYear');
-    const prevMonthBtn = document.getElementById('prevMonthBtn');
-    const nextMonthBtn = document.getElementById('nextMonthBtn');
-    const loadingStatus = document.getElementById('calendarLoadingStatus');
-    const errorStatus = document.getElementById('calendarErrorStatus');
+    const prevMonthBtnCal = document.getElementById('prevMonthBtn'); // Renamed to avoid conflict if any
+    const nextMonthBtnCal = document.getElementById('nextMonthBtn'); // Renamed
+    const calendarLoadingStatusEl = document.getElementById('calendarLoadingStatus');
+    const calendarErrorStatusEl = document.getElementById('calendarErrorStatus');
+    const resetCalendarSelectionBtnEl = document.getElementById('resetCalendarSelection');
+    const checkinInputEl = document.getElementById('checkin');
+    const checkoutInputEl = document.getElementById('checkout');
 
-    if (calendarDaysContainer && currentMonthYearElement && prevMonthBtn && nextMonthBtn) {
-        let currentDate = new Date();
-        let bookedDates = []; // Will be populated from Google Sheets
-        let selectedDates = []; // To store selected start and end dates
-        let isLoadingBookedDates = true;
+    if (calendarDaysContainer && currentMonthYearElement && prevMonthBtnCal && nextMonthBtnCal && checkinInputEl && checkoutInputEl) {
+        
+        let currentCalendarDate = new Date(); // Specific to calendar instance
+        let bookedDatesList = [];    // Specific to calendar instance
+        let selectedCalendarDates = []; // [startDate, endDate], specific to calendar instance
 
-        // Configuration for Google Sheets integration
-        const GOOGLE_SHEETS_CONFIG = {
-            // Sheetbest API endpoint for Casa Mi Sueño booked dates
-            jsonEndpoint: 'https://api.sheetbest.com/sheets/821c7f96-b3a5-4916-b146-7aaee27c6076',
-            fallbackDates: [] // Fallback dates if API fails
+        const GOOGLE_SHEETS_CONFIG_CALENDAR = { // Scoped config
+            jsonEndpoint: 'https://api.sheetbest.com/sheets/821c7f96-b3a5-4916-b146-7aaee27c6076', // Ensure this is your correct endpoint
+            fallbackDates: [] 
         };
 
-        // Fetch booked dates from Google Sheets
-        async function fetchBookedDates() {
-            if (!GOOGLE_SHEETS_CONFIG.jsonEndpoint || GOOGLE_SHEETS_CONFIG.jsonEndpoint === 'YOUR_GOOGLE_SHEETS_JSON_ENDPOINT_HERE') {
-                console.log('Google Sheets endpoint not configured, using fallback.');
-                isLoadingBookedDates = false;
-                hideLoadingStatus();
-                return;
-            }
-
-            try {
-                showLoadingStatus();
-                console.log('Fetching booked dates from Casa Mi Sueño booking system...');
-                
-                const response = await fetch(GOOGLE_SHEETS_CONFIG.jsonEndpoint);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                console.log('Raw data from API:', data);
-                
-                let dates = [];
-                
-                if (Array.isArray(data)) {
-                    // Handle Sheetbest API format: [{"geboekte_datum": "2025-05-28"}, ...]
-                    dates = data
-                        .filter(item => item && item.geboekte_datum)
-                        .map(item => item.geboekte_datum);
-                } else if (data.values && Array.isArray(data.values)) {
-                    // Google Sheets API format (fallback)
-                    dates = data.values.flat().filter(date => date && date.trim());
-                } else {
-                    throw new Error('Unexpected data format from booking API');
-                }
-
-                // Validate and format dates
-                bookedDates = dates.map(date => {
-                    const dateString = String(date).trim();
-                    // Validate ISO date format (YYYY-MM-DD)
-                    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-                    if (dateRegex.test(dateString)) {
-                        return dateString;
-                    }
-                    console.warn('Invalid date format found:', dateString);
-                    return null;
-                }).filter(date => date !== null);
-
-                console.log(`Successfully loaded ${bookedDates.length} booked dates:`, bookedDates);
-                isLoadingBookedDates = false;
-                hideLoadingStatus();
-                renderCalendar(currentDate); // Re-render with loaded data
-                
-            } catch (error) {
-                console.error('Error fetching booked dates from Casa Mi Sueño system:', error);
-                bookedDates = GOOGLE_SHEETS_CONFIG.fallbackDates || [];
-                isLoadingBookedDates = false;
-                showErrorStatus();
-                renderCalendar(currentDate); // Render with fallback data
-            }
+        function showCalLoadingStatus() {
+            if (calendarLoadingStatusEl) calendarLoadingStatusEl.style.display = 'block';
+            if (calendarErrorStatusEl) calendarErrorStatusEl.style.display = 'none';
         }
 
-        function showLoadingStatus() {
-            if (loadingStatus) {
-                loadingStatus.style.display = 'block';
-            }
-            if (errorStatus) {
-                errorStatus.style.display = 'none';
-            }
+        function hideCalLoadingStatus() {
+            if (calendarLoadingStatusEl) calendarLoadingStatusEl.style.display = 'none';
         }
 
-        function hideLoadingStatus() {
-            if (loadingStatus) {
-                loadingStatus.style.display = 'none';
-            }
+        function showCalErrorStatus() {
+            if (calendarErrorStatusEl) calendarErrorStatusEl.style.display = 'block';
+            hideCalLoadingStatus();
         }
-
-        function showErrorStatus() {
-            if (errorStatus) {
-                errorStatus.style.display = 'block';
-            }
-            hideLoadingStatus();
-        }
-
-        function renderCalendar(date) {
+        
+        function renderActualCalendar(dateToRender) {
             calendarDaysContainer.innerHTML = '';
-            const year = date.getFullYear();
-            const month = date.getMonth();
+            const year = dateToRender.getFullYear();
+            const month = dateToRender.getMonth();
             const monthNames = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
             currentMonthYearElement.textContent = `${monthNames[month]} ${year}`;
 
-            const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0 (Sun) - 6 (Sat)
+            const firstDayOfMonth = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
-            // Add empty cells for days before the first day of the month
             for (let i = 0; i < firstDayOfMonth; i++) {
-                const emptyCell = document.createElement('div');
-                emptyCell.classList.add('empty');
-                calendarDaysContainer.appendChild(emptyCell);
+                calendarDaysContainer.appendChild(document.createElement('div')).classList.add('empty');
             }
 
-            // Add day cells
             for (let day = 1; day <= daysInMonth; day++) {
                 const dayCell = document.createElement('div');
                 dayCell.textContent = day;
                 const cellDate = new Date(year, month, day);
                 const cellDateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                
+                dayCell.setAttribute('role', 'button');
+                dayCell.tabIndex = 0;
+                
+                let statusText = 'Beschikbaar';
 
-                // Determine cell state
                 if (cellDate < today) {
                     dayCell.classList.add('past-date');
-                    dayCell.title = 'Datum ligt in het verleden';
-                } else if (bookedDates.includes(cellDateString)) {
+                    statusText = 'Verleden';
+                    dayCell.setAttribute('aria-disabled', 'true');
+                } else if (bookedDatesList.includes(cellDateString)) {
                     dayCell.classList.add('booked');
-                    dayCell.title = 'Reeds geboekt - niet beschikbaar';
-                    dayCell.setAttribute('data-tooltip', 'Deze datum is al bezet');
+                    dayCell.setAttribute('data-tooltip', 'Deze datum is helaas al bezet');
+                    statusText = 'Bezet';
+                    dayCell.setAttribute('aria-disabled', 'true');
                 } else {
                     dayCell.classList.add('available');
-                    dayCell.title = 'Beschikbaar voor reservering';
-                    
-                    // Add click handler for available dates
-                    dayCell.addEventListener('click', () => {
-                        handleDateSelection(cellDateString, dayCell);
+                    dayCell.addEventListener('click', () => handleCalDateSelection(cellDateString, dayCell));
+                    dayCell.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleCalDateSelection(cellDateString, dayCell);
+                        }
                     });
                 }
+                dayCell.setAttribute('aria-label', `${day} ${monthNames[month]} ${year} - ${statusText}`);
 
                 if (cellDate.toDateString() === today.toDateString()) {
                     dayCell.classList.add('today');
                 }
-
                 calendarDaysContainer.appendChild(dayCell);
             }
-
-            // Re-apply selected range highlighting if we have a valid range
-            if (selectedDates.length === 2) {
-                highlightDateRange(selectedDates[0], selectedDates[1]);
-            } else if (selectedDates.length === 1) {
-                // Re-apply single date selection
-                const [sYear, sMonth, sDay] = selectedDates[0].split('-').map(Number);
-                if (sYear === year && (sMonth - 1) === month) {
-                    const dayElem = Array.from(calendarDaysContainer.children).find(d => 
-                        d.textContent === String(sDay) && !d.classList.contains('empty')
-                    );
-                    if (dayElem) {
-                        dayElem.classList.add('selected');
-                    }
-                }
-            }
+            applyCalDateSelectionStyles();
         }
 
-        function handleDateSelection(dateString, dayCell) {
-            if (dayCell.classList.contains('booked') || dayCell.classList.contains('past-date')) {
-                return; // Don't allow selection of booked or past dates
-            }
-
-            // Clear any existing error messages
-            clearRangeErrorMessage();
-
-            if (selectedDates.length === 0) {
-                // First date selection
-                selectedDates.push(dateString);
-                dayCell.classList.add('selected');
-                
-                // Update checkin field
-                if (document.getElementById('checkin')) {
-                    document.getElementById('checkin').value = dateString;
-                }
-                
-                // Show reset button
-                showResetButton();
-                
-            } else if (selectedDates.length === 1) {
-                const firstDate = new Date(selectedDates[0]);
-                const secondDate = new Date(dateString);
-                
-                // Ensure second date is after first date
-                if (secondDate <= firstDate) {
-                    // If second date is before or same as first, start over with new selection
-                    clearSelectedDates();
-                    selectedDates.push(dateString);
-                    dayCell.classList.add('selected');
-                    if (document.getElementById('checkin')) {
-                        document.getElementById('checkin').value = dateString;
-                    }
-                    if (document.getElementById('checkout')) {
-                        document.getElementById('checkout').value = '';
-                    }
-                    showRangeErrorMessage("Vertrekdatum moet na aankomstdatum zijn. Begin opnieuw.");
-                    showResetButton();
-                    return;
-                }
-                
-                // Check if range contains booked dates
-                const dateRange = getDateRange(selectedDates[0], dateString);
-                const conflictingDates = dateRange.filter(date => bookedDates.includes(date));
-                
-                if (conflictingDates.length > 0) {
-                    showRangeErrorMessage("Eén of meer van de geselecteerde dagen zijn al geboekt. Kies een ander bereik.");
-                    return;
-                }
-                
-                // Valid range selection
-                selectedDates.push(dateString);
-                highlightDateRange(selectedDates[0], dateString);
-                
-                // Update checkout field
-                if (document.getElementById('checkout')) {
-                    document.getElementById('checkout').value = dateString;
-                }
-                
-            } else {
-                // Third click - reset and start over
-                clearSelectedDates();
-                selectedDates.push(dateString);
-                dayCell.classList.add('selected');
-                
-                if (document.getElementById('checkin')) {
-                    document.getElementById('checkin').value = dateString;
-                }
-                if (document.getElementById('checkout')) {
-                    document.getElementById('checkout').value = '';
-                }
-                showResetButton();
-            }
-        }
-
-        function getDateRange(startDate, endDate) {
-            const dates = [];
-            const start = new Date(startDate);
-            const end = new Date(endDate);
-            
-            for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-                const dateString = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-                dates.push(dateString);
-            }
-            
-            return dates;
-        }
-
-        function highlightDateRange(startDate, endDate) {
-            // Clear all existing selections
-            document.querySelectorAll('.calendar-days div.selected, .calendar-days div.range').forEach(d => {
+        function applyCalDateSelectionStyles() {
+            document.querySelectorAll('#calendarDays div').forEach(d => {
                 d.classList.remove('selected', 'range', 'range-start', 'range-end');
             });
-            
-            const dateRange = getDateRange(startDate, endDate);
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            
-            dateRange.forEach((date, index) => {
-                const [dateYear, dateMonth, dateDay] = date.split('-').map(Number);
-                
-                // Only highlight dates in current month view
-                if (dateYear === year && (dateMonth - 1) === month) {
-                    const dayElement = Array.from(calendarDaysContainer.children).find(d => 
-                        d.textContent === String(dateDay) && !d.classList.contains('empty')
-                    );
-                    
-                    if (dayElement) {
-                        if (index === 0) {
-                            dayElement.classList.add('range-start');
-                        } else if (index === dateRange.length - 1) {
-                            dayElement.classList.add('range-end');
-                        } else {
-                            dayElement.classList.add('range');
-                        }
+
+            if (selectedCalendarDates.length === 0) return;
+
+            const [startDateStr, endDateStr] = selectedCalendarDates;
+            if (!startDateStr) return;
+            const startDate = new Date(startDateStr);
+
+            const startDayCell = findCalDayCell(startDate);
+            if (startDayCell) startDayCell.classList.add('selected', 'range-start');
+
+            if (endDateStr) {
+                const endDate = new Date(endDateStr);
+                const endDayCell = findCalDayCell(endDate);
+                if (endDayCell) endDayCell.classList.add('selected', 'range-end');
+
+                const currentMonth = currentCalendarDate.getMonth();
+                const currentYear = currentCalendarDate.getFullYear();
+                document.querySelectorAll('#calendarDays div:not(.empty)').forEach(cell => {
+                    const day = parseInt(cell.textContent);
+                    const cellDate = new Date(currentYear, currentMonth, day);
+                    if (cellDate > startDate && cellDate < endDate) {
+                        cell.classList.add('range');
                     }
-                }
-            });
+                });
+            }
         }
 
-        function showRangeErrorMessage(message) {
-            clearRangeErrorMessage();
-            
-            // Create error message element
+        function findCalDayCell(dateToFind) {
+            const year = dateToFind.getFullYear();
+            const month = dateToFind.getMonth();
+            const day = dateToFind.getDate();
+            if (currentCalendarDate.getFullYear() !== year || currentCalendarDate.getMonth() !== month) return null;
+
+            return Array.from(calendarDaysContainer.children).find(d => 
+                d.textContent === String(day) && 
+                !d.classList.contains('empty') &&
+                (d.classList.contains('available') || d.classList.contains('today'))
+            );
+        }
+
+        function handleCalDateSelection(dateString, dayCell) {
+            if (dayCell.classList.contains('past-date') || dayCell.classList.contains('booked')) return;
+            clearCalRangeErrorMessage();
+
+            const clickedDate = new Date(dateString);
+
+            if (selectedCalendarDates.length === 0) { 
+                // First click - start new selection
+                selectedCalendarDates = [dateString, null];
+                window.updateBookingFormDates(new Date(dateString), null);
+                showCalResetButton();
+            } else if (selectedCalendarDates.length === 2 && selectedCalendarDates[1] === null) { 
+                // Second click - complete the range
+                const startDate = new Date(selectedCalendarDates[0]);
+                if (clickedDate <= startDate) {
+                    showCalRangeErrorMessage("Vertrekdatum moet na de aankomstdatum zijn. Selecteer opnieuw.");
+                    selectedCalendarDates = [dateString, null]; 
+                    window.updateBookingFormDates(new Date(dateString), null);
+                } else {
+                    const range = getCalDateRange(selectedCalendarDates[0], dateString);
+                    const isRangeValid = !range.some(d => bookedDatesList.includes(d) && d !== selectedCalendarDates[0]);
+                    
+                    if (isRangeValid) {
+                        selectedCalendarDates[1] = dateString;
+                        window.updateBookingFormDates(new Date(selectedCalendarDates[0]), new Date(dateString));
+                                    } else {
+                        showCalRangeErrorMessage("De geselecteerde periode bevat reeds geboekte datums. Kies a.u.b. een andere periode.");
+                        selectedCalendarDates = [dateString, null]; 
+                        window.updateBookingFormDates(new Date(dateString), null);
+                                    }
+                                }
+                            } else {
+                // Third click or more - start new selection
+                selectedCalendarDates = [dateString, null];
+                window.updateBookingFormDates(new Date(dateString), null);
+                showCalResetButton();
+            }
+            applyCalDateSelectionStyles();
+        }
+
+        function getCalDateRange(startDateStr, endDateStr) {
+            const dates = [];
+            const start = new Date(startDateStr);
+            const end = new Date(endDateStr);
+            const inclusiveEnd = new Date(end.getFullYear(), end.getMonth(), end.getDate()); 
+
+            for (let d = new Date(start); d <= inclusiveEnd; d.setDate(d.getDate() + 1)) {
+                 dates.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`);
+            }
+            return dates;
+        }
+        
+        function showCalRangeErrorMessage(message) {
+            clearCalRangeErrorMessage(); 
             const errorDiv = document.createElement('div');
             errorDiv.id = 'calendar-range-error';
             errorDiv.className = 'calendar-error-message';
             errorDiv.textContent = message;
-            errorDiv.style.cssText = `
-                background-color: #fee;
-                border: 1px solid #e74c3c;
-                color: #e74c3c;
-                padding: 12px;
-                border-radius: 8px;
-                margin-top: 16px;
-                text-align: center;
-                font-size: 0.95rem;
-                animation: fadeIn 0.3s ease-in;
-            `;
             
-            // Insert after calendar container
             const calendarContainer = document.querySelector('.calendar-container');
-            if (calendarContainer && calendarContainer.parentNode) {
+            if (calendarContainer) { // Insert after calendar container
                 calendarContainer.parentNode.insertBefore(errorDiv, calendarContainer.nextSibling);
             }
-            
-            // Auto-hide after 5 seconds
-            setTimeout(clearRangeErrorMessage, 5000);
+            setTimeout(clearCalRangeErrorMessage, 5000);
         }
 
-        function clearRangeErrorMessage() {
+        function clearCalRangeErrorMessage() {
             const existingError = document.getElementById('calendar-range-error');
-            if (existingError) {
-                existingError.remove();
-            }
+            if (existingError) existingError.remove();
         }
 
-        function clearSelectedDates() {
-            document.querySelectorAll('.calendar-days div.selected, .calendar-days div.range, .calendar-days div.range-start, .calendar-days div.range-end').forEach(d => {
-                d.classList.remove('selected', 'range', 'range-start', 'range-end');
-            });
-            selectedDates = [];
-            clearRangeErrorMessage();
-            hideResetButton();
-            
-            // Clear form fields
-            if (document.getElementById('checkin')) {
-                document.getElementById('checkin').value = '';
-            }
-            if (document.getElementById('checkout')) {
-                document.getElementById('checkout').value = '';
-            }
+        function clearCalSelectedDatesAndForm() {
+            selectedCalendarDates = [];
+            window.updateBookingFormDates(null, null); // This will also call calculateAndDisplayPrice
+            applyCalDateSelectionStyles();
+            clearCalRangeErrorMessage();
+            hideCalResetButton();
         }
 
-        function showResetButton() {
-            const resetBtn = document.getElementById('resetCalendarSelection');
-            if (resetBtn) {
-                resetBtn.style.display = 'inline-block';
-            }
+        function showCalResetButton() {
+            if (resetCalendarSelectionBtnEl) resetCalendarSelectionBtnEl.style.display = 'inline-block';
+                        }
+
+        function hideCalResetButton() {
+            if (resetCalendarSelectionBtnEl) resetCalendarSelectionBtnEl.style.display = 'none';
         }
-
-        function hideResetButton() {
-            const resetBtn = document.getElementById('resetCalendarSelection');
-            if (resetBtn) {
-                resetBtn.style.display = 'none';
-            }
-        }
-
-        prevMonthBtn.addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            renderCalendar(currentDate);
-        });
-
-        nextMonthBtn.addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            renderCalendar(currentDate);
-        });
-
-        // Add reset button functionality
-        const resetBtn = document.getElementById('resetCalendarSelection');
-        if (resetBtn) {
-            resetBtn.addEventListener('click', () => {
-                clearSelectedDates();
-            });
-        }
-
-        // Initialize calendar
-        renderCalendar(currentDate);
         
-        // Fetch booked dates from Google Sheets
-        fetchBookedDates();
-    }
-
-    // Handle Enhanced Booking Form Submission
-    const bookingForm = document.querySelector('.booking-form');
-    const thankYouMessage = document.querySelector('.thank-you-message');
-
-    if (bookingForm && thankYouMessage) {
-        bookingForm.addEventListener('submit', function(event) {
-            let isValid = true;
-            const requiredFields = this.querySelectorAll('[required]');
-            
-            // Clear previous error states
-            this.querySelectorAll('.error-message').forEach(error => {
-                error.style.display = 'none';
-            });
-            this.querySelectorAll('input, textarea').forEach(input => {
-                input.style.borderColor = 'var(--color-border)';
-            });
-
-            requiredFields.forEach(input => {
-                const errorElement = document.getElementById(input.getAttribute('aria-describedby'));
+        window.updateBookingFormDates = function(checkinDateObj, checkoutDateObj) {
+            if (checkinInputEl && checkoutInputEl) {
+                checkinInputEl.value = checkinDateObj ? checkinDateObj.toISOString().split('T')[0] : '';
+                checkoutInputEl.value = checkoutDateObj ? checkoutDateObj.toISOString().split('T')[0] : '';
                 
-                if (!input.value.trim()) {
-                    isValid = false;
-                    input.style.borderColor = '#e74c3c';
-                    if (errorElement) {
-                        errorElement.style.display = 'block';
-                    }
-                } else if (input.type === 'email' && !validateEmail(input.value)) {
-                    isValid = false;
-                    input.style.borderColor = '#e74c3c';
-                    if (errorElement) {
-                        errorElement.textContent = 'Vul een geldig e-mailadres in (moet @ bevatten)';
-                        errorElement.style.display = 'block';
-                    }
+                checkinInputEl.dispatchEvent(new Event('change', { bubbles: true }));
+                checkoutInputEl.dispatchEvent(new Event('change', { bubbles: true }));
+                
+                calculateAndDisplayPrice(); // Explicitly call price calculation
+            }
+        };
+
+
+        async function fetchActualBookedDates() {
+            if (!GOOGLE_SHEETS_CONFIG_CALENDAR.jsonEndpoint || GOOGLE_SHEETS_CONFIG_CALENDAR.jsonEndpoint.includes('YOUR_GOOGLE_SHEETS_JSON_ENDPOINT_HERE')) {
+                console.warn('Google Sheets endpoint not configured for calendar, using fallback or no booked dates.');
+                bookedDatesList = GOOGLE_SHEETS_CONFIG_CALENDAR.fallbackDates || [];
+                hideCalLoadingStatus();
+                renderActualCalendar(currentCalendarDate);
+                return;
+            }
+            try {
+                showCalLoadingStatus();
+                const response = await fetch(GOOGLE_SHEETS_CONFIG_CALENDAR.jsonEndpoint);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                
+                let datesFromApi = [];
+                if (Array.isArray(data)) { // SheetBest format or similar array of objects
+                    datesFromApi = data.filter(item => item && item.geboekte_datum).map(item => item.geboekte_datum);
+                } else if (data.values && Array.isArray(data.values)) { // Google Sheets API direct format
+                    datesFromApi = data.values.flat().filter(date => date && String(date).trim());
                 } else {
-                    input.style.borderColor = 'var(--color-border)';
-                    if (errorElement) {
-                        errorElement.style.display = 'none';
-                    }
+                    throw new Error('Unexpected data format from booking API for calendar');
                 }
-            });
 
-            // Additional validation for date fields
-            const checkinField = this.querySelector('#checkin');
-            const checkoutField = this.querySelector('#checkout');
-            
-            if (checkinField && checkoutField && checkinField.value && checkoutField.value) {
-                const checkinDate = new Date(checkinField.value);
-                const checkoutDate = new Date(checkoutField.value);
-                const today = new Date();
-                today.setHours(0,0,0,0);
-                
-                if (checkinDate < today) {
-                    isValid = false;
-                    checkinField.style.borderColor = '#e74c3c';
-                    const errorElement = document.getElementById('checkin-error');
-                    if (errorElement) {
-                        errorElement.textContent = 'Aankomstdatum kan niet in het verleden liggen';
-                        errorElement.style.display = 'block';
+                bookedDatesList = datesFromApi.map(date => {
+                    const dateString = String(date).trim();
+                    // Check for DD-MM-YYYY format
+                    if (/^\d{2}-\d{2}-\d{4}$/.test(dateString)) {
+                        const [day, month, year] = dateString.split('-');
+                        return `${year}-${month}-${day}`;
                     }
-                }
-                
-                if (checkoutDate <= checkinDate) {
-                    isValid = false;
-                    checkoutField.style.borderColor = '#e74c3c';
-                    const errorElement = document.getElementById('checkout-error');
-                    if (errorElement) {
-                        errorElement.textContent = 'Vertrekdatum moet na de aankomstdatum zijn';
-                        errorElement.style.display = 'block';
+                    // Check for YYYY-MM-DD format
+                    else if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+                        return dateString;
                     }
-                }
-            }
+                    return null;
+                }).filter(date => date !== null);
 
-            if (!isValid) {
-                event.preventDefault();
-                // Focus on first error field
-                const firstError = this.querySelector('input[style*="border-color: rgb(231, 76, 60)"], input[style*="border-color: #e74c3c"]');
-                if (firstError) {
-                    firstError.focus();
-                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
+            } catch (error) {
+                console.error('Error fetching booked dates for calendar:', error);
+                bookedDatesList = GOOGLE_SHEETS_CONFIG_CALENDAR.fallbackDates || [];
+                showCalErrorStatus();
+            } finally {
+                hideCalLoadingStatus();
+                renderActualCalendar(currentCalendarDate);
             }
-            // If valid, allow form to submit naturally to Formspree
+        }
+
+        // Attach event listeners for calendar navigation and inputs
+        prevMonthBtnCal.addEventListener('click', () => {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+            renderActualCalendar(currentCalendarDate);
         });
-    }
 
-    console.log("Modern Casa Mi Sueño JavaScript loaded.");
-}); 
+        nextMonthBtnCal.addEventListener('click', () => {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+            renderActualCalendar(currentCalendarDate);
+        });
+        
+        checkinInputEl.addEventListener('change', calculateAndDisplayPrice);
+        checkoutInputEl.addEventListener('change', calculateAndDisplayPrice);
+
+        if (resetCalendarSelectionBtnEl) {
+            resetCalendarSelectionBtnEl.addEventListener('click', clearCalSelectedDatesAndForm);
+        }
+
+        // Initial fetch and render for the calendar
+        fetchActualBookedDates();
+        hideCalResetButton(); // Initially hide reset button
+        
+        // Initial call for price if form is present
+        if (document.getElementById('price-calculation-result')) {
+             calculateAndDisplayPrice();
+            }
+    }
+    // ---- END BOOKING PAGE SPECIFIC LOGIC ----
+
+    console.log("Casa Mi Sueño - DOMContentLoaded complete.");
+}); // ---- END OF DOMContentLoaded ----
+
+console.log("Casa Mi Sueño JavaScript fully loaded and initialized (end of script)."); 

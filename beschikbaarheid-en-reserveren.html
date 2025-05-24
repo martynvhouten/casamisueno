@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Reserveer je verblijf bij Casa Mi Sueño. Bekijk de beschikbaarheid en boek direct bij de eigenaren voor een persoonlijke service en de beste prijs. Je vakantie aan de Costa Blanca begint hier.">
+    <title>Reserveren & Beschikbaarheid - Casa Mi Sueño | Boek je verblijf</title>
+    
+    <!-- OpenGraph tags for social sharing -->
+    <meta property="og:title" content="Reserveren & Beschikbaarheid - Casa Mi Sueño | Boek je verblijf">
+    <meta property="og:description" content="Reserveer je verblijf bij Casa Mi Sueño. Bekijk de beschikbaarheid en boek direct bij de eigenaren voor een persoonlijke service en de beste prijs. Je vakantie aan de Costa Blanca begint hier.">
+    <meta property="og:image" content="images/optimized/Zwembadkant_terras.jpg">
+    <meta property="og:url" content="https://casamisueno.nl/booking.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="nl_NL">
+
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Spring naar hoofdinhoud</a>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="home.html" class="logo">Casa Mi Sueño</a>
+            <button class="nav-toggle" aria-label="menu openen/sluiten" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="over-het-huis.html">Over het huis</a></li>
+                    <li><a href="de-omgeving.html">De omgeving</a></li>
+                    <li><a href="fotos.html">Foto's</a></li>
+                    <li><a href="beschikbaarheid-en-reserveren.html" class="active">Beschikbaarheid & Reserveren</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-section booking-page">
+            <div class="container">
+                <h2 class="text-center">Reserveer je verblijf in Casa Mi Sueño</h2>
+                <p class="text-center fade-in" style="max-width: 800px; margin-left:auto; margin-right:auto;">Casa Mi Sueño wacht op je! In onze kalender zie je direct wanneer ons huis beschikbaar is voor je vakantie – dit zijn de periodes waarin wij zelf niet in Spanje verblijven. Reserveren gaat eenvoudig en persoonlijk: je boekt rechtstreeks bij ons, de eigenaren, zonder tussenpersonen of extra kosten. Elke aanvraag behandelen we met zorg en bevestigen we persoonlijk met je. Omdat Casa Mi Sueño een geliefde plek is die we met veel aandacht beheren, raden we aan om tijdig te informeren naar de beschikbaarheid.</p>
+                
+                <div class="calendar-container fade-in enhanced-calendar">
+                    <div class="calendar-header">
+                        <button id="prevMonthBtn" class="calendar-nav-btn" aria-label="Vorige maand">&lt;</button>
+                        <h3 id="currentMonthYear" class="calendar-title"></h3>
+                        <button id="nextMonthBtn" class="calendar-nav-btn" aria-label="Volgende maand">&gt;</button>
+                    </div>
+                    <div class="calendar-legend">
+                        <div class="legend-item">
+                            <span class="legend-color available"></span>
+                            <span>Beschikbaar</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color booked"></span>
+                            <span>Bezet</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color selected"></span>
+                            <span>Aankomst/Vertrek</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color range"></span>
+                            <span>Geselecteerd bereik</span>
+                        </div>
+                    </div>
+                    <div class="calendar-reset-container" style="text-align: center; margin-top: 1rem;">
+                        <button id="resetCalendarSelection" class="reset-selection-btn" style="display: none;">
+                            🗑️ Selectie wissen
+                        </button>
+                    </div>
+                    <div class="calendar-weekdays">
+                        <div>Zo</div><div>Ma</div><div>Di</div><div>Wo</div><div>Do</div><div>Vr</div><div>Za</div>
+                    </div>
+                    <div class="calendar-days" id="calendarDays">
+                        <!-- Calendar days will be generated by JavaScript -->
+                    </div>
+                    <div class="calendar-status">
+                        <p id="calendarLoadingStatus" style="display: none; text-align: center; font-style: italic; color: var(--color-accent);">
+                            Beschikbaarheid wordt geladen...
+                        </p>
+                        <p id="calendarErrorStatus" style="display: none; text-align: center; font-style: italic; color: #e74c3c;">
+                            Let op: de beschikbaarheid kan momenteel niet worden geladen. Alle datums worden als beschikbaar getoond. Neem contact op voor de actuele beschikbaarheid.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-section fade-in">
+                    <div class="form-wrapper">
+                        <h3 class="form-title">Vraag je reservering aan</h3>
+                        <form class="booking-form" action="https://formspree.io/f/xpznvgzg" method="POST" novalidate>
+                            <input type="hidden" name="_subject" value="Nieuwe reserveringsaanvraag van Casa Mi Sueño website">
+                            <input type="hidden" name="_next" value="https://casamisueno.nl/booking.html?success=1">
+                            
+                            <label for="name">Naam: <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required aria-describedby="name-error" class="enhanced-input">
+                            <span class="error-message" id="name-error" style="display: none;">Vul alstublieft je volledige naam in.</span>
+
+                            <label for="email">E-mailadres: <span class="required">*</span></label>
+                            <input type="email" id="email" name="_replyto" required aria-describedby="email-error" class="enhanced-input">
+                            <span class="error-message" id="email-error" style="display: none;">Vul alstublieft een geldig e-mailadres in.</span>
+
+                            <label for="checkin">Gewenste aankomstdatum: <span class="required">*</span></label>
+                            <input type="date" id="checkin" name="checkin" required aria-describedby="checkin-error" class="enhanced-input">
+                            <span class="error-message" id="checkin-error" style="display: none;">Selecteer alstublieft je gewenste aankomstdatum.</span>
+
+                            <label for="checkout">Gewenste vertrekdatum: <span class="required">*</span></label>
+                            <input type="date" id="checkout" name="checkout" required aria-describedby="checkout-error" class="enhanced-input">
+                            <span class="error-message" id="checkout-error" style="display: none;">Selecteer alstublieft je gewenste vertrekdatum.</span>
+                            
+                            <div id="price-calculation-result" class="price-result-display enhanced-price-box" aria-live="polite">
+                                <!-- Price calculation will appear here -->
+                            </div>
+
+                            <label for="guests">👥 Aantal personen (max. 8): <span class="required">*</span></label>
+                            <input type="number" id="guests" name="guests" min="1" max="8" required aria-describedby="guests-error" class="enhanced-input">
+                            <span class="error-message" id="guests-error" style="display: none;">Geef alstublieft het aantal personen op (1-8).</span>
+
+                            <label for="message">Je bericht of wensen (optioneel):</label>
+                            <textarea id="message" name="message" placeholder="Heb je speciale wensen of vragen? Laat het ons hier weten..." class="enhanced-input"></textarea>
+
+                            <div class="submit-container">
+                                <button type="submit" class="cta-button enhanced-submit-btn">📬 Verzend reserveringsaanvraag</button>
+                            </div>
+                        </form>
+                        <div class="trust-badge"><span class="badge-icon">✔️</span> Persoonlijk & betrouwbaar – rechtstreeks contact met ons, de eigenaren.</div>
+                        <div class="thank-you-message" style="display:none; margin-top:2em; text-align:center; font-size:1.2em; color:var(--color-accent);">
+                            <h3>🌟 Hartelijk dank voor je aanvraag!</h3>
+                            <p>We hebben je bericht ontvangen en nemen zo spoedig mogelijk contact met je op. We kijken ernaar uit je te mogen verwelkomen in Casa Mi Sueño!</p>
+                            <p><strong>Tip:</strong> Voeg ons telefoonnummer alvast toe aan je contacten: <a href="tel:0683645489">06 - 8364 5489</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <a href="home.html" class="footer-logo">Casa Mi Sueño</a>
+            <div class="footer-contact">
+                <p>E-mail: <a href="mailto:esversteeg@hotmail.com">esversteeg@hotmail.com</a></p>
+                <p>Telefoon: <a href="tel:0683645489">0683645489</a></p>
+                <address style="font-style: normal; margin-top: 0.5rem; line-height: 1.4;">
+                    <strong>Calle Petunies 16</strong><br>
+                    03580 Alfaz del Pi<br>
+                    Alicante, Spanje
+                </address>
+            </div>
+            <div class="footer-social">
+                <p>Volg ons:</p>
+                <a href="#YOUR_INSTAGRAM_URL_HERE" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i> <span class="sr-only">Instagram</span></a>
+            </div>
+            <p class="copyright">&copy; <span id="current-year">2024</span> Casa Mi Sueño. Alle rechten voorbehouden.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/31683645489?text=Hallo%2C%20ik%20heb%20een%20vraag%20over%20Casa%20mi%20sue%C3%B1o." class="whatsapp-float" target="_blank" aria-label="Stel een vraag via WhatsApp">
+        <span class="wa-icon"></span>
+    </a>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 
