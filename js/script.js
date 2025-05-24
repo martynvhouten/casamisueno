@@ -803,4 +803,134 @@ document.body.appendChild(modal);
     console.log("Casa Mi Sueño - DOMContentLoaded complete.");
 }); // ---- END OF DOMContentLoaded ----
 
-console.log("Casa Mi Sueño JavaScript fully loaded and initialized (end of script)."); 
+console.log("Casa Mi Sueño JavaScript fully loaded and initialized (end of script).");
+
+// Back to top functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const backToTopButton = document.getElementById('backToTop');
+    
+    if (backToTopButton) {
+        // Show/hide back to top button based on scroll position
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        // Smooth scroll to top when button is clicked
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // Lazy loading for images
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.onload = () => img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+        
+        lazyImages.forEach(img => imageObserver.observe(img));
+    } else {
+        // Fallback for browsers without IntersectionObserver
+        lazyImages.forEach(img => img.classList.add('loaded'));
+    }
+    
+    // Create lightbox
+    createLightbox();
+    
+    // Add lightbox functionality to gallery images
+    const galleryImages = document.querySelectorAll('.gallery-grid img, .photo-grid img');
+    galleryImages.forEach((img, index) => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', () => openLightbox(img, index, galleryImages));
+    });
+});
+
+// Lightbox functionality
+function createLightbox() {
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.id = 'lightbox';
+    lightbox.innerHTML = `
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Sluiten">&times;</button>
+            <button class="lightbox-nav lightbox-prev" aria-label="Vorige">&#10094;</button>
+            <img class="lightbox-image" alt="">
+            <button class="lightbox-nav lightbox-next" aria-label="Volgende">&#10095;</button>
+        </div>
+    `;
+    document.body.appendChild(lightbox);
+    
+    // Close lightbox when clicking outside image or on close button
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.classList.contains('lightbox-close')) {
+            closeLightbox();
+        }
+    });
+    
+    // Close lightbox with ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.style.display === 'block') {
+            closeLightbox();
+        }
+    });
+}
+
+let currentImageIndex = 0;
+let currentImageArray = [];
+
+function openLightbox(img, index, imageArray) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('.lightbox-image');
+    const prevBtn = lightbox.querySelector('.lightbox-prev');
+    const nextBtn = lightbox.querySelector('.lightbox-next');
+    
+    currentImageIndex = index;
+    currentImageArray = imageArray;
+    
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    
+    // Show/hide navigation buttons
+    prevBtn.style.display = imageArray.length > 1 ? 'block' : 'none';
+    nextBtn.style.display = imageArray.length > 1 ? 'block' : 'none';
+    
+    // Add navigation event listeners
+    prevBtn.onclick = () => navigateLightbox(-1);
+    nextBtn.onclick = () => navigateLightbox(1);
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function navigateLightbox(direction) {
+    currentImageIndex += direction;
+    
+    if (currentImageIndex >= currentImageArray.length) {
+        currentImageIndex = 0;
+    } else if (currentImageIndex < 0) {
+        currentImageIndex = currentImageArray.length - 1;
+    }
+    
+    const lightboxImg = document.querySelector('.lightbox-image');
+    const newImg = currentImageArray[currentImageIndex];
+    lightboxImg.src = newImg.src;
+    lightboxImg.alt = newImg.alt;
+} 

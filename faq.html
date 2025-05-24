@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Veelgestelde vragen over Casa Mi Sueño - je vakantiehuis aan de Costa Blanca. Krijg antwoorden op al je vragen over boeken, verblijf, voorzieningen en meer.">
+    <meta name="keywords" content="vakantiehuis Spanje, vakantiehuis Costa Blanca, vakantiehuis Benissa, luxe vakantiehuis, vakantiehuis met zwembad, vakantiehuis met airco, vakantiehuis met wifi, vakantiehuis met tuin, vakantiehuis met terras, vakantiehuis met barbecue, vakantiehuis met zeezicht, vakantiehuis met bergzicht, vakantiehuis met golfbaan, vakantiehuis met strand, vakantiehuis met winkels, vakantiehuis met restaurants, vakantiehuis met bars, vakantiehuis met nachtleven, vakantiehuis met cultuur, vakantiehuis met natuur, vakantiehuis met wandelen, vakantiehuis met fietsen, vakantiehuis met zwemmen, vakantiehuis met zonnen, vakantiehuis met ontspannen, vakantiehuis met genieten, vakantiehuis met familie, vakantiehuis met vrienden, vakantiehuis met kinderen, vakantiehuis met hond, vakantiehuis met kat, vakantiehuis met huisdieren, vakantiehuis met parkeren, vakantiehuis met transfer, vakantiehuis met verhuur, vakantiehuis met reserveren, vakantiehuis met boeken, vakantiehuis met prijzen, vakantiehuis met beschikbaarheid, vakantiehuis met contact, vakantiehuis met informatie, vakantiehuis met foto's, vakantiehuis met video's, vakantiehuis met reviews, vakantiehuis met ervaringen, vakantiehuis met tips, vakantiehuis met advies, vakantiehuis met hulp, vakantiehuis met support, vakantiehuis met service, vakantiehuis met kwaliteit, vakantiehuis met comfort, vakantiehuis met luxe, vakantiehuis met stijl, vakantiehuis met sfeer, vakantiehuis met charme, vakantiehuis met karakter, vakantiehuis met persoonlijkheid, vakantiehuis met identiteit, vakantiehuis met uitstraling, vakantiehuis met design, vakantiehuis met architectuur, vakantiehuis met interieur, vakantiehuis met exterieur, vakantiehuis met omgeving, vakantiehuis met locatie, vakantiehuis met regio, vakantiehuis met provincie, vakantiehuis met stad, vakantiehuis met dorp, vakantiehuis met wijk, vakantiehuis met straat, vakantiehuis met adres, vakantiehuis met route, vakantiehuis met bereikbaarheid, vakantiehuis met vervoer, vakantiehuis met openbaar vervoer, vakantiehuis met taxi, vakantiehuis met bus, vakantiehuis met trein, vakantiehuis met vliegtuig, vakantiehuis met auto, vakantiehuis met fiets, vakantiehuis met lopen">
+    <title>Veelgestelde Vragen - Casa Mi Sueño | Alles wat je wilt weten</title>
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://casamisueno.nl/faq.html">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#e8a07e">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script src="/js/analytics.js"></script>
+    <script src="/js/error-tracking.js"></script>
+    <script src="/js/performance-monitoring.js"></script>
+    <script src="/js/user-behavior.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+    
+    <!-- OpenGraph tags for social sharing -->
+    <meta property="og:title" content="Veelgestelde Vragen - Casa Mi Sueño | Alles wat je wilt weten">
+    <meta property="og:description" content="Krijg antwoorden op al je vragen over Casa Mi Sueño, je vakantiehuis aan de Costa Blanca. Van boeken tot verblijf - alles wat je wilt weten.">
+    <meta property="og:image" content="images/optimized/Zwembadkant_terras.jpg">
+    <meta property="og:url" content="https://casamisueno.nl/faq.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="nl_NL">
+
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            background: var(--color-sand);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: rgba(232, 160, 126, 0.1);
+        }
+        
+        .faq-question i {
+            color: var(--color-accent);
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-answer.active {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+        
+        .faq-answer p {
+            margin: 0;
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+        
+        .faq-category {
+            margin-bottom: 3rem;
+        }
+        
+        .faq-category h3 {
+            color: var(--color-accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Spring naar hoofdinhoud</a>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">Casa Mi Sueño</a>
+            <button class="nav-toggle" aria-label="menu openen/sluiten" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="huis.html">Over het huis</a></li>
+                    <li><a href="omgeving.html">De omgeving</a></li>
+                    <li><a href="fotos.html">Foto's</a></li>
+                    <li><a href="reserveren.html">Reserveren</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="faq.html" class="active">FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="hero" style="background-image: url('images/optimized/Veranda_2.jpg');">
+            <div class="hero-content">
+                <h1>Veelgestelde vragen</h1>
+                <p>Hier vind je antwoorden op de meest gestelde vragen over je verblijf in Casa Mi Sueño. Heb je nog andere vragen? Neem gerust contact met ons op!</p>
+            </div>
+        </section>
+
+        <section class="page-section">
+            <div class="container">
+                <div class="faq-container">
+                    <div class="faq-category">
+                        <h3><i class="fas fa-calendar-check"></i> Reserveren & Boeken</h3>
+                        
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Hoe kan ik reserveren?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Reserveren gaat heel eenvoudig via onze <a href="reserveren.html">reserveringspagina</a>. Bekijk eerst de beschikbaarheid in de kalender, vul het reserveringsformulier in en wij nemen binnen 24 uur contact met je op voor bevestiging.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Wat is de minimale verblijfsduur?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>De minimale verblijfsduur is 10 nachten. Dit zorgt ervoor dat je de tijd hebt om echt tot rust te komen en de omgeving te ontdekken.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Wanneer moet ik betalen?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>We vragen een aanbetaling van 30% bij reservering. Het resterende bedrag betaal je 4 weken voor aankomst. Alle betalingsinstructies sturen we je toe na bevestiging van je reservering.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Wat is het annuleringsbeleid?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Tot 8 weken voor aankomst kun je kosteloos annuleren. Bij annulering tussen 8 en 4 weken voor aankomst wordt 50% van de aanbetaling geretourneerd. Bij annulering binnen 4 weken vervalt de aanbetaling.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-category">
+                        <h3><i class="fas fa-key"></i> Check-in & Check-out</h3>
+                        
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Hoe laat kan ik inchecken?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Check-in is vanaf 16:00 uur. We zorgen ervoor dat we of onze lokale contactpersoon aanwezig is om je te verwelkomen en alles uit te leggen over het huis.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Hoe laat moet ik uitchecken?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Check-out is tot 10:00 uur. Dit geeft ons tijd om het huis voor te bereiden voor de volgende gasten. In overleg kunnen we soms flexibel zijn met de tijden.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Krijg ik sleutels of is er een sleutelkluis?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Bij aankomst krijg je de sleutels persoonlijk overhandigd. We leggen dan ook uit hoe alles in het huis werkt en geven tips over de omgeving.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-category">
+                        <h3><i class="fas fa-home"></i> Het Huis & Voorzieningen</h3>
+                        
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Voor hoeveel personen is het huis geschikt?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Casa Mi Sueño is geschikt voor maximaal 6 personen. Er zijn 2 slaapkamers met comfortabele bedden en 2 badkamers. Perfect voor gezinnen of een groep vrienden.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Is er wifi beschikbaar?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Ja, er is gratis wifi in het hele huis. De snelheid is uitstekend voor videobellen, streamen en werken.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Is er airconditioning?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Ja, alle kamers hebben airconditioning. Vooral in de zomermaanden is dit heerlijk om af te koelen na een dag in de zon.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Zijn handdoeken en beddengoed inbegrepen?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Ja, alle beddengoed en handdoeken zijn inbegrepen. We zorgen voor schone bedden bij aankomst. Zwembadhanddoeken zijn ook beschikbaar.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Kan ik de wasmachine gebruiken?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Natuurlijk! Er is een wasmachine en droger beschikbaar. Handig voor langere verblijven of als je met kinderen reist.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-category">
+                        <h3><i class="fas fa-car"></i> Aankomst & Transport</h3>
+                        
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Heb ik een auto nodig?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Een auto is wel aan te raden om de omgeving echt te ontdekken. Er is gratis parkeergelegenheid voor 2 auto's op het terrein. Zonder auto bereik je te voet enkele winkels en restaurants.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Hoe ver is het naar het vliegveld?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Vliegveld Alicante ligt op ongeveer 1 uur rijden. Er zijn taxi's en transfers beschikbaar, maar een huurauto geeft je veel meer vrijheid om de Costa Blanca te verkennen.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Hoe ver is het naar het strand?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Het prachtige strand van Albir ligt op slechts 10 minuten rijden. Benidorm met zijn stranden en promenade is 15 minuten rijden.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-category">
+                        <h3><i class="fas fa-question-circle"></i> Overige Vragen</h3>
+                        
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Zijn huisdieren toegestaan?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Ja, huisdieren zijn van harte welkom! Je trouwe viervoeter mag mee genieten van jullie vakantie. Wij hebben zelf vaak onze hond Marlo mee, dus we begrijpen hoe fijn het is om samen van vakantie te genieten. Let wel op dat je hond andere gasten en buren niet hindert, en ruim altijd netjes op.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Is roken toegestaan?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Roken is niet toegestaan binnen in het huis. Op de terrassen en in de tuin mag wel gerookt worden.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Wat gebeurt er bij problemen tijdens mijn verblijf?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>We hebben altijd een lokale contactpersoon beschikbaar voor urgente zaken. Voor andere vragen kun je ons altijd bellen of appen. We staan klaar om je verblijf zo aangenaam mogelijk te maken.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                Zijn er extra kosten die ik moet weten?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Nee, alle genoemde prijzen zijn inclusief schoonmaak, gas, water, elektra en wifi. Er zijn geen verborgen kosten. Alleen je eigen consumptie en activiteiten komen voor eigen rekening.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section cta-section text-center fade-in">
+            <div class="container">
+                <h2>Nog vragen?</h2>
+                <p>Heb je een vraag die hier niet beantwoord wordt? Neem gerust contact met ons op. We helpen je graag verder!</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="cta-button" style="margin-right: 10px;"><i class="fas fa-envelope"></i> Stuur een bericht</a>
+                    <a href="tel:0683645489" class="cta-button"><i class="fas fa-phone"></i> Bel direct</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <a href="index.html" class="footer-logo">Casa Mi Sueño</a>
+            <div class="footer-contact">
+                <p>E-mail: <a href="mailto:esversteeg@hotmail.com">esversteeg@hotmail.com</a></p>
+                <p>Telefoon: <a href="tel:0683645489">0683645489</a></p>
+                <address style="font-style: normal; margin-top: 0.5rem; line-height: 1.4;">
+                    <strong>Calle Petunies 16</strong><br>
+                    03580 Alfaz del Pi<br>
+                    Alicante, Spanje
+                </address>
+            </div>
+            <div class="footer-social">
+                <p>Volg ons:</p>
+                <a href="#YOUR_INSTAGRAM_URL_HERE" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i> <span class="sr-only">Instagram</span></a>
+            </div>
+            <p class="copyright">&copy; <span id="current-year">2025</span> Casa Mi Sueño. Alle rechten voorbehouden.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/31683645489?text=Hallo%2C%20ik%20heb%20een%20vraag%20over%20Casa%20mi%20sue%C3%B1o." class="whatsapp-float" target="_blank" aria-label="Stel een vraag via WhatsApp">
+        <span class="wa-icon"></span>
+    </a>
+
+    <!-- Back to top button -->
+    <button id="backToTop" class="back-to-top" aria-label="Terug naar boven" style="display: none;">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="js/script.js"></script>
+    <script>
+        // FAQ accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const isActive = this.classList.contains('active');
+                    
+                    // Close all other FAQs
+                    faqQuestions.forEach(q => {
+                        q.classList.remove('active');
+                        q.setAttribute('aria-expanded', 'false');
+                        q.nextElementSibling.classList.remove('active');
+                    });
+                    
+                    // Toggle current FAQ
+                    if (!isActive) {
+                        this.classList.add('active');
+                        this.setAttribute('aria-expanded', 'true');
+                        answer.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

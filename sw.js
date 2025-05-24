@@ -1,12 +1,15 @@
-const CACHE_NAME = 'casa-mi-sueno-v1';
+const CACHE_NAME = 'casa-mi-sueno-v2';
 const ASSETS_TO_CACHE = [
     '/',
-    '/home.html',
-    '/over-het-huis.html',
-    '/de-omgeving.html',
+    '/index.html',
+    '/huis.html',
+    '/omgeving.html',
     '/fotos.html',
-    '/beschikbaarheid-en-reserveren.html',
+    '/reserveren.html',
     '/contact.html',
+    '/faq.html',
+    '/huisregels.html',
+    '/wegbeschrijving.html',
     '/css/style.css',
     '/js/script.js',
     '/manifest.json',

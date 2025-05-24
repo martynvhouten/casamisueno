@@ -59,10 +59,10 @@
             <nav class="main-nav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="over-het-huis.html">Over het huis</a></li>
-                    <li><a href="de-omgeving.html">De omgeving</a></li>
+                    <li><a href="huis.html">Over het huis</a></li>
+                    <li><a href="omgeving.html">De omgeving</a></li>
                     <li><a href="fotos.html">Foto's</a></li>
-                    <li><a href="beschikbaarheid-en-reserveren.html">Beschikbaarheid & Reserveren</a></li>
+                    <li><a href="reserveren.html">Reserveren</a></li>
                     <li><a href="contact.html" class="active">Contact</a></li>
                 </ul>
             </nav>
@@ -70,7 +70,7 @@
     </header>
 
     <main id="main-content">
-        <section class="hero">
+        <section class="hero" style="background-image: url('images/optimized/Huis_en_tuin.jpg');">
             <div class="hero-content">
                 <h1>Neem contact op</h1>
                 <p>We vinden het leuk om over ons huis te vertellen. Stuur een bericht, bel of WhatsApp – we helpen je graag verder.</p>
@@ -89,11 +89,11 @@
                         
                         <label for="name">Je naam: <span class="required">*</span></label>
                         <input type="text" id="name" name="name" required aria-describedby="name-error">
-                        <span class="error-message" id="name-error" style="display: none;">Vul alstublieft je naam in.</span>
+                        <span class="error-message" id="name-error" style="display: none;">Vul alsjeblieft je naam in.</span>
 
                         <label for="email">E-mailadres: <span class="required">*</span></label>
                         <input type="email" id="email" name="_replyto" required aria-describedby="email-error">
-                        <span class="error-message" id="email-error" style="display: none;">Vul alstublieft een geldig e-mailadres in.</span>
+                        <span class="error-message" id="email-error" style="display: none;">Vul alsjeblieft een geldig e-mailadres in.</span>
 
                         <label for="message">Je vraag of bericht: <span class="required">*</span></label>
                         <textarea id="message" name="message" required aria-describedby="message-error" placeholder="Laat een bericht achter. We horen graag van je!"></textarea>
@@ -130,7 +130,7 @@
                         <h3 style="margin-top: 1.5rem;">Volg onze avonturen:</h3>
                         <div class="footer-social" style="justify-content: flex-start;"> <!-- Re-using footer-social for consistency -->
                             <a href="#YOUR_INSTAGRAM_URL_HERE" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i> <span class="sr-only">Instagram</span></a>
-                             <!-- Vervang # met uw daadwerkelijke social media links -->
+                             <!-- Vervang # met je daadwerkelijke social media links -->
                         </div>
                         <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-dark-text);">
                             Een kijkje in het leven bij Casa Mi Sueño.
@@ -159,17 +159,28 @@
                     Alicante, Spanje
                 </address>
             </div>
+            <div class="footer-info">
+                <p><strong>Nuttige informatie:</strong></p>
+                <p><a href="faq.html">Veelgestelde vragen</a></p>
+                <p><a href="huisregels.html">Huisregels</a></p>
+                <p><a href="wegbeschrijving.html">Routebeschrijving</a></p>
+            </div>
             <div class="footer-social">
                 <p>Volg ons:</p>
                 <a href="#YOUR_INSTAGRAM_URL_HERE" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i> <span class="sr-only">Instagram</span></a>
             </div>
-            <p class="copyright">&copy; <span id="current-year">2024</span> Casa Mi Sueño. Alle rechten voorbehouden.</p>
+            <p class="copyright">&copy; <span id="current-year">2025</span> Casa Mi Sueño. Alle rechten voorbehouden.</p>
         </div>
     </footer>
 
     <a href="https://wa.me/31683645489?text=Hallo%2C%20ik%20heb%20een%20vraag%20over%20Casa%20mi%20sue%C3%B1o." class="whatsapp-float" target="_blank" aria-label="Stel een vraag via WhatsApp">
         <span class="wa-icon"></span>
     </a>
+
+    <!-- Back to top button -->
+    <button id="backToTop" class="back-to-top" aria-label="Terug naar boven" style="display: none;">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <script src="js/script.js"></script>
 </body>
