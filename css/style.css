@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Playfair+Display:wght@700&display=swap');
 
 :root {
-    --font-primary: 'Lato', sans-serif;
+    --font-primary: 'Poppins', sans-serif;
     --font-secondary: 'Playfair Display', serif;
 
     --color-sand: #F5EFE6;
@@ -106,7 +106,7 @@ ul, ol {
 /* Utility Classes */
 .container {
     width: 90%;
-    max-width: 1200px;
+    max-width: 1300px; /* Reduced from 1400px to be slightly narrower */
     margin-left: auto;
     margin-right: auto;
     padding-left: var(--spacing-unit);
@@ -200,7 +200,7 @@ ul, ol {
     flex-wrap: nowrap;
     padding: 0;
     margin: 0;
-    gap: calc(var(--spacing-unit) * 1.2); /* Adjusted gap for potentially tighter fit, can be increased */
+    gap: calc(var(--spacing-unit) * 0.8); /* Adjusted gap */
 }
 
 .main-nav li {
@@ -212,7 +212,7 @@ ul, ol {
     font-weight: bold;
     color: var(--color-dark-text);
     text-decoration: none;
-    padding: calc(var(--spacing-unit) * 0.6) var(--spacing-unit);
+    padding: calc(var(--spacing-unit) * 0.6) calc(var(--spacing-unit) * 0.7); /* Adjusted horizontal padding */
     border-radius: var(--border-radius);
     transition: color var(--transition-speed), background-color var(--transition-speed);
 }
@@ -274,14 +274,18 @@ ul, ol {
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 800px;
+    max-width: 1100px; /* Reduced from 1200px */
+    width: 90%;
+    margin: 0 auto;
+    padding: 0 var(--spacing-unit);
 }
 
 .hero h1 {
     font-size: clamp(2.8rem, 6vw, 4rem);
-    margin-bottom: var(--spacing-unit);
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
     color: var(--color-light-text);
     text-shadow: 2px 2px 10px rgba(0,0,0,0.65);
+    line-height: 1.2;
 }
 
 .hero p {
@@ -290,9 +294,10 @@ ul, ol {
     color: var(--color-light-text);
     text-shadow: 1px 1px 8px rgba(0,0,0,0.6);
     font-weight: 400;
-    max-width: 60ch;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    line-height: 1.6;
 }
 
 /* General Page Sections */
@@ -359,7 +364,7 @@ ul, ol {
     padding: calc(var(--spacing-unit) * 2.5) calc(var(--spacing-unit) * 2);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-medium);
-    max-width: 700px;
+    max-width: 750px; /* Reduced from 800px */
     margin: 0 auto;
 }
 @media (min-width: 768px) {
@@ -841,10 +846,9 @@ ul, ol {
 /* Omgeving Page - Highlight Section */
 .omgeving-highlights .highlight-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: calc(var(--spacing-unit) * 2.5);
-    /* The margin-top is now handled by the page-section h2 default margin, or can be added to the new section H2 if needed */
-    /* margin-top: calc(var(--spacing-unit) * 2.5); */
+    margin-top: calc(var(--spacing-unit) * 2.5);
 }
 
 .omgeving-highlights .highlight-card {
@@ -868,50 +872,84 @@ ul, ol {
 
 .omgeving-highlights .highlight-card h3 {
     color: var(--color-accent);
-    margin-bottom: var(--spacing-unit);
-    /* display: flex; */ /* No longer needed here */
-    /* align-items: center; */ /* No longer needed here */
-    text-align: center; /* Center the heading text */
-    width: 100%; /* Ensure heading takes full width for centering */
-    margin-top: calc(var(--spacing-unit) * 1.2); /* Space above heading, below icon */
+    margin-bottom: calc(var(--spacing-unit) * 1.2);
+    text-align: center;
+    width: 100%;
+    margin-top: calc(var(--spacing-unit) * 1.2);
 }
 
 .omgeving-highlights .highlight-icon {
-    font-size: 2.8rem; /* Larger icon */
-    /* margin-right: calc(var(--spacing-unit) * 0.8); */ /* Removed, icon is now centered above */
+    font-size: 2.8rem;
     color: var(--color-accent-secondary);
-    /* min-width: 30px; */ /* Not critical with center alignment */
     text-align: center;
-    margin-bottom: calc(var(--spacing-unit) * 0.5); /* Space below icon */
+    margin-bottom: calc(var(--spacing-unit) * 0.5);
 }
 
-.omgeving-highlights .highlight-card p { /* Ensure paragraph text remains left-aligned */
+.omgeving-highlights .highlight-card p {
     text-align: left;
-    width: 100%; /* Take full width */
+    width: 100%;
+    max-width: 65ch;
+    line-height: 1.8;
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
 }
 
 .omgeving-highlights .highlight-card ul {
-    list-style-type: none; /* Remove default bullets */
-    padding-left: 0; /* Remove default padding */
-    margin-top: var(--spacing-unit);
-    text-align: left; /* Ensure list items are left aligned */
-    width: 100%; /* Take full width */
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: calc(var(--spacing-unit) * 1.5);
+    text-align: left;
+    width: 100%;
+    max-width: 65ch;
+    border-top: 1px solid var(--color-border);
+    padding-top: calc(var(--spacing-unit) * 1.5);
 }
 
 .omgeving-highlights .highlight-card ul li {
-    margin-bottom: calc(var(--spacing-unit) * 0.7);
-    padding-left: calc(var(--spacing-unit) * 1.8); /* Indent for custom bullet/icon */
+    margin-bottom: calc(var(--spacing-unit) * 0.8);
+    padding-left: calc(var(--spacing-unit) * 1.8);
     position: relative;
+    line-height: 1.6;
 }
 
 .omgeving-highlights .highlight-card ul li::before {
-    content: '\25CF'; /* Unicode filled circle or use Font Awesome icon */
-    /* Example with Font Awesome: content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; */
+    content: '•';
     color: var(--color-accent);
     position: absolute;
     left: 0;
-    top: 2px; /* Adjust vertical alignment as needed */
-    font-size: 0.9em;
+    top: 0;
+    font-size: 1.2em;
+}
+
+.omgeving-highlights .highlight-card ul li strong {
+    color: var(--color-accent);
+    display: block;
+    margin-bottom: 0.2em;
+}
+
+@media (max-width: 992px) {
+    .omgeving-highlights .highlight-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: calc(var(--spacing-unit) * 2);
+    }
+}
+
+@media (max-width: 768px) {
+    .omgeving-highlights .highlight-grid {
+        grid-template-columns: 1fr;
+        gap: calc(var(--spacing-unit) * 2);
+    }
+    
+    .omgeving-highlights .highlight-card {
+        padding: calc(var(--spacing-unit) * 2);
+    }
+    
+    .omgeving-highlights .highlight-card p {
+        font-size: 1rem;
+    }
+    
+    .omgeving-highlights .highlight-card ul li {
+        font-size: 0.95rem;
+    }
 }
 
 .omgeving-map .map-placeholder {
@@ -1024,7 +1062,7 @@ ul, ol {
     padding: calc(var(--spacing-unit) * 1.5);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-medium);
-    max-width: 450px; /* Adjust as needed */
+    max-width: 600px; /* Increased from 450px to make calendar wider */
     margin: calc(var(--spacing-unit) * 2.5) auto; /* Center the calendar */
 }
 
@@ -1505,24 +1543,28 @@ address {
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: calc(var(--spacing-unit) * 2);
-    margin-top: calc(var(--spacing-unit) * 2);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
 .feature-card {
     background: var(--color-background);
-    padding: calc(var(--spacing-unit) * 2);
+    padding: 2rem;
     border-radius: var(--border-radius);
-    text-align: center;
     box-shadow: var(--shadow-subtle);
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
 }
 
 .feature-icon {
@@ -1934,4 +1976,662 @@ address {
 .regional-gallery-section .gallery-image:hover {
     transform: scale(1.02);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-} 
+}
+
+/* About Page Specific Styles */
+.about-story,
+.about-pool-life {
+    padding: var(--spacing-section-desktop) 0;
+}
+
+.about-story .container,
+.about-pool-life .container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.story-columns,
+.pool-life-columns {
+    display: flex;
+    gap: calc(var(--spacing-unit) * 2);
+    align-items: center;
+    margin: calc(var(--spacing-unit) * 2) 0;
+}
+
+.story-text,
+.pool-life-text {
+    flex: 1;
+}
+
+.story-image,
+.pool-life-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.story-image img,
+.pool-life-image img {
+    max-width: 650px;
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    margin: 0;
+}
+
+/* Responsive adjustments for about page */
+@media (max-width: 768px) {
+    .story-columns,
+    .pool-life-columns {
+        flex-direction: column;
+        gap: calc(var(--spacing-unit) * 1.5);
+    }
+
+    .story-image img,
+    .pool-life-image img {
+        max-width: 100%;
+        margin: calc(var(--spacing-unit) * 1.5) 0;
+    }
+
+    .story-text,
+    .pool-life-text {
+        order: 2;
+    }
+
+    .story-image,
+    .pool-life-image {
+        order: 1;
+    }
+}
+
+/* Update existing page-section styles */
+.page-section {
+    padding: var(--spacing-section-desktop) 0;
+}
+
+.page-section .container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.page-section h2 {
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.page-section p {
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+/* Update amenities section */
+.amenities-section {
+    background-color: var(--color-sand);
+    padding: var(--spacing-section-desktop) 0;
+}
+
+.amenities-section .container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: calc(var(--spacing-unit) * 1.5);
+    margin-top: calc(var(--spacing-unit) * 2);
+}
+
+/* Update practical info section */
+.practical-info-section {
+    padding: var(--spacing-section-desktop) 0;
+    background-color: var(--color-background);
+    text-align: center;
+}
+
+.practical-info-section .container {
+    max-width: 1300px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.practical-info-section h2,
+.practical-info-section h3,
+.practical-info-section p,
+.practical-info-section ul,
+.practical-info-section ol,
+.practical-info-section .price-badge,
+.practical-info-section .winter-stay-note,
+.practical-info-section .personal-quote {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.practical-info-section ul,
+.practical-info-section ol {
+    display: inline-block;
+    text-align: left;
+    margin: 1rem auto;
+}
+
+.practical-info-section .price-badge {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: var(--color-light-text);
+    padding: calc(var(--spacing-unit) * 0.8) calc(var(--spacing-unit) * 2);
+    border-radius: var(--border-radius);
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: calc(var(--spacing-unit) * 1.5) auto;
+}
+
+.practical-info-section .winter-stay-note {
+    background-color: var(--color-sand);
+    padding: calc(var(--spacing-unit) * 1.5);
+    border-radius: var(--border-radius);
+    margin: calc(var(--spacing-unit) * 2) auto;
+    max-width: 800px;
+}
+
+.practical-info-section .personal-quote {
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--color-accent);
+    margin: calc(var(--spacing-unit) * 2) auto;
+    padding: 0 calc(var(--spacing-unit) * 2);
+    max-width: 800px;
+}
+
+/* ========== ENHANCED BOOKING PAGE STYLES ========== */
+
+/* Enhanced Calendar Container */
+.enhanced-calendar {
+    /* Removed transform: scale(1.25) to prevent overlapping */
+    margin: calc(var(--spacing-unit) * 2) auto calc(var(--spacing-unit) * 4) auto;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border-radius: calc(var(--border-radius) * 1.5);
+    background: var(--color-background);
+    padding: calc(var(--spacing-unit) * 2); /* Increased padding for natural size increase */
+    transition: all 0.6s ease;
+    opacity: 0;
+    max-width: 600px; /* Reduced from 650px */
+}
+
+.enhanced-calendar.visible {
+    opacity: 1;
+}
+
+/* Enhanced Calendar Title */
+.calendar-title {
+    font-size: 1.6rem !important; /* Larger font for bigger calendar */
+    font-weight: 700 !important;
+    color: var(--color-accent) !important;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+}
+
+/* Make calendar days naturally larger */
+.enhanced-calendar .calendar-days div {
+    padding: calc(var(--spacing-unit) * 1) !important; /* Larger day cells */
+    font-size: 1.1rem !important;
+    min-height: 48px !important;
+}
+
+/* Adjust calendar navigation buttons for larger calendar */
+.enhanced-calendar .calendar-nav-btn {
+    padding: calc(var(--spacing-unit) * 0.6) calc(var(--spacing-unit) * 1) !important;
+    font-size: 1.4rem !important;
+}
+
+/* Form Wrapper - Card Style */
+.form-wrapper {
+    background-color: #fdf9f5;
+    border-radius: calc(var(--border-radius) * 1.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: calc(var(--spacing-unit) * 2.5);
+    margin-top: calc(var(--spacing-unit) * 2);
+    transition: all 0.6s ease;
+    opacity: 0;
+}
+
+.form-wrapper.visible {
+    opacity: 1;
+}
+
+/* Form Title Inside Card */
+.form-title {
+    text-align: center;
+    margin-top: 0 !important;
+    margin-bottom: calc(var(--spacing-unit) * 2) !important;
+    color: var(--color-accent);
+    font-size: 1.6rem;
+    border-bottom: 2px solid var(--color-sand);
+    padding-bottom: var(--spacing-unit);
+}
+
+/* Enhanced Input Styles */
+.enhanced-input {
+    min-height: 44px !important;
+    padding: calc(var(--spacing-unit) * 0.75) calc(var(--spacing-unit) * 1) !important;
+    border-radius: calc(var(--border-radius) * 1.2) !important;
+    border: 2px solid var(--color-border) !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    background-color: var(--color-background) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.enhanced-input:focus {
+    border-color: var(--color-accent) !important;
+    box-shadow: 0 0 0 3px rgba(209, 122, 82, 0.1) !important;
+    outline: none !important;
+}
+
+/* Enhanced Price Calculation Box */
+.enhanced-price-box {
+    background-color: #fff8ef !important;
+    border: 2px solid #f0d19a !important;
+    border-radius: calc(var(--border-radius) * 1.2) !important;
+    padding: calc(var(--spacing-unit) * 1.2) !important;
+    margin: calc(var(--spacing-unit) * 1.5) 0 !important;
+    font-size: 1rem !important;
+    font-weight: 500;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.enhanced-price-box::before {
+    content: "🧾";
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+    filter: grayscale(0);
+}
+
+.enhanced-price-box p {
+    margin: 0;
+    color: #8b5a00;
+    line-height: 1.4;
+}
+
+.enhanced-price-box strong {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+}
+
+/* Enhanced Submit Button */
+.enhanced-submit-btn {
+    font-size: 1.2rem !important;
+    padding: calc(var(--spacing-unit) * 1.2) calc(var(--spacing-unit) * 2.5) !important;
+    background-color: var(--color-accent) !important;
+    min-height: 50px !important;
+    width: 100% !important;
+    max-width: 400px;
+    margin: 0 auto;
+    display: block !important;
+    border-radius: calc(var(--border-radius) * 1.2) !important;
+    font-weight: 600 !important;
+    text-transform: none;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease !important;
+}
+
+.enhanced-submit-btn:hover {
+    background-color: var(--color-accent-hover) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(209, 122, 82, 0.3) !important;
+}
+
+.submit-container {
+    text-align: center;
+    margin-top: calc(var(--spacing-unit) * 2);
+}
+
+/* Enhanced form labels with consistent spacing */
+.form-wrapper label {
+    display: block;
+    margin-bottom: calc(var(--spacing-unit) * 0.5);
+    margin-top: calc(var(--spacing-unit) * 1.2);
+    font-weight: 600;
+    color: var(--color-dark-text);
+    font-size: 1rem;
+}
+
+.form-wrapper label:first-of-type {
+    margin-top: 0;
+}
+
+/* Trust Badge Enhancement */
+.form-wrapper .trust-badge {
+    margin-top: calc(var(--spacing-unit) * 2);
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: calc(var(--spacing-unit) * 1);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .enhanced-calendar {
+        /* Removed transform: scale(1.1) */
+        margin: var(--spacing-unit) auto calc(var(--spacing-unit) * 2) auto;
+        padding: calc(var(--spacing-unit) * 1.5);
+        max-width: 420px;
+    }
+    
+    .calendar-title {
+        font-size: 1.4rem !important;
+    }
+    
+    .enhanced-calendar .calendar-days div {
+        padding: calc(var(--spacing-unit) * 0.8) !important;
+        font-size: 1rem !important;
+        min-height: 44px !important;
+    }
+    
+    .enhanced-calendar .calendar-nav-btn {
+        padding: calc(var(--spacing-unit) * 0.5) calc(var(--spacing-unit) * 0.8) !important;
+        font-size: 1.2rem !important;
+    }
+    
+    .form-wrapper {
+        padding: calc(var(--spacing-unit) * 1.5);
+        margin-top: var(--spacing-unit);
+    }
+    
+    .form-title {
+        font-size: 1.4rem;
+        margin-bottom: calc(var(--spacing-unit) * 1.5) !important;
+    }
+    
+    .enhanced-input {
+        min-height: 48px !important;
+        font-size: 1.1rem !important;
+    }
+    
+    .enhanced-submit-btn {
+        font-size: 1.1rem !important;
+        padding: calc(var(--spacing-unit) * 1.4) calc(var(--spacing-unit) * 2) !important;
+        min-height: 52px !important;
+    }
+    
+    .enhanced-price-box {
+        padding: var(--spacing-unit) !important;
+        font-size: 0.95rem !important;
+    }
+}
+
+/* Small Mobile Optimizations */
+@media (max-width: 480px) {
+    .enhanced-calendar {
+        /* Removed transform: scale(1.05) */
+        margin: calc(var(--spacing-unit) * 0.5) auto calc(var(--spacing-unit) * 1.5) auto;
+        max-width: 100%;
+        padding: var(--spacing-unit);
+    }
+    
+    .calendar-title {
+        font-size: 1.2rem !important;
+    }
+    
+    .enhanced-calendar .calendar-days div {
+        padding: calc(var(--spacing-unit) * 0.6) !important;
+        font-size: 0.95rem !important;
+        min-height: 40px !important;
+    }
+    
+    .form-wrapper {
+        padding: var(--spacing-unit);
+        margin-top: calc(var(--spacing-unit) * 0.5);
+    }
+    
+    .enhanced-input {
+        min-height: 50px !important;
+    }
+    
+    .enhanced-submit-btn {
+        min-height: 54px !important;
+    }
+}
+
+/* Optional Sticky Submit Button for Mobile */
+@media (max-width: 768px) {
+    .submit-container {
+        position: relative;
+        z-index: 100;
+    }
+    
+    /* Uncomment below for sticky submit button on mobile */
+    /*
+    .submit-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--color-background);
+        padding: var(--spacing-unit);
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+    
+    .form-wrapper {
+        padding-bottom: 80px;
+    }
+    */
+}
+
+/* Animation Classes for Fade-in Effect */
+.enhanced-calendar,
+.form-wrapper {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUpForm {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-wrapper {
+    animation: fadeInUpForm 0.8s ease 0.3s forwards;
+}
+
+/* Ensure proper spacing around calendar and form sections */
+.booking-page .container {
+    max-width: 1000px;
+}
+
+.booking-page .page-section {
+    padding-top: calc(var(--spacing-unit) * 3);
+    padding-bottom: calc(var(--spacing-unit) * 3);
+}
+
+/* ========== END ENHANCED BOOKING PAGE STYLES ========== */ 
+
+/* About Page Hero Section */
+.about-hero {
+    background-color: #FFFFFF;
+    position: relative;
+    padding: calc(var(--spacing-unit) * 4) 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('../images/optimized/HERO.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+.about-hero .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px; /* Reduced from 1200px */
+    width: 90%;
+    margin: 0 auto;
+    padding: 0 var(--spacing-unit);
+}
+
+.about-hero h1 {
+    color: var(--color-accent);
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+.about-hero p {
+    color: var(--color-dark-text);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .about-hero {
+        padding: calc(var(--spacing-unit) * 3) 0;
+    }
+
+    .about-hero h1 {
+        font-size: 2rem;
+    }
+
+    .about-hero p {
+        font-size: 1.1rem;
+    }
+}
+
+/* Base Container Structure */
+.container {
+    width: 90%;
+    max-width: 1300px; /* Reduced from 1400px to be slightly narrower */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--spacing-unit);
+    padding-right: var(--spacing-unit);
+}
+
+/* Content Width Classes */
+.content-wrapper {
+    max-width: 70ch; /* Reduced from 75ch */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-wrapper-wide {
+    max-width: 80ch; /* Reduced from 85ch */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Section-specific containers */
+.page-section .container {
+    max-width: 1300px; /* Reduced from 1400px */
+}
+
+.about-story .container,
+.about-pool-life .container,
+.amenities-section .container,
+.practical-info-section .container {
+    max-width: 1300px; /* Reduced from 1400px */
+}
+
+.booking-page .container {
+    max-width: 1300px; /* Reduced from 1400px */
+}
+
+/* Form and Calendar specific widths */
+.form-section {
+    max-width: 750px; /* Reduced from 800px */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.enhanced-calendar {
+    max-width: 600px; /* Reduced from 650px */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Hero content width */
+.hero-content {
+    max-width: 1100px; /* Reduced from 1200px */
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-hero .hero-content {
+    max-width: 1100px; /* Reduced from 1200px */
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Gallery and Grid specific widths */
+.image-gallery-grid {
+    max-width: 1300px; /* Reduced from 1400px */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.regional-gallery-section .image-gallery-grid {
+    max-width: 1300px; /* Reduced from 1400px */
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding-left: calc(var(--spacing-unit) * 0.75);
+        padding-right: calc(var(--spacing-unit) * 0.75);
+    }
+    
+    .content-wrapper,
+    .content-wrapper-wide {
+        width: 100%;
+    }
+    
+    .form-section {
+        width: 95%;
+    }
+    
+    .enhanced-calendar {
+        width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding-left: var(--spacing-unit);
+        padding-right: var(--spacing-unit);
+    }
+}
