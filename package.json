@@ -1,0 +1,14 @@
+{
+    "name": "casa-mi-sueno",
+    "version": "1.0.0",
+    "description": "Casa Mi Sueño - Luxe vakantiehuis aan de Costa Blanca",
+    "scripts": {
+        "optimize-images": "node image-optimization.js",
+        "minify": "node minify.js"
+    },
+    "dependencies": {
+        "sharp": "^0.32.1",
+        "clean-css": "^5.3.2",
+        "terser": "^5.19.2"
+    }
+} 

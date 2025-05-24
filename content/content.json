@@ -1,0 +1,77 @@
+{
+    "home": {
+        "title": "Casa Mi Sueño - Luxe vakantiehuis aan de Costa Blanca",
+        "description": "Geniet van een onvergetelijke vakantie in ons luxe vakantiehuis aan de Costa Blanca. Met een privé zwembad, prachtig uitzicht en alle moderne gemakken.",
+        "features": [
+            "Privé zwembad",
+            "Airconditioning",
+            "Gratis WiFi",
+            "Moderne keuken",
+            "Ruime terrassen",
+            "Prachtig uitzicht"
+        ]
+    },
+    "about": {
+        "title": "Over Casa Mi Sueño",
+        "description": "Casa Mi Sueño is een luxe vakantiehuis gelegen in een rustige omgeving aan de Costa Blanca. Het huis biedt alle comfort en gemak voor een perfecte vakantie.",
+        "rooms": [
+            {
+                "name": "Woonkamer",
+                "description": "Ruime woonkamer met moderne inrichting en airconditioning"
+            },
+            {
+                "name": "Keuken",
+                "description": "Volledig ingerichte keuken met alle moderne apparaten"
+            },
+            {
+                "name": "Slaapkamers",
+                "description": "3 ruime slaapkamers met airconditioning"
+            },
+            {
+                "name": "Badkamers",
+                "description": "2 moderne badkamers met douche en toilet"
+            }
+        ]
+    },
+    "environment": {
+        "title": "De omgeving",
+        "description": "Casa Mi Sueño ligt in een prachtige omgeving met veel bezienswaardigheden en activiteiten in de buurt.",
+        "attractions": [
+            {
+                "name": "Strand",
+                "description": "Op 5 minuten rijden van het strand"
+            },
+            {
+                "name": "Restaurants",
+                "description": "Verschillende restaurants op loopafstand"
+            },
+            {
+                "name": "Winkels",
+                "description": "Supermarkt en andere winkels op loopafstand"
+            },
+            {
+                "name": "Activiteiten",
+                "description": "Golf, tennis, wandelen en meer in de buurt"
+            }
+        ]
+    },
+    "availability": {
+        "title": "Beschikbaarheid en reserveren",
+        "description": "Bekijk de beschikbaarheid en reserveer direct online.",
+        "prices": {
+            "low_season": "€800 per week",
+            "high_season": "€1200 per week"
+        },
+        "seasons": {
+            "low": "Januari - Maart, Oktober - December",
+            "high": "April - September"
+        }
+    },
+    "contact": {
+        "title": "Contact",
+        "description": "Neem contact met ons op voor meer informatie of om te reserveren.",
+        "email": "info@casamisueno.nl",
+        "phone": "+31 6 12345678",
+        "address": "Calle Example 123, 03720 Benissa, Spanje"
+    }
+} 

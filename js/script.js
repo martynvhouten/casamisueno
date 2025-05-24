@@ -495,10 +495,14 @@ document.body.appendChild(modal);
             const monthNames = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
             currentMonthYearElement.textContent = `${monthNames[month]} ${year}`;
 
-            const firstDayOfMonth = new Date(year, month, 1).getDay();
+            const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0 (Sun) - 6 (Sat)
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             const today = new Date();
             today.setHours(0, 0, 0, 0);
+
+            // Adjust firstDayOfMonth to be 0 (Mon) - 6 (Sun) if your week starts on Monday
+            // const displayFirstDay = (firstDayOfMonth === 0) ? 6 : firstDayOfMonth - 1; 
+            // For now, assuming 0=Sunday as per default getDay()
 
             for (let i = 0; i < firstDayOfMonth; i++) {
                 calendarDaysContainer.appendChild(document.createElement('div')).classList.add('empty');
@@ -510,6 +514,7 @@ document.body.appendChild(modal);
                 const cellDate = new Date(year, month, day);
                 const cellDateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 
+                dayCell.setAttribute('data-date', cellDateString); // CRITICAL FIX: Add data-date attribute
                 dayCell.setAttribute('role', 'button');
                 dayCell.tabIndex = 0;
                 
@@ -545,131 +550,163 @@ document.body.appendChild(modal);
         }
 
         function applyCalDateSelectionStyles() {
-            document.querySelectorAll('#calendarDays div').forEach(d => {
-                d.classList.remove('selected', 'range', 'range-start', 'range-end');
+            // Reset all styles first
+            document.querySelectorAll('.calendar-days div[data-date]').forEach(dayCell => {
+                dayCell.classList.remove('selected', 'range', 'range-start', 'range-end', 'invalid-selection');
             });
 
-            if (selectedCalendarDates.length === 0) return;
-
             const [startDateStr, endDateStr] = selectedCalendarDates;
-            if (!startDateStr) return;
-            const startDate = new Date(startDateStr);
 
-            const startDayCell = findCalDayCell(startDate);
-            if (startDayCell) startDayCell.classList.add('selected', 'range-start');
-
-            if (endDateStr) {
-                const endDate = new Date(endDateStr);
-                const endDayCell = findCalDayCell(endDate);
-                if (endDayCell) endDayCell.classList.add('selected', 'range-end');
-
-                const currentMonth = currentCalendarDate.getMonth();
-                const currentYear = currentCalendarDate.getFullYear();
-                document.querySelectorAll('#calendarDays div:not(.empty)').forEach(cell => {
-                    const day = parseInt(cell.textContent);
-                    const cellDate = new Date(currentYear, currentMonth, day);
-                    if (cellDate > startDate && cellDate < endDate) {
-                        cell.classList.add('range');
+            // Apply start date styles
+            if (startDateStr) {
+                const startDateCell = findCalDayCell(startDateStr);
+                if (startDateCell) {
+                    startDateCell.classList.add('selected');
+                    if (endDateStr) {
+                        startDateCell.classList.add('range-start');
                     }
-                });
+                }
+            }
+
+            // Apply end date styles
+            if (endDateStr) {
+                const endDateCell = findCalDayCell(endDateStr);
+                if (endDateCell) {
+                    endDateCell.classList.add('selected', 'range-end');
+                }
+
+                // Style days in between
+                if (startDateStr) {
+                    const range = getCalDateRange(startDateStr, endDateStr);
+                    if (range.length > 2) {
+                        for (let i = 1; i < range.length - 1; i++) {
+                            const dayCellInRange = findCalDayCell(range[i]);
+                            if (dayCellInRange) {
+                                dayCellInRange.classList.add('range');
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        function findCalDayCell(dateToFind) {
-            const year = dateToFind.getFullYear();
-            const month = dateToFind.getMonth();
-            const day = dateToFind.getDate();
-            if (currentCalendarDate.getFullYear() !== year || currentCalendarDate.getMonth() !== month) return null;
-
-            return Array.from(calendarDaysContainer.children).find(d => 
-                d.textContent === String(day) && 
-                !d.classList.contains('empty') &&
-                (d.classList.contains('available') || d.classList.contains('today'))
-            );
+        function findCalDayCell(dateString) {
+            return document.querySelector(`.calendar-days div[data-date="${dateString}"]`);
         }
 
         function handleCalDateSelection(dateString, dayCell) {
-            if (dayCell.classList.contains('past-date') || dayCell.classList.contains('booked')) return;
-            clearCalRangeErrorMessage();
-
-            const clickedDate = new Date(dateString);
-
-            if (selectedCalendarDates.length === 0) { 
-                // First click - start new selection
-                selectedCalendarDates = [dateString, null];
-                window.updateBookingFormDates(new Date(dateString), null);
-                showCalResetButton();
-            } else if (selectedCalendarDates.length === 2 && selectedCalendarDates[1] === null) { 
-                // Second click - complete the range
-                const startDate = new Date(selectedCalendarDates[0]);
-                if (clickedDate <= startDate) {
-                    showCalRangeErrorMessage("Vertrekdatum moet na de aankomstdatum zijn. Selecteer opnieuw.");
-                    selectedCalendarDates = [dateString, null]; 
-                    window.updateBookingFormDates(new Date(dateString), null);
-                } else {
-                    const range = getCalDateRange(selectedCalendarDates[0], dateString);
-                    const isRangeValid = !range.some(d => bookedDatesList.includes(d) && d !== selectedCalendarDates[0]);
-                    
-                    if (isRangeValid) {
-                        selectedCalendarDates[1] = dateString;
-                        window.updateBookingFormDates(new Date(selectedCalendarDates[0]), new Date(dateString));
-                                    } else {
-                        showCalRangeErrorMessage("De geselecteerde periode bevat reeds geboekte datums. Kies a.u.b. een andere periode.");
-                        selectedCalendarDates = [dateString, null]; 
-                        window.updateBookingFormDates(new Date(dateString), null);
-                                    }
-                                }
-                            } else {
-                // Third click or more - start new selection
-                selectedCalendarDates = [dateString, null];
-                window.updateBookingFormDates(new Date(dateString), null);
-                showCalResetButton();
+            if (dayCell.classList.contains('past-date') || dayCell.classList.contains('booked')) {
+                return;
             }
+
+            clearCalRangeErrorMessage();
+            const clickedDate = new Date(dateString + 'T00:00:00');
+            const MIN_STAY_NIGHTS = 10;
+
+            // If no dates are selected or we have a complete selection, start a new selection
+            if (!selectedCalendarDates[0] || (selectedCalendarDates[0] && selectedCalendarDates[1])) {
+                selectedCalendarDates = [dateString, null];
+                window.updateBookingFormDates(clickedDate, null);
+                showCalResetButton();
+            } 
+            // If we have a start date but no end date, try to complete the selection
+            else if (selectedCalendarDates[0] && !selectedCalendarDates[1]) {
+                const startDate = new Date(selectedCalendarDates[0] + 'T00:00:00');
+
+                if (clickedDate <= startDate) {
+                    // If clicked date is before or same as start date, make it the new start date
+                    selectedCalendarDates = [dateString, null];
+                    window.updateBookingFormDates(clickedDate, null);
+                    showCalRangeErrorMessage("Aankomstdatum gewijzigd. Selecteer nu een vertrekdatum.");
+                } else {
+                    // Check if the range is valid
+                    const range = getCalDateRange(selectedCalendarDates[0], dateString);
+                    const isRangeValid = !range.some(d => bookedDatesList.includes(d) && d !== selectedCalendarDates[0] && d !== dateString);
+
+                    if (isRangeValid) {
+                        const nights = Math.ceil((clickedDate - startDate) / (1000 * 60 * 60 * 24));
+                        
+                        if (nights < MIN_STAY_NIGHTS) {
+                            showCalRangeErrorMessage(`Minimaal ${MIN_STAY_NIGHTS} nachten vereist. U selecteerde ${nights} ${nights === 1 ? 'nacht' : 'nachten'}.`);
+                            // Keep start date, allow selecting new end date
+                            selectedCalendarDates[1] = null;
+                            window.updateBookingFormDates(startDate, null);
+                            
+                            // Highlight invalid selection briefly
+                            dayCell.classList.add('invalid-selection');
+                            setTimeout(() => {
+                                dayCell.classList.remove('invalid-selection');
+                            }, 1500);
+                        } else {
+                            // Valid selection
+                            selectedCalendarDates[1] = dateString;
+                            window.updateBookingFormDates(startDate, clickedDate);
+                        }
+                    } else {
+                        showCalRangeErrorMessage("Geselecteerde periode overlapt met bezette datums.");
+                        selectedCalendarDates = [dateString, null];
+                        window.updateBookingFormDates(clickedDate, null);
+                    }
+                }
+            }
+
             applyCalDateSelectionStyles();
         }
 
         function getCalDateRange(startDateStr, endDateStr) {
-            const dates = [];
-            const start = new Date(startDateStr);
-            const end = new Date(endDateStr);
-            const inclusiveEnd = new Date(end.getFullYear(), end.getMonth(), end.getDate()); 
+            const startDate = new Date(startDateStr);
+            const endDate = new Date(endDateStr);
+            const range = [];
+            const currentDate = new Date(startDate);
 
-            for (let d = new Date(start); d <= inclusiveEnd; d.setDate(d.getDate() + 1)) {
-                 dates.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`);
+            while (currentDate <= endDate) {
+                range.push(currentDate.toISOString().split('T')[0]);
+                currentDate.setDate(currentDate.getDate() + 1);
             }
-            return dates;
+
+            return range;
         }
         
         function showCalRangeErrorMessage(message) {
-            clearCalRangeErrorMessage(); 
-            const errorDiv = document.createElement('div');
-            errorDiv.id = 'calendar-range-error';
-            errorDiv.className = 'calendar-error-message';
-            errorDiv.textContent = message;
-            
-            const calendarContainer = document.querySelector('.calendar-container');
-            if (calendarContainer) { // Insert after calendar container
-                calendarContainer.parentNode.insertBefore(errorDiv, calendarContainer.nextSibling);
+            const errorElement = document.getElementById('calendarError');
+            if (errorElement) {
+                // Clear any existing timeouts
+                if (errorElement.hideTimeout) {
+                    clearTimeout(errorElement.hideTimeout);
+                }
+                
+                // Set the message and show it immediately
+                errorElement.textContent = message;
+                errorElement.classList.add('visible');
+                
+                // Auto-hide after 5 seconds
+                errorElement.hideTimeout = setTimeout(() => {
+                    errorElement.classList.remove('visible');
+                }, 5000);
             }
-            setTimeout(clearCalRangeErrorMessage, 5000);
         }
 
         function clearCalRangeErrorMessage() {
-            const existingError = document.getElementById('calendar-range-error');
-            if (existingError) existingError.remove();
+            const errorElement = document.getElementById('calendarError');
+            if (errorElement) {
+                // Clear any existing timeouts
+                if (errorElement.hideTimeout) {
+                    clearTimeout(errorElement.hideTimeout);
+                }
+                errorElement.classList.remove('visible');
+            }
         }
 
         function clearCalSelectedDatesAndForm() {
             selectedCalendarDates = [];
             window.updateBookingFormDates(null, null); // This will also call calculateAndDisplayPrice
             applyCalDateSelectionStyles();
-            clearCalRangeErrorMessage();
             hideCalResetButton();
         }
 
         function showCalResetButton() {
             if (resetCalendarSelectionBtnEl) resetCalendarSelectionBtnEl.style.display = 'inline-block';
-                        }
+        }
 
         function hideCalResetButton() {
             if (resetCalendarSelectionBtnEl) resetCalendarSelectionBtnEl.style.display = 'none';
@@ -686,7 +723,6 @@ document.body.appendChild(modal);
                 calculateAndDisplayPrice(); // Explicitly call price calculation
             }
         };
-
 
         async function fetchActualBookedDates() {
             if (!GOOGLE_SHEETS_CONFIG_CALENDAR.jsonEndpoint || GOOGLE_SHEETS_CONFIG_CALENDAR.jsonEndpoint.includes('YOUR_GOOGLE_SHEETS_JSON_ENDPOINT_HERE')) {

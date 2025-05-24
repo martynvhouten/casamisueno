@@ -1,0 +1,9 @@
+# Casa Mi Sueño robots.txt
+User-agent: *
+Allow: /
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+
+# Sitemap location
+Sitemap: https://casamisueno.nl/sitemap.xml 

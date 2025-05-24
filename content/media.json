@@ -1,0 +1,132 @@
+{
+    "images": [
+        {
+            "id": "1",
+            "title": "Zwembad",
+            "description": "Privé zwembad met ligbedden",
+            "url": "/images/pool.jpg",
+            "thumbnail": "/images/thumbnails/pool.jpg",
+            "category": "facilities",
+            "tags": ["zwembad", "buiten", "faciliteiten"]
+        },
+        {
+            "id": "2",
+            "title": "Woonkamer",
+            "description": "Ruime woonkamer met moderne inrichting",
+            "url": "/images/living-room.jpg",
+            "thumbnail": "/images/thumbnails/living-room.jpg",
+            "category": "interior",
+            "tags": ["woonkamer", "binnen", "interieur"]
+        },
+        {
+            "id": "3",
+            "title": "Keuken",
+            "description": "Volledig ingerichte keuken",
+            "url": "/images/kitchen.jpg",
+            "thumbnail": "/images/thumbnails/kitchen.jpg",
+            "category": "interior",
+            "tags": ["keuken", "binnen", "interieur"]
+        },
+        {
+            "id": "4",
+            "title": "Slaapkamer 1",
+            "description": "Ruime slaapkamer met tweepersoonsbed",
+            "url": "/images/bedroom-1.jpg",
+            "thumbnail": "/images/thumbnails/bedroom-1.jpg",
+            "category": "interior",
+            "tags": ["slaapkamer", "binnen", "interieur"]
+        },
+        {
+            "id": "5",
+            "title": "Slaapkamer 2",
+            "description": "Ruime slaapkamer met tweepersoonsbed",
+            "url": "/images/bedroom-2.jpg",
+            "thumbnail": "/images/thumbnails/bedroom-2.jpg",
+            "category": "interior",
+            "tags": ["slaapkamer", "binnen", "interieur"]
+        },
+        {
+            "id": "6",
+            "title": "Slaapkamer 3",
+            "description": "Ruime slaapkamer met tweepersoonsbed",
+            "url": "/images/bedroom-3.jpg",
+            "thumbnail": "/images/thumbnails/bedroom-3.jpg",
+            "category": "interior",
+            "tags": ["slaapkamer", "binnen", "interieur"]
+        },
+        {
+            "id": "7",
+            "title": "Badkamer 1",
+            "description": "Moderne badkamer met douche en toilet",
+            "url": "/images/bathroom-1.jpg",
+            "thumbnail": "/images/thumbnails/bathroom-1.jpg",
+            "category": "interior",
+            "tags": ["badkamer", "binnen", "interieur"]
+        },
+        {
+            "id": "8",
+            "title": "Badkamer 2",
+            "description": "Moderne badkamer met douche en toilet",
+            "url": "/images/bathroom-2.jpg",
+            "thumbnail": "/images/thumbnails/bathroom-2.jpg",
+            "category": "interior",
+            "tags": ["badkamer", "binnen", "interieur"]
+        },
+        {
+            "id": "9",
+            "title": "Terras",
+            "description": "Ruim terras met eetgedeelte en ligbedden",
+            "url": "/images/terrace.jpg",
+            "thumbnail": "/images/thumbnails/terrace.jpg",
+            "category": "exterior",
+            "tags": ["terras", "buiten", "faciliteiten"]
+        },
+        {
+            "id": "10",
+            "title": "Uitzicht",
+            "description": "Prachtig uitzicht over de omgeving",
+            "url": "/images/view.jpg",
+            "thumbnail": "/images/thumbnails/view.jpg",
+            "category": "exterior",
+            "tags": ["uitzicht", "buiten", "omgeving"]
+        }
+    ],
+    "videos": [
+        {
+            "id": "1",
+            "title": "Virtuele tour",
+            "description": "Virtuele tour door het huis",
+            "url": "/videos/virtual-tour.mp4",
+            "thumbnail": "/images/thumbnails/virtual-tour.jpg",
+            "category": "tour",
+            "tags": ["tour", "virtueel", "huis"]
+        },
+        {
+            "id": "2",
+            "title": "Zwembad",
+            "description": "Video van het zwembad",
+            "url": "/videos/pool.mp4",
+            "thumbnail": "/images/thumbnails/pool-video.jpg",
+            "category": "facilities",
+            "tags": ["zwembad", "buiten", "faciliteiten"]
+        }
+    ],
+    "documents": [
+        {
+            "id": "1",
+            "title": "Huisregels",
+            "description": "Huisregels voor gasten",
+            "url": "/documents/house-rules.pdf",
+            "category": "rules",
+            "tags": ["regels", "huisregels", "gasten"]
+        },
+        {
+            "id": "2",
+            "title": "Instructies",
+            "description": "Instructies voor het gebruik van de faciliteiten",
+            "url": "/documents/instructions.pdf",
+            "category": "instructions",
+            "tags": ["instructies", "faciliteiten", "gebruik"]
+        }
+    ]
+} 
