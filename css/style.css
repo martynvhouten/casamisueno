@@ -294,7 +294,7 @@ ul, ol {
     }
 
     .nav-toggle .icon-bar {
-        background-color: var(--color-light-text);
+        background-color: var(--color-dark-text);
     }
 }
 
@@ -323,7 +323,7 @@ ul, ol {
     background-position: center;
     background-repeat: no-repeat;
     color: var(--color-dark-text);
-    min-height: 40vh;
+    min-height: 35vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -373,8 +373,8 @@ ul, ol {
 
 @media (max-width: 768px) {
     .hero {
-        min-height: 40vh;
-        padding: 2rem 1rem;
+        min-height: 60vh;
+        padding: var(--spacing-section-mobile) var(--spacing-unit);
     }
     
     .hero-content {
