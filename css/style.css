@@ -86,7 +86,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-dark-text);
 }
 
-h1 { font-size: clamp(2.5rem, 5vw, 3.2rem); }
+h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
 h2 { font-size: clamp(2rem, 4vw, 2.7rem); }
 h3 { font-size: clamp(1.5rem, 3vw, 1.9rem); }
 
@@ -263,7 +263,7 @@ ul, ol {
         top: 100%;
         left: 0;
         width: 100%;
-        background: rgba(33, 33, 33, 0.98);
+        background: rgba(255, 255, 255, 0.98);
         padding: calc(var(--spacing-unit) * 0.5) 0;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
@@ -282,7 +282,16 @@ ul, ol {
         padding: calc(var(--spacing-unit) * 1.2) calc(var(--spacing-unit) * 2);
         text-align: center;
         border-radius: 0;
-        color: var(--color-light-text);
+        color: var(--color-dark-text);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .main-nav a:hover,
+    .main-nav a:focus,
+    .main-nav a.active {
+        color: var(--color-accent);
+        background-color: var(--color-sand);
+        text-decoration: none;
     }
 
     .main-nav li:last-child a {
@@ -323,13 +332,13 @@ ul, ol {
     background-position: center;
     background-repeat: no-repeat;
     color: var(--color-dark-text);
-    min-height: 35vh;
+    min-height: 35vh; /* Terug naar 35vh voor desktop */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     position: relative;
-    padding: calc(var(--spacing-unit) * 2) var(--spacing-unit);
+    padding: calc(var(--spacing-unit) * 3) var(--spacing-unit); /* Terug naar originele padding */
     overflow: hidden;
 }
 
@@ -340,56 +349,57 @@ ul, ol {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(245, 239, 230, 0.9), rgba(245, 239, 230, 0.95));
+    background: linear-gradient(rgba(245, 239, 230, 0.85), rgba(245, 239, 230, 0.95)); /* Iets transparanter voor meer diepte */
     z-index: 1;
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 900px;
+    max-width: 1000px; /* Verhoogd van 900px naar 1000px */
     width: 90%;
     margin: 0 auto;
     padding: 0 var(--spacing-unit);
 }
 
 .hero h1 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: calc(var(--spacing-unit) * 1);
+    font-size: clamp(2.5rem, 5vw, 3.5rem); /* Grotere tekst */
+    margin-bottom: calc(var(--spacing-unit) * 1.5); /* Meer ruimte onder de titel */
     color: var(--color-accent);
     line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtiele schaduw voor diepte */
 }
 
 .hero p {
-    font-size: clamp(1rem, 1.8vw, 1.2rem);
-    margin-bottom: calc(var(--spacing-unit) * 1.5);
+    font-size: clamp(1.1rem, 2vw, 1.3rem); /* Iets grotere tekst */
+    margin-bottom: calc(var(--spacing-unit) * 2); /* Meer ruimte onder de tekst */
     color: var(--color-dark-text);
     font-weight: 400;
-    max-width: 700px;
+    max-width: 800px; /* Verhoogd van 700px naar 800px */
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.5;
+    line-height: 1.6; /* Verbeterde leesbaarheid */
 }
 
 @media (max-width: 768px) {
     .hero {
-        min-height: 60vh;
+        min-height: 30vh; /* Verlaagd van 50vh naar 30vh */
         padding: var(--spacing-section-mobile) var(--spacing-unit);
     }
     
     .hero-content {
-        padding: 1.5rem;
+        padding: 2rem; /* Verhoogde padding */
         max-width: 100%;
     }
     
     .hero h1 { 
-        font-size: clamp(2rem, 5vw, 2.5rem);
-        margin-bottom: 0.75rem;
+        font-size: clamp(2.2rem, 6vw, 3rem); /* Grotere tekst op mobiel */
+        margin-bottom: 1rem;
     }
     
     .hero p { 
-        font-size: clamp(1rem, 3vw, 1.2rem);
-        margin-bottom: 1rem;
+        font-size: clamp(1.1rem, 3.5vw, 1.3rem); /* Grotere tekst op mobiel */
+        margin-bottom: 1.5rem;
     }
 }
 
@@ -2807,7 +2817,7 @@ address {
 .about-hero {
     background-color: var(--color-sand);
     position: relative;
-    padding: calc(var(--spacing-unit) * 4) 0;
+    padding: calc(var(--spacing-unit) * 3) 0; /* Verlaagd van 4 naar 3 */
     text-align: center;
     overflow: hidden;
 }
@@ -2850,7 +2860,7 @@ address {
 
 @media (max-width: 768px) {
     .about-hero {
-        padding: calc(var(--spacing-unit) * 3) 0;
+        padding: calc(var(--spacing-unit) * 2) 0; /* Verlaagd van 3 naar 2 */
     }
 
     .about-hero h1 {
