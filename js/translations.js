@@ -32,14 +32,19 @@ const translations = {
     contact: {
         hero: {
             title: {
-                nl: "Neem contact op",
-                en: "Get in touch",
-                es: "Póngase en contacto"
+                nl: "Casa Mi Sueño: Jouw Droomplek onder de Spaanse Zon",
+                en: "Casa Mi Sueño: Your Dream Escape under the Spanish Sun",
+                es: "Casa Mi Sueño: Tu Refugio Soñado bajo el Sol Español"
             },
             subtitle: {
-                nl: "We vinden het leuk om over ons huis te vertellen en helpen u graag verder met uw vragen.",
-                en: "We love to tell you about our house and are happy to help you with your questions.",
-                es: "Nos encanta contarle sobre nuestra casa y estamos encantados de ayudarle con sus preguntas."
+                nl: "Ontsnap naar de Costa Blanca en ervaar de warmte van ons persoonlijk vakantiehuis. Creëer onvergetelijke herinneringen in een oase van rust, ruimte en Spaanse charme.",
+                en: "Escape to the Costa Blanca and experience the warmth of our personal holiday home. Create unforgettable memories in an oasis of peace, space, and Spanish charm.",
+                es: "Escápate a la Costa Blanca y siente la calidez de nuestra casa de vacaciones personal. Crea recuerdos inolvidables en un oasis de paz, espacio y encanto español."
+            },
+            button: {
+                nl: "Ontdek Jouw Droomvakantie",
+                en: "Discover Your Dream Holiday",
+                es: "Descubre Tus Vacaciones Soñadas"
             }
         },
         intro: {
