@@ -3699,3 +3699,152 @@ img[loading="lazy"].loaded {
         padding: 0.7rem 1rem;
     }
 }
+
+/* Styles for location cards and grid - moved from omgeving.html */
+.location-card {
+    background: linear-gradient(135deg, var(--color-sand) 0%, #fff 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(232, 160, 126, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.location-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    border-color: rgba(232, 160, 126, 0.4);
+    background: linear-gradient(135deg, #fff 0%, var(--color-sand) 100%);
+}
+
+.location-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--color-accent), var(--color-deep-terracotta));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.location-card:hover::before {
+    opacity: 1;
+}
+
+.location-card h3 {
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    transition: color 0.3s ease;
+    font-weight: 600;
+}
+
+.location-card:hover h3 {
+    color: var(--color-deep-terracotta);
+}
+
+.location-card p {
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+.location-card .distance {
+    color: var(--color-accent);
+    font-weight: 600;
+    margin-top: auto;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.location-card .distance::before {
+    content: '\f3c5'; /* Font Awesome location icon */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 1rem;
+}
+
+.location-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+
+.highlight-card {
+    background-color: var(--color-sand);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: #e8d5c4; /* Slightly darker sand on hover */
+}
+
+.highlight-icon {
+    font-size: 2rem;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+}
+
+.highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.location-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.location-list li {
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.location-list li:before {
+    content: "•"; /* Unicode bullet point */
+    color: var(--color-accent);
+    position: absolute;
+    left: 0;
+}
+
+@media (max-width: 768px) {
+    .location-card {
+        padding: 1.5rem;
+    }
+    
+    .location-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .location-card p {
+        font-size: 1rem;
+    }
+    
+    .location-card .distance {
+        font-size: 1rem;
+    }
+    
+    .location-grid {
+        gap: 1.5rem;
+    }
+}

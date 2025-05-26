@@ -1,0 +1,85 @@
+[build]
+  publish = "."
+
+# Redirects and rewrites
+[[redirects]]
+  from = "/"
+  to = "/nl/"
+  status = 301
+  force = true
+
+# Language-specific redirects
+[[redirects]]
+  from = "/en/*"
+  to = "/:splat?lang=en"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/nl/*"
+  to = "/:splat?lang=nl"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/es/*"
+  to = "/:splat?lang=es"
+  status = 200
+  force = true
+
+# Remove .html extension
+[[redirects]]
+  from = "/*"
+  to = "/:splat.html"
+  status = 200
+  force = true
+  conditions = {Path = ["/*"]}
+
+# Redirect /index.html to /
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+# Custom error pages
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+[[redirects]]
+  from = "/*"
+  to = "/500.html"
+  status = 500
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Cache control
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/*.{jpg,jpeg,png,gif,webp}"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000" 

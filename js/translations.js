@@ -304,64 +304,64 @@ function updateUrlWithLanguage(lang) {
     window.history.replaceState({}, '', url);
 }
 
-// Function to update content based on language
+// Function to update content based on selected language
 function updateContent(lang) {
     // Update all elements with data-translate attribute
     document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
-        const keys = key.split('.');
-        let value = translations;
-        
-        // Navigate through the translation object
-        for (const k of keys) {
-            if (value && value[k]) {
-                value = value[k];
-            } else {
-                console.warn(`Translation key not found: ${key}`);
-                return;
-            }
-        }
-        
-        // Update the element's content
-        if (value && value[lang]) {
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                element.placeholder = value[lang];
-            } else {
-                element.textContent = value[lang];
-            }
+        let translation = key.split('.').reduce((obj, i) => (obj && obj[i] !== 'undefined') ? obj[i] : undefined, translations);
+
+        if (translation && translation[lang]) {
+            element.innerHTML = translation[lang];
+        } else {
+            console.warn(`Translation not found for key: ${key} and language: ${lang}`);
+            // Fallback to a default language or key if needed
+            // element.innerHTML = key.split('.').reduce((obj, i) => (obj && obj[i] !== 'undefined') ? obj[i] : undefined, translations)?.nl || key;
         }
     });
 
-    // Update form elements with data-translate-form attribute
+    // Update all form elements with data-translate-form attribute
     document.querySelectorAll('[data-translate-form]').forEach(element => {
         const key = element.getAttribute('data-translate-form');
-        const keys = key.split('.');
-        let value = translations;
-        
-        for (const k of keys) {
-            if (value && value[k]) {
-                value = value[k];
-            } else {
-                console.warn(`Translation key not found: ${key}`);
-                return;
-            }
-        }
-        
-        if (value && value[lang]) {
+        let translation = key.split('.').reduce((obj, i) => (obj && obj[i] !== 'undefined') ? obj[i] : undefined, translations.contact.form);
+
+        if (translation && translation[lang]) {
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                element.placeholder = value[lang];
+                if (element.type === 'submit') {
+                    element.value = translation[lang];
+                } else {
+                    element.placeholder = translation[lang];
+                }
             } else {
-                element.textContent = value[lang];
+                element.innerHTML = translation[lang];
             }
+        } else {
+            console.warn(`Form translation not found for key: ${key} and language: ${lang}`);
+            // Fallback to a default language or key if needed
+            // if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            //     if (element.type === 'submit') {
+            //         element.value = key.split('.').reduce((obj, i) => (obj && obj[i] !== 'undefined') ? obj[i] : undefined, translations.contact.form)?.nl || key;
+            //     } else {
+            //         element.placeholder = key.split('.').reduce((obj, i) => (obj && obj[i] !== 'undefined') ? obj[i] : undefined, translations.contact.form)?.nl || key;
+            //     }
+            // } else {
+            //     element.innerHTML = key.split('.').reduce((obj, i) => (obj && obj[i] !== 'undefined') ? obj[i] : undefined, translations.contact.form)?.nl || key;
+            // }
         }
     });
 
     // Update meta tags
-    document.querySelector('meta[name="description"]').setAttribute('content', translations.meta.description[lang]);
-    document.querySelector('meta[name="keywords"]').setAttribute('content', translations.meta.keywords[lang]);
-    document.querySelector('title').textContent = translations.meta.title[lang];
-    document.querySelector('meta[property="og:title"]').setAttribute('content', translations.meta.og.title[lang]);
-    document.querySelector('meta[property="og:description"]').setAttribute('content', translations.meta.og.description[lang]);
+    const metaTitle = translations.meta.title[lang] || translations.meta.title.nl;
+    const metaDescription = translations.meta.description[lang] || translations.meta.description.nl;
+    const metaKeywords = translations.meta.keywords[lang] || translations.meta.keywords.nl;
+    const ogTitle = translations.meta.og.title[lang] || translations.meta.og.title.nl;
+    const ogDescription = translations.meta.og.description[lang] || translations.meta.og.description.nl;
+
+    document.title = metaTitle;
+    document.querySelector('meta[name="description"]').setAttribute('content', metaDescription);
+    document.querySelector('meta[name="keywords"]').setAttribute('content', metaKeywords);
+    document.querySelector('meta[property="og:title"]').setAttribute('content', ogTitle);
+    document.querySelector('meta[property="og:description"]').setAttribute('content', ogDescription);
 
     // Update HTML lang attribute
     document.documentElement.lang = lang;
