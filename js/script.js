@@ -938,4 +938,63 @@ function navigateLightbox(direction) {
 // Language Switcher
 document.addEventListener('DOMContentLoaded', function() {
     // Language switcher is now handled in translations.js
-}); 
+});
+
+function updateContent(lang) {
+    // Update all elements with data-translate attribute
+    document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        const translation = getTranslation(key, lang);
+        if (translation) {
+            if (element.tagName === 'META') {
+                element.setAttribute('content', translation);
+            } else if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                element.setAttribute('placeholder', translation);
+            } else {
+                element.textContent = translation;
+            }
+        }
+    });
+
+    // Update form placeholders
+    document.querySelectorAll('[data-translate-form]').forEach(element => {
+        const key = element.getAttribute('data-translate-form');
+        const translation = getTranslation(key, lang);
+        if (translation) {
+            element.setAttribute('placeholder', translation);
+        }
+    });
+
+    // Update language button text
+    const languageBtn = document.getElementById('languageBtn');
+    if (languageBtn) {
+        languageBtn.innerHTML = `${lang.toUpperCase()} <i class="fas fa-chevron-down"></i>`;
+    }
+
+    // Update current language text
+    const currentLangText = document.getElementById('currentLangText');
+    if (currentLangText) {
+        currentLangText.textContent = lang.toUpperCase();
+    }
+
+    // Update active state in language dropdown
+    document.querySelectorAll('.language-dropdown button, .language-dropdown a').forEach(element => {
+        if (element.getAttribute('data-lang') === lang) {
+            element.classList.add('active');
+        } else {
+            element.classList.remove('active');
+        }
+    });
+
+    // Update HTML lang attribute
+    document.documentElement.lang = lang;
+
+    // Update OpenGraph locale
+    const ogLocale = document.querySelector('meta[property="og:locale"]');
+    if (ogLocale) {
+        ogLocale.setAttribute('content', `${lang}_${lang.toUpperCase()}`);
+    }
+
+    // Store selected language
+    localStorage.setItem('selectedLanguage', lang);
+} 
