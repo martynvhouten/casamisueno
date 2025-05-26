@@ -17,6 +17,7 @@
     <script src="/js/error-tracking.js"></script>
     <script src="/js/performance-monitoring.js"></script>
     <script src="/js/user-behavior.js"></script>
+    <script src="/js/translations.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -58,13 +59,21 @@
             </button>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="huis.html" class="active">Over het huis</a></li>
-                    <li><a href="omgeving.html">De omgeving</a></li>
-                    <li><a href="fotos.html">Foto's</a></li>
-                    <li><a href="reserveren.html">Reserveren</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="index.html" data-translate="nav.home">Home</a></li>
+                    <li><a href="huis.html" class="active" data-translate="nav.house">Over het huis</a></li>
+                    <li><a href="omgeving.html" data-translate="nav.environment">De omgeving</a></li>
+                    <li><a href="fotos.html" data-translate="nav.photos">Foto's</a></li>
+                    <li><a href="reserveren.html" data-translate="nav.booking">Reserveren</a></li>
+                    <li><a href="contact.html" data-translate="nav.contact">Contact</a></li>
                 </ul>
+                <div class="language-switcher">
+                    <button class="language-btn" id="languageBtn">NL <i class="fas fa-chevron-down"></i></button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <button data-lang="nl" class="active">Nederlands</button>
+                        <button data-lang="en">English</button>
+                        <button data-lang="es">Español</button>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -77,16 +86,31 @@
             </div>
         </section>
 
-        <section class="page-section about-story" style="background-color: #ffffff; padding-bottom: 4rem;">
+        <section class="page-section about-story">
             <div class="container">
-                <h2 class="text-center fade-in">Ons verhaal</h2>
-                <div class="story-columns fade-in" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
-                    <div class="story-text" style="padding-right: 2rem;">
-                        <p>Vanaf het eerste moment dat we Casa Mi Sueño zagen, voelden we een bijzondere verbinding. Het zachte Spaanse licht dat door de ramen danste, de rustige sfeer die het huis uitstraalde, en de belofte van ontelbare mooie momenten – het voelde als thuiskomen.</p>
-                        <p>Door de jaren heen hebben we elk hoekje met liefde ingericht. Van de lichte woonkamer waar het ochtendlicht zo mooi binnenvalt, tot de comfortabele slaapkamers die rust beloven. Het is een thuis geworden, gevuld met persoonlijke details en de warmte van vele fijne herinneringen.</p>
+                <div class="story-wrapper">
+                    <div class="story-header fade-in">
+                        <h2>Ons verhaal</h2>
+                        <div class="story-divider">
+                            <span class="divider-icon"><i class="fas fa-home"></i></span>
+                        </div>
                     </div>
-                    <div class="story-image" style="max-width: 100%; margin: 0;">
-                        <img src="images/optimized/Huis_en_tuin.jpg" alt="Sfeervol pad naar de ingang van Casa Mi Sueño, met weelderige mediterrane planten." loading="lazy" style="width: 100%; height: auto; border-radius: 8px; object-fit: cover; aspect-ratio: 4/3;">
+                    <div class="story-content fade-in">
+                        <div class="story-image">
+                            <img src="images/optimized/Huis_en_tuin.jpg" alt="Sfeervol pad naar de ingang van Casa Mi Sueño, met weelderige mediterrane planten." loading="lazy">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="story-text">
+                            <div class="story-text-content">
+                                <p class="story-intro">Vanaf het eerste moment dat we Casa Mi Sueño zagen, voelden we een bijzondere verbinding. Het zachte Spaanse licht dat door de ramen danste, de rustige sfeer die het huis uitstraalde, en de belofte van ontelbare mooie momenten – het voelde als thuiskomen.</p>
+                                <p>Door de jaren heen hebben we elk hoekje met liefde ingericht. Van de lichte woonkamer waar het ochtendlicht zo mooi binnenvalt, tot de comfortabele slaapkamers die rust beloven. Het is een thuis geworden, gevuld met persoonlijke details en de warmte van vele fijne herinneringen.</p>
+                                <div class="story-quote">
+                                    <i class="fas fa-quote-left"></i>
+                                    <p>Een plek waar dromen werkelijkheid worden</p>
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -230,25 +254,51 @@
         <section class="page-section practical-info-section" style="background-color: var(--color-background);">
             <div class="container text-center fade-in">
                 <h2>Praktische informatie</h2>
-                <div class="price-badge" style="margin-bottom: 1.5rem;">Vanaf €165 per nacht</div>
-                <div class="stay-badge">Minimaal 10 nachten</div>
                 
-                <p>We verhuren ons huis voor minimaal 10 nachten, zodat je alle tijd hebt om echt te ontspannen en te genieten van alles wat Casa Mi Sueño en de omgeving te bieden hebben.</p>
-                
-                <div class="amenity-item" style="max-width: 600px; margin: 2rem auto; padding: 1.5rem; background-color: var(--color-sand); border-radius: 8px;">
-                    <div style="display: flex; align-items: center; gap: 1rem; text-align: left;">
-                        <div class="amenity-icon"><i class="fas fa-paw"></i></div>
-                        <div class="amenity-content">
-                            <h3>Huisdieren welkom</h3>
-                            <p>Je trouwe viervoeter is van harte welkom! Wij hebben zelf vaak onze hond Marlo mee, dus we begrijpen hoe fijn het is om samen van vakantie te genieten.</p>
+                <div class="pricing-info" style="margin: 2rem 0;">
+                    <div class="price-badge" style="margin-bottom: 1rem;">Vanaf €165 per nacht</div>
+                    <div class="stay-badge">Minimaal 10 nachten</div>
+                    <p class="price-note" style="margin-top: 1rem; font-size: 0.9rem; color: var(--color-text-light);">
+                        * Prijzen zijn inclusief eindschoonmaak, bedlinnen, handdoeken en wifi
+                    </p>
+                </div>
+
+                <div class="practical-details" style="max-width: 800px; margin: 0 auto;">
+                    <div class="detail-card" style="background-color: var(--color-sand); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <h3 style="margin-bottom: 1rem;">Check-in & Check-out</h3>
+                        <p>Check-in vanaf 16:00 uur<br>Check-out uiterlijk 10:00 uur</p>
+                    </div>
+
+                    <div class="detail-card" style="background-color: var(--color-sand); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <h3 style="margin-bottom: 1rem;">Inbegrepen in de prijs</h3>
+                        <ul style="list-style: none; padding: 0; text-align: left; display: inline-block;">
+                            <li><i class="fas fa-check" style="color: var(--color-accent); margin-right: 0.5rem;"></i>Eindschoonmaak</li>
+                            <li><i class="fas fa-check" style="color: var(--color-accent); margin-right: 0.5rem;"></i>Beddengoed en handdoeken</li>
+                            <li><i class="fas fa-check" style="color: var(--color-accent); margin-right: 0.5rem;"></i>Gratis wifi</li>
+                            <li><i class="fas fa-check" style="color: var(--color-accent); margin-right: 0.5rem;"></i>Airconditioning</li>
+                            <li><i class="fas fa-check" style="color: var(--color-accent); margin-right: 0.5rem;"></i>Zwembadgebruik</li>
+                        </ul>
+                    </div>
+
+                    <div class="detail-card" style="background-color: var(--color-sand); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; text-align: left;">
+                            <div class="amenity-icon"><i class="fas fa-paw"></i></div>
+                            <div class="amenity-content">
+                                <h3>Huisdieren welkom</h3>
+                                <p>Je trouwe viervoeter is van harte welkom! Wij hebben zelf vaak onze hond Marlo mee, dus we begrijpen hoe fijn het is om samen van vakantie te genieten.</p>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="winter-stay-note" style="background-color: var(--color-accent-light); padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+                        <h3 style="color: var(--color-accent); margin-bottom: 1rem;">Speciale winteraanbiedingen</h3>
+                        <p>Overweeg je een langer verblijf in de wintermaanden? De Costa Blanca is dan op zijn rustigst en mooist. Neem contact op voor speciale mogelijkheden en prijzen voor langere verblijven.</p>
+                    </div>
+
+                    <p class="personal-quote" style="font-style: italic; margin-top: 2rem;">
+                        "Casa Mi Sueño is voor ons een bron van geluk – we hopen dat je je er net zo thuis en welkom zult voelen."
+                    </p>
                 </div>
-                
-                <div class="winter-stay-note">
-                    <p><strong>Tip voor de wintermaanden:</strong> Overweeg je een langer verblijf als de Costa Blanca op zijn rustigst en mooist is? Neem contact op voor speciale mogelijkheden en prijzen.</p>
-                </div>
-                <p class="personal-quote"><em>"Casa Mi Sueño is voor ons een bron van geluk – we hopen dat je je er net zo thuis en welkom zult voelen."</em></p>
             </div>
         </section>
 
@@ -266,23 +316,31 @@
 
     <footer class="main-footer">
         <div class="container footer-content">
-            <a href="index.html" class="footer-logo">Casa Mi Sueño</a>
+            <div class="footer-brand">
+                <a href="index.html" class="footer-logo">Casa Mi Sueño</a>
+                <p>Uw thuis weg van huis aan de Costa Blanca</p>
+            </div>
             <div class="footer-contact">
-                <p>E-mail: <a href="mailto:esversteeg@hotmail.com">esversteeg@hotmail.com</a></p>
-                <p>Telefoon: <a href="tel:0683645489">0683645489</a></p>
-                <address style="font-style: normal; margin-top: 0.5rem; line-height: 1.4;">
-                    <strong>Calle Petunies 16</strong><br>
-                    03580 Alfaz del Pi<br>
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:esversteeg@hotmail.com">esversteeg@hotmail.com</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:0683645489">0683645489</a></p>
+                <address>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <strong>Carrer de les Petúnies 16</strong><br>
+                    03580 L'Alfàs del Pi<br>
                     Alicante, Spanje
                 </address>
             </div>
             <div class="footer-info">
-                <p><strong>Nuttige informatie:</strong></p>
-                <p><a href="wegbeschrijving.html">Routebeschrijving</a></p>
+                <h3>Nuttige informatie</h3>
+                <p><a href="wegbeschrijving.html"><i class="fas fa-directions"></i> Routebeschrijving</a></p>
+                <p><a href="reserveren.html"><i class="fas fa-calendar-alt"></i> Reserveren</a></p>
+                <p><a href="fotos.html"><i class="fas fa-camera"></i> Foto's</a></p>
             </div>
             <div class="footer-social">
-                <p>Volg ons:</p>
-                <a href="#YOUR_INSTAGRAM_URL_HERE" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i> <span class="sr-only">Instagram</span></a>
+                <h3>Volg ons</h3>
+                <p>Blijf op de hoogte van het laatste nieuws</p>
+                <a href="#YOUR_INSTAGRAM_URL_HERE" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
             <p class="copyright">&copy; <span id="current-year">2025</span> Casa Mi Sueño. Alle rechten voorbehouden.</p>
         </div>

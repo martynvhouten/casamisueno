@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Casa Mi Sueño - Luxe vakantiehuis in Spanje">
     <meta name="keywords" content="vakantiehuis Spanje, vakantiehuis Costa Blanca, vakantiehuis Benissa, luxe vakantiehuis, vakantiehuis met zwembad, vakantiehuis met airco, vakantiehuis met wifi, vakantiehuis met tuin, vakantiehuis met terras, vakantiehuis met barbecue, vakantiehuis met zeezicht, vakantiehuis met bergzicht, vakantiehuis met golfbaan, vakantiehuis met strand, vakantiehuis met winkels, vakantiehuis met restaurants, vakantiehuis met bars, vakantiehuis met nachtleven, vakantiehuis met cultuur, vakantiehuis met natuur, vakantiehuis met wandelen, vakantiehuis met fietsen, vakantiehuis met zwemmen, vakantiehuis met zonnen, vakantiehuis met ontspannen, vakantiehuis met genieten, vakantiehuis met familie, vakantiehuis met vrienden, vakantiehuis met kinderen, vakantiehuis met hond, vakantiehuis met kat, vakantiehuis met huisdieren, vakantiehuis met parkeren, vakantiehuis met transfer, vakantiehuis met verhuur, vakantiehuis met reserveren, vakantiehuis met boeken, vakantiehuis met prijzen, vakantiehuis met beschikbaarheid, vakantiehuis met contact, vakantiehuis met informatie, vakantiehuis met foto's, vakantiehuis met video's, vakantiehuis met reviews, vakantiehuis met ervaringen, vakantiehuis met tips, vakantiehuis met advies, vakantiehuis met hulp, vakantiehuis met support, vakantiehuis met service, vakantiehuis met kwaliteit, vakantiehuis met comfort, vakantiehuis met luxe, vakantiehuis met stijl, vakantiehuis met sfeer, vakantiehuis met charme, vakantiehuis met karakter, vakantiehuis met persoonlijkheid, vakantiehuis met identiteit, vakantiehuis met uitstraling, vakantiehuis met design, vakantiehuis met architectuur, vakantiehuis met interieur, vakantiehuis met exterieur, vakantiehuis met omgeving, vakantiehuis met locatie, vakantiehuis met regio, vakantiehuis met provincie, vakantiehuis met stad, vakantiehuis met dorp, vakantiehuis met wijk, vakantiehuis met straat, vakantiehuis met adres, vakantiehuis met route, vakantiehuis met bereikbaarheid, vakantiehuis met vervoer, vakantiehuis met openbaar vervoer, vakantiehuis met taxi, vakantiehuis met bus, vakantiehuis met trein, vakantiehuis met vliegtuig, vakantiehuis met auto, vakantiehuis met fiets, vakantiehuis met lopen">
-    <title>De Omgeving van Casa Mi Sueño | Alfaz del Pi & Costa Blanca</title>
+    <title>De Omgeving van Casa Mi Sueño | L'Alfàs del Pi & Costa Blanca</title>
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://casamisueno.nl/omgeving.html">
@@ -17,6 +17,7 @@
     <script src="/js/error-tracking.js"></script>
     <script src="/js/performance-monitoring.js"></script>
     <script src="/js/user-behavior.js"></script>
+    <script src="/js/translations.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -32,8 +33,8 @@
     </script>
     
     <!-- OpenGraph tags for social sharing -->
-    <meta property="og:title" content="De Omgeving van Casa Mi Sueño | Alfaz del Pi & Costa Blanca">
-    <meta property="og:description" content="Ontdek de sfeervolle omgeving van Casa Mi Sueño: van de geur van sinaasappelbloesem in Alfaz del Pi tot verborgen baaien aan de Costa Blanca. Je Spaanse avontuur begint hier, tussen zee en bergen.">
+    <meta property="og:title" content="De Omgeving van Casa Mi Sueño | L'Alfàs del Pi & Costa Blanca">
+    <meta property="og:description" content="Ontdek de sfeervolle omgeving van Casa Mi Sueño: van de geur van sinaasappelbloesem in L'Alfàs del Pi tot verborgen baaien aan de Costa Blanca. Je Spaanse avontuur begint hier, tussen zee en bergen.">
     <meta property="og:image" content="images/optimized/Omgeving/Guadalest_mountain_view.jpg">
     <meta property="og:url" content="https://casamisueno.nl/omgeving.html">
     <meta property="og:type" content="website">
@@ -46,44 +47,106 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .location-card {
-            background-color: var(--color-sand);
-            border-radius: 8px;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--color-sand) 0%, #fff 100%);
+            border-radius: 12px;
+            padding: 2rem;
             transition: all 0.3s ease;
             height: 100%;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(232, 160, 126, 0.2);
+            position: relative;
+            overflow: hidden;
         }
         
         .location-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            background-color: #e8d5c4;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+            border-color: rgba(232, 160, 126, 0.4);
+            background: linear-gradient(135deg, #fff 0%, var(--color-sand) 100%);
+        }
+        
+        .location-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--color-accent), var(--color-deep-terracotta));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .location-card:hover::before {
+            opacity: 1;
         }
         
         .location-card h3 {
-            color: var(--color-text);
+            color: var(--color-accent);
             margin-bottom: 1rem;
-            font-size: 1.25rem;
+            font-size: 1.4rem;
+            transition: color 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .location-card:hover h3 {
+            color: var(--color-deep-terracotta);
         }
         
         .location-card p {
             color: var(--color-text);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             flex-grow: 1;
+            line-height: 1.6;
+            font-size: 1.05rem;
         }
         
         .location-card .distance {
             color: var(--color-accent);
-            font-weight: 500;
+            font-weight: 600;
             margin-top: auto;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .location-card .distance::before {
+            content: '\f3c5';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 1rem;
         }
         
         .location-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .location-card {
+                padding: 1.5rem;
+            }
+            
+            .location-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .location-card p {
+                font-size: 1rem;
+            }
+            
+            .location-card .distance {
+                font-size: 1rem;
+            }
+            
+            .location-grid {
+                gap: 1.5rem;
+            }
         }
 
         .highlight-card {
@@ -145,13 +208,18 @@
             </button>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="huis.html">Over het huis</a></li>
-                    <li><a href="omgeving.html" class="active">De omgeving</a></li>
-                    <li><a href="fotos.html">Foto's</a></li>
-                    <li><a href="reserveren.html">Reserveren</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="index.html" data-translate="nav.home">Home</a></li>
+                    <li><a href="huis.html" data-translate="nav.house">Over het huis</a></li>
+                    <li><a href="omgeving.html" class="active" data-translate="nav.environment">De omgeving</a></li>
+                    <li><a href="fotos.html" data-translate="nav.photos">Foto's</a></li>
+                    <li><a href="reserveren.html" data-translate="nav.booking">Reserveren</a></li>
+                    <li><a href="contact.html" data-translate="nav.contact">Contact</a></li>
                 </ul>
+                <div class="language-switcher">
+                    <button class="language-btn active" data-lang="nl">NL</button>
+                    <button class="language-btn" data-lang="en">EN</button>
+                    <button class="language-btn" data-lang="es">ES</button>
+                </div>
             </nav>
         </div>
     </header>
@@ -159,23 +227,65 @@
     <main id="main-content">
         <section class="hero" style="background-image: url('images/optimized/Omgeving/Albir_panorama.jpg');">
             <div class="hero-content">
-                <h1>Ontdek de omgeving</h1>
-                <p>Van bergdorpjes tot kristalheldere baaien. Ontdek waarom we zo van deze regio houden en waarom je je hier direct thuis zult voelen.</p>
+                <h1 data-translate="environment.title">Ontdek de omgeving</h1>
+                <p data-translate="environment.subtitle">Van bergdorpjes tot kristalheldere baaien. Ontdek waarom we zo van deze regio houden en waarom je je hier direct thuis zult voelen.</p>
             </div>
         </section>
 
         <section class="page-section omgeving-intro">
             <div class="container text-center">
-                <h2 class="text-center fade-in">Ontdek de Costa Blanca</h2>
-                <p class="text-center fade-in" style="max-width: 800px; margin-left:auto; margin-right:auto;">Stap de deur uit van Casa Mi Sueño en het avontuur begint. We prijzen ons gelukkig met een van de mooiste plekjes aan de Costa Blanca – een thuis tussen de bergen en de zee, waar elke dag nieuwe ontdekkingen brengt.</p>
+                <h2 class="text-center fade-in" data-translate="environment.intro.title">Ontdek de Costa Blanca</h2>
+                <p class="text-center fade-in" style="max-width: 800px; margin-left:auto; margin-right:auto;" data-translate="environment.intro.text">Stap de deur uit van Casa Mi Sueño en het avontuur begint. We prijzen ons gelukkig met een van de mooiste plekjes aan de Costa Blanca – een thuis tussen de bergen en de zee, waar elke dag nieuwe ontdekkingen brengt.</p>
                 
-                <p class="text-center fade-in" style="max-width: 800px; margin-left:auto; margin-right:auto; margin-top: 1.5rem;">Sinds we hier een deel van het jaar wonen, hebben we de echte pareltjes ontdekt. Dat koffietentje waar de eigenaar zijn eigen olijven perst. De bakker die nog brood bakt zoals zijn grootvader het hem leerde. De vissersvrouw die elke dinsdag haar zelfgemaakte conserven verkoopt op het pleintje achter de kerk. Juist deze ontmoetingen en ervaringen maken een verblijf aan de Costa Blanca zoveel meer dan een gewone vakantie.</p>
+                <p class="text-center fade-in" style="max-width: 800px; margin-left:auto; margin-right:auto; margin-top: 1.5rem;" data-translate="environment.intro.personal">Sinds we hier een deel van het jaar wonen, hebben we de echte pareltjes ontdekt. Dat koffietentje waar de eigenaar zijn eigen olijven perst. De bakker die nog brood bakt zoals zijn grootvader het hem leerde. De vissersvrouw die elke dinsdag haar zelfgemaakte conserven verkoopt op het pleintje achter de kerk. Juist deze ontmoetingen en ervaringen maken een verblijf aan de Costa Blanca zoveel meer dan een gewone vakantie.</p>
                 
                 <!-- Poetic quote block -->
                 <div class="quote-block fade-in" style="margin-top: 2.5rem; padding: 2rem; background: linear-gradient(135deg, rgba(245, 239, 230, 0.6), rgba(232, 160, 126, 0.2)); border-radius: 12px; border-left: 4px solid var(--color-accent);">
                     <p style="font-style: italic; font-size: 1.3rem; color: var(--color-accent); margin: 0; font-family: var(--font-secondary);">
                         "Waar zee, bergen en het goede leven samenkomen"
                     </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section history-section" style="background-color: var(--color-sand);">
+            <div class="container">
+                <div class="history-content fade-in">
+                    <h2 class="text-center" style="margin-bottom: 3rem; font-size: 2.5rem; color: var(--color-accent);" data-translate="environment.history.title">De geschiedenis van L'Alfàs del Pi</h2>
+                    <div class="history-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 2rem; max-width: 1200px; margin-left: auto; margin-right: auto;">
+                        <div class="history-card" style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                            <div style="background: var(--color-accent-light); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                                <i class="fas fa-landmark" style="font-size: 1.5rem; color: var(--color-accent);"></i>
+                            </div>
+                            <h3 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.4rem;" data-translate="environment.history.moorish.title">Van Moorse nederzetting tot modern dorp</h3>
+                            <p style="line-height: 1.6; color: var(--color-text);" data-translate="environment.history.moorish.text">L'Alfàs del Pi heeft een rijke geschiedenis die teruggaat tot de Moorse periode. De naam 'Alfàs' komt van het Arabische 'al-fahs', wat 'de vlakte' betekent. Het dorp ontwikkelde zich rond een oude Moorse toren die nog steeds te zien is in het centrum.</p>
+                        </div>
+                        <div class="history-card" style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                            <div style="background: var(--color-accent-light); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                                <i class="fas fa-tree" style="font-size: 1.5rem; color: var(--color-accent);"></i>
+                            </div>
+                            <h3 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.4rem;" data-translate="environment.history.pine.title">De dennenboom in het wapen</h3>
+                            <p style="line-height: 1.6; color: var(--color-text);" data-translate="environment.history.pine.text">Het 'Pi' in de naam verwijst naar de dennenboom die in het dorpswapen staat. Deze symboliseert de weelderige dennenbossen die het gebied ooit bedekten. Vandaag de dag zijn deze bossen nog steeds een belangrijk onderdeel van het landschap.</p>
+                        </div>
+                        <div class="history-card" style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                            <div style="background: var(--color-accent-light); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                                <i class="fas fa-users" style="font-size: 1.5rem; color: var(--color-accent);"></i>
+                            </div>
+                            <h3 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.4rem;" data-translate="environment.history.development.title">Van vissersdorp naar internationale gemeenschap</h3>
+                            <p style="line-height: 1.6; color: var(--color-text);" data-translate="environment.history.development.text">Van oorsprong was L'Alfàs een klein vissersdorp. In de jaren '60 begon de ontwikkeling als toeristische bestemming, met behoud van zijn authentieke karakter. Vandaag de dag is het een levendige gemeente waar Spaanse tradities en internationale invloeden harmonieus samengaan.</p>
+                        </div>
+                    </div>
+                    <div class="history-highlight" style="margin-top: 4rem; padding: 3rem; background: linear-gradient(135deg, var(--color-accent-light) 0%, #fff 100%); border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 1000px; margin-left: auto; margin-right: auto;">
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="background: var(--color-accent); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-star" style="font-size: 2rem; color: white;"></i>
+                            </div>
+                            <div>
+                                <h3 style="color: var(--color-accent); font-size: 1.8rem; margin-bottom: 1rem;" data-translate="environment.history.heritage.title">Cultureel erfgoed</h3>
+                                <p style="line-height: 1.8; color: var(--color-text); font-size: 1.1rem;" data-translate="environment.history.heritage.text">Het historische centrum van L'Alfàs del Pi is een doolhof van smalle straatjes en witte huizen, waar de tijd stil lijkt te staan. Bezoek de Iglesia de San José, gebouwd in de 18e eeuw, of wandel door de oude Moorse wijk waar de sfeer van vervlogen tijden nog steeds voelbaar is.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -233,7 +343,7 @@
                     <section class="highlight-card fade-in" aria-labelledby="village-heading">
                         <i class="fas fa-mountain highlight-icon" aria-hidden="true"></i>
                         <h3 id="village-heading">Dorpssfeer tussen de bergen</h3>
-                        <p>Alfaz del Pi ademt nog die authentieke Spaanse sfeer die steeds zeldzamer wordt. Smalle straatjes met geurende jasmijn, pleintjes waar de inwoners hun avondkoffie drinken, en die heerlijke rust die zo kenmerkend is voor het Spaanse binnenland.</p>
+                        <p>L'Alfàs del Pi ademt nog die authentieke Spaanse sfeer die steeds zeldzamer wordt. Smalle straatjes met geurende jasmijn, pleintjes waar de inwoners hun avondkoffie drinken, en die heerlijke rust die zo kenmerkend is voor het echte Spanje.</p>
                         <ul class="location-list">
                             <li><strong>Casa de Cultura</strong>Lokale tentoonstellingen en culturele activiteiten.</li>
                             <li><strong>Mercadillo</strong>Wekelijkse markt vol verse producten en lokale specialiteiten.</li>
@@ -302,18 +412,18 @@
                 <h2 class="text-center fade-in">Onze locatie</h2>
                 <div class="map-container fade-in" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25064.123456789!2d-0.1067!3d38.5789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd620858887c19c9%3A0x11f2a2817f8e059!2sCalle%20Petunies%2016%2C%2003580%20Alfaz%20del%20Pi%2C%20Alicante%2C%20Spain!5e0!3m2!1snl!2snl!4v1678886040772!5m2!1snl!2snl"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3129.1234567890123!2d-0.1032!3d38.5806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd63f9c8c0c0c0c0%3A0x0!2sCarrer%20de%20les%20Pet%C3%BAnies%2016%2C%2003580%20L&#39;Alf%C3%A0s%20del%20Pi%2C%20Alicante!5e0!3m2!1sen!2ses!4v1234567890!5m2!1sen!2ses"
                         width="100%" 
                         height="450" 
                         style="border:0;" 
                         allowfullscreen="" 
                         loading="lazy" 
                         referrerpolicy="no-referrer-when-downgrade"
-                        title="Locatie van Casa Mi Sueño in Alfaz del Pi">
+                        title="Locatie van Casa Mi Sueño in L'Alfàs del Pi">
                     </iframe>
                 </div>
                 <p class="text-center" style="margin-top: 1rem; color: var(--color-text-light);">
-                    Calle Petunies 16, 03580 Alfaz del Pi, Alicante
+                    Carrer de les Petúnies 16, 03580 L'Alfàs del Pi, Alicante
                 </p>
             </div>
         </section>
@@ -329,23 +439,31 @@
 
     <footer class="main-footer">
         <div class="container footer-content">
-            <a href="index.html" class="footer-logo">Casa Mi Sueño</a>
+            <div class="footer-brand">
+                <a href="index.html" class="footer-logo">Casa Mi Sueño</a>
+                <p>Uw thuis weg van huis aan de Costa Blanca</p>
+            </div>
             <div class="footer-contact">
-                <p>E-mail: <a href="mailto:esversteeg@hotmail.com">esversteeg@hotmail.com</a></p>
-                <p>Telefoon: <a href="tel:0683645489">0683645489</a></p>
-                <address style="font-style: normal; margin-top: 0.5rem; line-height: 1.4;">
-                    <strong>Calle Petunies 16</strong><br>
-                    03580 Alfaz del Pi<br>
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:esversteeg@hotmail.com">esversteeg@hotmail.com</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:0683645489">0683645489</a></p>
+                <address>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <strong>Carrer de les Petúnies 16</strong><br>
+                    03580 L'Alfàs del Pi<br>
                     Alicante, Spanje
                 </address>
             </div>
             <div class="footer-info">
-                <p><strong>Nuttige informatie:</strong></p>
-                <p><a href="wegbeschrijving.html">Routebeschrijving</a></p>
+                <h3>Nuttige informatie</h3>
+                <p><a href="wegbeschrijving.html"><i class="fas fa-directions"></i> Routebeschrijving</a></p>
+                <p><a href="reserveren.html"><i class="fas fa-calendar-alt"></i> Reserveren</a></p>
+                <p><a href="fotos.html"><i class="fas fa-camera"></i> Foto's</a></p>
             </div>
             <div class="footer-social">
-                <p>Volg ons:</p>
-                <a href="#YOUR_INSTAGRAM_URL_HERE" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i> <span class="sr-only">Instagram</span></a>
+                <h3>Volg ons</h3>
+                <p>Blijf op de hoogte van het laatste nieuws</p>
+                <a href="#YOUR_INSTAGRAM_URL_HERE" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
             <p class="copyright">&copy; <span id="current-year">2025</span> Casa Mi Sueño. Alle rechten voorbehouden.</p>
         </div>

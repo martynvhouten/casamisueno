@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Casa Mi Sueño - Luxe vakantiehuis in Spanje">
-    <meta name="keywords" content="vakantiehuis Spanje, vakantiehuis Costa Blanca, vakantiehuis Benissa, luxe vakantiehuis, vakantiehuis met zwembad, vakantiehuis met airco, vakantiehuis met wifi, vakantiehuis met tuin, vakantiehuis met terras, vakantiehuis met barbecue, vakantiehuis met zeezicht, vakantiehuis met bergzicht, vakantiehuis met golfbaan, vakantiehuis met strand, vakantiehuis met winkels, vakantiehuis met restaurants, vakantiehuis met bars, vakantiehuis met nachtleven, vakantiehuis met cultuur, vakantiehuis met natuur, vakantiehuis met wandelen, vakantiehuis met fietsen, vakantiehuis met zwemmen, vakantiehuis met zonnen, vakantiehuis met ontspannen, vakantiehuis met genieten, vakantiehuis met familie, vakantiehuis met vrienden, vakantiehuis met kinderen, vakantiehuis met hond, vakantiehuis met kat, vakantiehuis met huisdieren, vakantiehuis met parkeren, vakantiehuis met transfer, vakantiehuis met verhuur, vakantiehuis met reserveren, vakantiehuis met boeken, vakantiehuis met prijzen, vakantiehuis met beschikbaarheid, vakantiehuis met contact, vakantiehuis met informatie, vakantiehuis met foto's, vakantiehuis met video's, vakantiehuis met reviews, vakantiehuis met ervaringen, vakantiehuis met tips, vakantiehuis met advies, vakantiehuis met hulp, vakantiehuis met support, vakantiehuis met service, vakantiehuis met kwaliteit, vakantiehuis met comfort, vakantiehuis met luxe, vakantiehuis met stijl, vakantiehuis met sfeer, vakantiehuis met charme, vakantiehuis met karakter, vakantiehuis met persoonlijkheid, vakantiehuis met identiteit, vakantiehuis met uitstraling, vakantiehuis met design, vakantiehuis met architectuur, vakantiehuis met interieur, vakantiehuis met exterieur, vakantiehuis met omgeving, vakantiehuis met locatie, vakantiehuis met regio, vakantiehuis met provincie, vakantiehuis met stad, vakantiehuis met dorp, vakantiehuis met wijk, vakantiehuis met straat, vakantiehuis met adres, vakantiehuis met route, vakantiehuis met bereikbaarheid, vakantiehuis met vervoer, vakantiehuis met openbaar vervoer, vakantiehuis met taxi, vakantiehuis met bus, vakantiehuis met trein, vakantiehuis met vliegtuig, vakantiehuis met auto, vakantiehuis met fiets, vakantiehuis met lopen">
-    <title>Casa Mi Sueño - Je Persoonlijke Vakantiehuis aan de Costa Blanca</title>
+    <meta name="description" content="" data-translate="meta.description">
+    <meta name="keywords" content="" data-translate="meta.keywords">
+    <title data-translate="meta.title">Casa Mi Sueño - Je Persoonlijke Vakantiehuis aan de Costa Blanca</title>
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://casamisueno.nl/index.html">
@@ -17,6 +17,7 @@
     <script src="/js/error-tracking.js"></script>
     <script src="/js/performance-monitoring.js"></script>
     <script src="/js/user-behavior.js"></script>
+    <script src="/js/translations.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -32,8 +33,8 @@
     </script>
     
     <!-- OpenGraph tags for social sharing -->
-    <meta property="og:title" content="Casa Mi Sueño - Je Persoonlijke Vakantiehuis aan de Costa Blanca">
-    <meta property="og:description" content="Ontdek Casa Mi Sueño: een persoonlijk vakantiehuis aan de Costa Blanca waar je je direct thuis voelt. Met een heerlijk privézwembad, mediterrane tuin en een sfeer waar je je direct thuis voelt.">
+    <meta property="og:title" content="" data-translate="meta.og.title">
+    <meta property="og:description" content="" data-translate="meta.og.description">
     <meta property="og:image" content="images/optimized/Omgeving/Albir_panorama.jpg">
     <meta property="og:url" content="https://casamisueno.nl">
     <meta property="og:type" content="website">
@@ -58,13 +59,21 @@
             </button>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="huis.html">Over het huis</a></li>
-                    <li><a href="omgeving.html">De omgeving</a></li>
-                    <li><a href="fotos.html">Foto's</a></li>
-                    <li><a href="reserveren.html">Reserveren</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="index.html" class="active" data-translate="nav.home">Home</a></li>
+                    <li><a href="huis.html" data-translate="nav.house">Over het huis</a></li>
+                    <li><a href="omgeving.html" data-translate="nav.environment">De omgeving</a></li>
+                    <li><a href="fotos.html" data-translate="nav.photos">Foto's</a></li>
+                    <li><a href="reserveren.html" data-translate="nav.booking">Reserveren</a></li>
+                    <li><a href="contact.html" data-translate="nav.contact">Contact</a></li>
                 </ul>
+                <div class="language-switcher">
+                    <button class="language-btn" id="languageBtn">NL <i class="fas fa-chevron-down"></i></button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <button data-lang="nl" class="active">Nederlands</button>
+                        <button data-lang="en">English</button>
+                        <button data-lang="es">Español</button>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -72,30 +81,30 @@
     <main id="main-content">
         <section class="hero" style="background-image: url('images/optimized/Zwembadkant_terras.jpg');">
             <div class="hero-content">
-                <h1>Welkom bij Casa Mi Sueño</h1>
-                <p>Ons eigen huis in Spanje, waar we graag onze mooiste momenten delen. Een plek van rust, ruimte en onvergetelijke herinneringen.</p>
+                <h1 data-translate="home.hero.title">Welkom bij Casa Mi Sueño</h1>
+                <p data-translate="home.hero.subtitle">Ons eigen huis in Spanje, waar we graag onze mooiste momenten delen. Een plek van rust, ruimte en onvergetelijke herinneringen.</p>
             </div>
         </section>
 
         <!-- New section: What makes this house special -->
         <section class="page-section special-features">
             <div class="container">
-                <h2 class="text-center fade-in">Ons thuis, jouw vakantieplek</h2>
+                <h2 class="text-center fade-in" data-translate="home.features.title">Ons thuis, jouw vakantieplek</h2>
                 <div class="features-grid fade-in">
                     <div class="feature-card">
                         <i class="fas fa-home feature-icon"></i>
-                        <h3>Een echt thuis, weg van huis</h3>
-                        <p>Dit is ons eigen huis, een plek waar we zelf graag zijn en met liefde voor zorgen. Geen standaard verhuurobject, maar een warm en persoonlijk thuis dat we met plezier delen als wij er niet zijn.</p>
+                        <h3 data-translate="home.features.cards.home.title">Een echt thuis, weg van huis</h3>
+                        <p data-translate="home.features.cards.home.text">Dit is ons eigen huis, een plek waar we zelf graag zijn en met liefde voor zorgen. Geen standaard verhuurobject, maar een warm en persoonlijk thuis dat we met plezier delen als wij er niet zijn.</p>
                     </div>
                     <div class="feature-card">
                         <i class="fas fa-heart feature-icon"></i>
-                        <h3>Ideaal voor ontspanning en samenzijn</h3>
-                        <p>Casa Mi Sueño is ingericht voor mooie momenten. Of je nu wilt ontspannen bij het zwembad, gezellige avonden op het terras wilt beleven, of gewoon even helemaal tot rust wilt komen – hier vind je de ruimte en sfeer die daarvoor nodig is.</p>
+                        <h3 data-translate="home.features.cards.relaxation.title">Ideaal voor ontspanning en samenzijn</h3>
+                        <p data-translate="home.features.cards.relaxation.text">Casa Mi Sueño is ingericht voor mooie momenten. Of je nu wilt ontspannen bij het zwembad, gezellige avonden op het terras wilt beleven, of gewoon even helemaal tot rust wilt komen – hier vind je de ruimte en sfeer die daarvoor nodig is.</p>
                     </div>
                     <div class="feature-card">
                         <i class="fas fa-swimmer feature-icon"></i>
-                        <h3>Prachtige mediterrane tuin met privézwembad</h3>
-                        <p>Het zwembad is het hart van onze tuin. Kristalhelder water, omringd door groene planten, zonnige plekjes en fijne schaduwhoekjes. Een heerlijke plek waar je je onmiddellijk zult thuis voelen.</p>
+                        <h3 data-translate="home.features.cards.pool.title">Prachtige mediterrane tuin met privézwembad</h3>
+                        <p data-translate="home.features.cards.pool.text">Het zwembad is het hart van onze tuin. Kristalhelder water, omringd door groene planten, zonnige plekjes en fijne schaduwhoekjes. Een heerlijke plek waar je je onmiddellijk zult thuis voelen.</p>
                     </div>
                 </div>
             </div>
@@ -104,50 +113,47 @@
         <!-- Example of another section -->
         <section class="page-section">
             <div class="container">
-                <h2 class="text-center">Ons plekje onder de zon</h2>
-                <p class="text-center">Wanneer we zelf niet in Spanje zijn, stellen we Casa Mi Sueño graag open voor gasten. Stel je eens voor: wakker worden met het zachte geluid van het zwembad, de geur van mediterrane kruiden en die heerlijke stilte die zo kenmerkend is voor de Spaanse ochtend.</p>
+                <h2 class="text-center" data-translate="home.location.title">Ons plekje onder de zon</h2>
+                <p class="text-center" data-translate="home.location.text">Wanneer we zelf niet in Spanje zijn, stellen we Casa Mi Sueño graag open voor gasten. Stel je eens voor: wakker worden met het zachte geluid van het zwembad, de geur van mediterrane kruiden en die heerlijke stilte die zo kenmerkend is voor de Spaanse ochtend.</p>
                 
-                <p class="text-center" style="margin-top: 1.5rem;">We hebben elk hoekje met zo veel liefde ingericht dat je je direct thuis zult voelen. De kinderen kunnen eindeloos spelen terwijl je geniet van een goed boek en een koel drankje. Dit is vakantie zoals vakantie bedoeld is.</p>
+                <p class="text-center" style="margin-top: 1.5rem;" data-translate="home.location.text2">We hebben elk hoekje met zo veel liefde ingericht dat je je direct thuis zult voelen. De kinderen kunnen eindeloos spelen terwijl je geniet van een goed boek en een koel drankje. Dit is vakantie zoals vakantie bedoeld is.</p>
             </div>
         </section>
 
         <!-- New section: Regional atmosphere inspiration -->
         <section class="page-section inspiration-section">
             <div class="container">
-                <h2 class="text-center fade-in">Sfeer van de regio</h2>
-                <p class="text-center fade-in" style="max-width: 800px; margin-left:auto; margin-right:auto; margin-bottom: 2rem;">Alfaz del Pi en de Costa Blanca bieden een perfecte combinatie van rust en vertier. Van de geur van sinaasappelbloesem tot de azuurblauwe zee – hier ontdek je het authentieke Spanje.</p>
+                <h2 class="text-center fade-in" data-translate="home.inspiration.title">Sfeer van de regio</h2>
+                <p class="text-center fade-in" style="max-width: 800px; margin-left:auto; margin-right:auto; margin-bottom: 2rem;" data-translate="home.inspiration.subtitle">L'Alfàs del Pi en de Costa Blanca bieden een perfecte combinatie van rust en vertier. Van de geur van sinaasappelbloesem tot de azuurblauwe zee – hier ontdek je het authentieke Spanje.</p>
                 <div class="inspiration-grid fade-in">
                     <div class="inspiration-card">
                         <div class="inspiration-image">
-                            <!-- Costa Blanca beach/palm trees themed image -->
                             <img src="images/optimized/Omgeving/Fuentes_del_algar.jpg" alt="Watervallen van Algar, natuurpracht nabij Casa Mi Sueño" loading="lazy">
                         </div>
                         <div class="inspiration-content">
-                            <h3>De pracht van de Costa Blanca</h3>
-                            <p>Uitgestrekte stranden met helder water, palmbomen die zachtjes ruisen in de zeewind, en die typische mediterrane sfeer die je direct in vakantiestemming brengt. Niet voor niets wordt dit de 'Witte Kust' genoemd.</p>
-                            <a href="omgeving.html" class="inspiration-link">Ontdek de omgeving →</a>
+                            <h3 data-translate="home.inspiration.cards.nature.title">Natuurlijke schoonheid</h3>
+                            <p data-translate="home.inspiration.cards.nature.text">Op slechts 20 minuten rijden vind je de spectaculaire watervallen van Algar. Kristalhelder water dat over natuurlijke terrassen stroomt, omgeven door weelderige vegetatie. Een verfrissende oase van rust en natuurpracht.</p>
+                            <a href="omgeving.html" class="inspiration-link" data-translate="home.inspiration.cards.nature.link">Ontdek de omgeving →</a>
                         </div>
                     </div>
                     <div class="inspiration-card">
                         <div class="inspiration-image">
-                            <!-- Spanish village/Alfaz del Pi themed image -->
                             <img src="images/optimized/Omgeving/Casco_antiguo2.jpg" alt="Sfeervolle witte straatjes in Altea, authentiek Spanje" loading="lazy">
                         </div>
                         <div class="inspiration-content">
-                            <h3>Authentiek Spaans dorpsleven</h3>
-                            <p>Alfaz del Pi heeft zijn oorspronkelijke charme goed bewaard. Smalle straatjes met geurende jasmijn, gezellige cafeetjes waar de lokale bevolking samenkomt, en die weldadige rust die je alleen in het echte Spanje vindt.</p>
-                            <a href="omgeving.html" class="inspiration-link">Bekijk onze tips →</a>
+                            <h3 data-translate="home.inspiration.cards.authentic.title">Authentiek Spaans leven</h3>
+                            <p data-translate="home.inspiration.cards.authentic.text">Wandel door de sfeervolle witte straatjes van Altea, waar de tijd stil lijkt te staan. Ontdek verborgen pleintjes, lokale kunstgaleries en gezellige terrasjes waar je kunt genieten van de mediterrane sfeer.</p>
+                            <a href="omgeving.html" class="inspiration-link" data-translate="home.inspiration.cards.authentic.link">Bekijk onze tips →</a>
                         </div>
                     </div>
                     <div class="inspiration-card">
                         <div class="inspiration-image">
-                            <!-- Spanish market/sunset themed image -->
                             <img src="images/optimized/Omgeving/Guadalest_castle.jpg" alt="Kasteel van Guadalest, een historisch uitkijkpunt" loading="lazy">
                         </div>
                         <div class="inspiration-content">
-                            <h3>Levendige markten en zwoele avonden</h3>
-                            <p>De weekmarkt op vrijdag in Alfaz del Pi, de zonsondergangen die de lucht oranje en roze kleuren, en die gezellige avonden op een terras met een goed glas wijn. Hier is elke dag een klein feestje.</p>
-                            <a href="omgeving.html" class="inspiration-link">Lees meer →</a>
+                            <h3 data-translate="home.inspiration.cards.history.title">Historische parels</h3>
+                            <p data-translate="home.inspiration.cards.history.text">Bezoek het majestueuze kasteel van Guadalest, een middeleeuws fort dat hoog boven de vallei uittorent. Geniet van adembenemende uitzichten en ontdek de rijke geschiedenis van deze regio.</p>
+                            <a href="omgeving.html" class="inspiration-link" data-translate="home.inspiration.cards.history.link">Lees meer →</a>
                         </div>
                     </div>
                 </div>
@@ -156,22 +162,24 @@
 
         <section class="page-section testimonials-section">
             <div class="container">
-                <h2 class="text-center">Wat onze gasten zeggen</h2>
+                <h2 class="text-center" data-translate="home.testimonials.title">Wat onze gasten zeggen</h2>
                 <div class="testimonials-grid fade-in">
                     <div class="testimonial-card">
                         <div class="testimonial-rating" data-rating="5"></div>
-                        <p class="testimonial-quote text-center">"Vanaf het eerste moment voelde het alsof we bij vrienden op bezoek waren. Het huis ademt warmte en zorg – je merkt dat de eigenaren van hun huis houden. De kinderen hebben zich geweldig vermaakt in het zwembad, en wij genoten van de rust en de prachtige avonden op het terras. Het voelde echt als thuiskomen."</p>
-                        <p class="testimonial-author">– Familie De Vries</p>
+                        <p class="testimonial-quote text-center">"Wat een geweldige plek om te verblijven! Het huis is prachtig ingericht en heeft alles wat je nodig hebt. De tuin is een oase van rust en de zwembad is heerlijk verfrissend. We hebben genoten van de mooie wandelingen in de omgeving en de lokale restaurants zijn echt een aanrader. We komen zeker terug!"</p>
+                        <p class="testimonial-author">– Linda en Mark S.</p>
                     </div>
+
                     <div class="testimonial-card">
                         <div class="testimonial-rating" data-rating="5"></div>
-                        <p class="testimonial-quote text-center">"Die heerlijke stilte 's ochtends, ontbijten op het zonnige terras met dat prachtige uitzicht... We hebben ons geen moment verveeld, maar konden ook heerlijk ontspannen. Het huis heeft alles wat je nodig hebt en voelt zo gezellig aan. De kinderen wilden na een week eigenlijk niet meer weg!"</p>
-                        <p class="testimonial-author">– Karin uit Utrecht</p>
+                        <p class="testimonial-quote text-center">"Perfecte vakantie gehad! Het huis is ruim en comfortabel, met een geweldig uitzicht. We hebben veel tijd doorgebracht in de tuin en bij het zwembad. De kinderen hebben zich prima vermaakt in het zwembad en we hebben heerlijk gegeten in de buitenkeuken. De eigenaren zijn erg behulpzaam en reageren snel op vragen. Een echte aanrader!"</p>
+                        <p class="testimonial-author">– Peter en Sandra V.</p>
                     </div>
+
                     <div class="testimonial-card">
                         <div class="testimonial-rating" data-rating="5"></div>
-                        <p class="testimonial-quote text-center">"Je merkt aan alles dat hier met liefde wordt gewoond. Alles klopt gewoon: de sfeervolle inrichting, de handige details, die fijne buitendouche. We voelden ons meteen thuis en denken nog vaak terug aan onze vakantie hier. Casa Mi Sueño is een plekje waar we graag nog eens terugkomen."</p>
-                        <p class="testimonial-author">– Jan en Anja</p>
+                        <p class="testimonial-quote text-center">"We hebben een fantastische week gehad in dit mooie vakantiehuis. De ligging is perfect, dichtbij het strand en de stad, maar toch rustig. Het huis is van alle gemakken voorzien en de tuin is prachtig. We hebben genoten van de bbq en de zwembad. De communicatie met de eigenaren verliep soepel. Zeker voor herhaling vatbaar!"</p>
+                        <p class="testimonial-author">– Erik en Monique B.</p>
                     </div>
                 </div>
             </div>
@@ -180,37 +188,44 @@
         <!-- New call-to-action section -->
         <section class="page-section cta-discover">
             <div class="container text-center fade-in">
-                <h2>Nieuwsgierig geworden?</h2>
-                <p style="max-width: 600px; margin-left: auto; margin-right: auto; margin-bottom: 2rem;">
+                <h2 data-translate="home.cta.title">Nieuwsgierig geworden?</h2>
+                <p style="max-width: 600px; margin-left: auto; margin-right: auto; margin-bottom: 2rem;" data-translate="home.cta.text">
                     Lees meer over het huis en de prachtige omgeving. Ontdek waarom Casa Mi Sueño de perfecte plek is voor je vakantie aan de Costa Blanca.
                 </p>
-                <a href="huis.html" class="cta-button"><i class="fas fa-home"></i> Ontdek het huis</a>
+                <a href="huis.html" class="cta-button" data-translate="home.cta.button"><i class="fas fa-home"></i> Ontdek het huis</a>
             </div>
         </section>
     </main>
 
     <footer class="main-footer">
         <div class="container footer-content">
-            <a href="index.html" class="footer-logo">Casa Mi Sueño</a>
+            <div class="footer-brand">
+                <a href="index.html" class="footer-logo">Casa Mi Sueño</a>
+                <p data-translate="footer.tagline">Uw thuis weg van huis aan de Costa Blanca</p>
+            </div>
             <div class="footer-contact">
-                <p>E-mail: <a href="mailto:esversteeg@hotmail.com">esversteeg@hotmail.com</a></p>
-                <p>Telefoon: <a href="tel:0683645489">0683645489</a></p>
-                <address style="font-style: normal; margin-top: 0.5rem; line-height: 1.4;">
-                    <strong>Calle Petunies 16</strong><br>
-                    03580 Alfaz del Pi<br>
-                    Alicante, Spanje
+                <h3 data-translate="footer.contact.title">Contact</h3>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:esversteeg@hotmail.com">esversteeg@hotmail.com</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:0683645489">0683645489</a></p>
+                <address>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <strong data-translate="footer.contact.address.street">Carrer de les Petúnies 16</strong><br>
+                    <span data-translate="footer.contact.address.city">03580 L'Alfàs del Pi</span><br>
+                    <span data-translate="footer.contact.address.country">Alicante, Spanje</span>
                 </address>
             </div>
             <div class="footer-info">
-                <p><strong>Nuttige informatie:</strong></p>
-                <p><a href="wegbeschrijving.html">Routebeschrijving</a></p>
+                <h3 data-translate="footer.info.title">Nuttige informatie</h3>
+                <p><a href="wegbeschrijving.html"><i class="fas fa-directions"></i> <span data-translate="footer.info.directions">Routebeschrijving</span></a></p>
+                <p><a href="reserveren.html"><i class="fas fa-calendar-alt"></i> <span data-translate="footer.info.booking">Reserveren</span></a></p>
+                <p><a href="fotos.html"><i class="fas fa-camera"></i> <span data-translate="footer.info.photos">Foto's</span></a></p>
             </div>
             <div class="footer-social">
-                <p>Volg ons:</p>
-                <a href="#YOUR_INSTAGRAM_URL_HERE" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i> <span class="sr-only">Instagram</span></a>
-                <!-- Replace # with actual links and ensure you have Font Awesome linked if using these icons -->
+                <h3 data-translate="footer.social.title">Volg ons</h3>
+                <p data-translate="footer.social.subtitle">Blijf op de hoogte van het laatste nieuws</p>
+                <a href="#YOUR_INSTAGRAM_URL_HERE" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
-            <p class="copyright">&copy; <span id="current-year">2025</span> Casa Mi Sueño. Alle rechten voorbehouden.</p>
+            <p class="copyright">&copy; <span id="current-year">2025</span> Casa Mi Sueño. <span data-translate="footer.copyright">Alle rechten voorbehouden.</span></p>
         </div>
     </footer>
 

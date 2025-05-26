@@ -56,4 +56,29 @@ RewriteRule ^(.*)/$ /$1 [L,R=301]
 
 # Custom error pages
 ErrorDocument 404 /404.html
-ErrorDocument 500 /500.html 
+ErrorDocument 500 /500.html
+
+# Language-specific URL handling
+# Redirect root to default language (Dutch)
+RewriteRule ^$ /nl/ [R=301,L]
+
+# Handle language-specific URLs
+RewriteRule ^(en|nl|es)/(.*)$ $2?lang=$1 [QSA,L]
+
+# Handle direct access to language-specific URLs
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(en|nl|es)/(.*)\.html$ $2.html?lang=$1 [QSA,L]
+
+# Handle non-language-specific URLs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [NC,L]
+
+# Redirect /index.html to /
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s(.*)/index\.html [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# Set default language cookie if not present
+RewriteCond %{HTTP_COOKIE} !lang=
+RewriteRule ^(.*)$ $1 [CO=lang:nl:casamisueno.nl:86400:/] 
