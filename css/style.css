@@ -177,6 +177,17 @@ ul, ol {
     box-shadow: var(--shadow-medium);
 }
 
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.cta-buttons .cta-button {
+    margin: 0;
+}
+
 /* Header & Navigation */
 .main-header {
     position: sticky;
@@ -334,8 +345,8 @@ ul, ol {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    color: var(--color-dark-text);
-    min-height: 35vh; /* Terug naar 35vh voor desktop */
+    color: var(--color-dark-text); /* Terug naar donkere tekst */
+    min-height: 35vh; /* Terug naar originele hoogte */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -352,51 +363,52 @@ ul, ol {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(245, 239, 230, 0.85), rgba(245, 239, 230, 0.95)); /* Iets transparanter voor meer diepte */
+    background: linear-gradient(rgba(245, 239, 230, 0.85), rgba(245, 239, 230, 0.95)); /* Terug naar lichtere overlay */
     z-index: 1;
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 1000px; /* Verhoogd van 900px naar 1000px */
+    max-width: 1000px; /* Behoud van eerdere aanpassing of terug naar origineel? Voor nu 1000px */
     width: 90%;
     margin: 0 auto;
     padding: 0 var(--spacing-unit);
 }
 
 .hero h1 {
-    font-size: clamp(2.5rem, 5vw, 3.5rem); /* Grotere tekst */
-    margin-bottom: calc(var(--spacing-unit) * 1.5); /* Meer ruimte onder de titel */
-    color: var(--color-accent);
+    font-size: clamp(2.5rem, 5vw, 3.5rem); /* Terug naar originele grootte */
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+    color: var(--color-accent); /* Terug naar accentkleur */
     line-height: 1.2;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtiele schaduw voor diepte */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Terug naar originele schaduw */
 }
 
 .hero p {
-    font-size: 1.1rem;
+    font-size: 1.1rem; /* Terug naar originele grootte */
     margin-bottom: calc(var(--spacing-unit) * 2);
-    color: var(--color-dark-text);
+    color: var(--color-dark-text); /* Terug naar donkere tekst */
     font-weight: 400;
-    max-width: 800px;
+    max-width: 800px; /* Terug naar originele max-width */
     margin-left: auto;
     margin-right: auto;
     line-height: 1.6;
+    text-shadow: none; /* Verwijder extra schaduw indien toegevoegd */
 }
 
 @media (max-width: 768px) {
     .hero {
-        min-height: 30vh; /* Verlaagd van 50vh naar 30vh */
+        min-height: 30vh; /* Terug naar originele mobiele hoogte */
         padding: var(--spacing-section-mobile) var(--spacing-unit);
     }
     
     .hero-content {
-        padding: 2rem; /* Verhoogde padding */
+        padding: 2rem; 
         max-width: 100%;
     }
     
     .hero h1 { 
-        font-size: clamp(2.2rem, 6vw, 3rem); /* Grotere tekst op mobiel */
+        font-size: clamp(2.2rem, 6vw, 3rem); 
         margin-bottom: 1rem;
     }
     
