@@ -937,40 +937,5 @@ function navigateLightbox(direction) {
 
 // Language Switcher
 document.addEventListener('DOMContentLoaded', function() {
-    const languageBtn = document.getElementById('languageBtn');
-    const languageDropdown = document.getElementById('languageDropdown');
-    const languageOptions = languageDropdown.querySelectorAll('button');
-
-    // Toggle dropdown
-    languageBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        languageDropdown.classList.toggle('show');
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!languageDropdown.contains(e.target) && !languageBtn.contains(e.target)) {
-            languageDropdown.classList.remove('show');
-        }
-    });
-
-    // Handle language selection
-    languageOptions.forEach(option => {
-        option.addEventListener('click', function() {
-            const lang = this.getAttribute('data-lang');
-            
-            // Update active state
-            languageOptions.forEach(opt => opt.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Update button text
-            languageBtn.innerHTML = this.textContent + ' <i class="fas fa-chevron-down"></i>';
-            
-            // Change language
-            changeLanguage(lang);
-            
-            // Close dropdown
-            languageDropdown.classList.remove('show');
-        });
-    });
+    // Language switcher is now handled in translations.js
 }); 

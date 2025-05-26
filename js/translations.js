@@ -47,7 +47,7 @@ const translations = {
                 es: "Descubre Tus Vacaciones Soñadas"
             }
         },
-        intro: {
+            intro: {
             title: {
                 nl: "Laten we kennismaken",
                 en: "Let's get acquainted",
@@ -405,6 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (languageBtn && languageDropdown) {
         // Toggle dropdown visibility
         languageBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             e.stopPropagation();
             languageDropdown.classList.toggle('show');
         });
@@ -416,14 +417,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Add click handlers to language buttons in dropdown
-        languageDropdown.querySelectorAll('button[data-lang]').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const lang = btn.dataset.lang;
+        // Add click handlers to language links in dropdown
+        languageDropdown.querySelectorAll('a[data-lang]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const lang = link.dataset.lang;
                 changeLanguage(lang);
+                // Update active state
+                languageDropdown.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                // Update button text
+                languageBtn.innerHTML = lang.toUpperCase() + ' <i class="fas fa-chevron-down"></i>';
+                // Close dropdown
                 languageDropdown.classList.remove('show');
-            });
         });
+    });
+
+        // Set initial button text based on current language
+        const currentLang = getLanguage();
+        languageBtn.innerHTML = currentLang.toUpperCase() + ' <i class="fas fa-chevron-down"></i>';
     }
 
     // Set initial language
