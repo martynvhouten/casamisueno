@@ -3587,7 +3587,7 @@ img[loading="lazy"].loaded {
     }
 
     .story-quote p {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 }
 
@@ -3816,4 +3816,13 @@ img[loading="lazy"].loaded {
     .location-grid {
         gap: 1.5rem;
     }
+}
+
+.location-card {
+    position: relative;
+    background: var(--color-background);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
 }
