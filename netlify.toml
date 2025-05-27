@@ -1,40 +1,6 @@
 [build]
   publish = "."
 
-# Default language redirect
-[[redirects]]
-  from = "/"
-  to = "/nl/"
-  status = 301
-  force = true
-
-# Language-specific redirects with pretty URLs
-[[redirects]]
-  from = "/en/*"
-  to = "/:splat?lang=en"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/nl/*"
-  to = "/:splat?lang=nl"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/es/*"
-  to = "/:splat?lang=es"
-  status = 200
-  force = true
-
-# Handle direct language parameter access
-[[redirects]]
-  from = "/*"
-  to = "/:splat"
-  status = 200
-  force = true
-  conditions = {Query = ["lang"]}
-
 # Remove .html extension
 [[redirects]]
   from = "/*"
