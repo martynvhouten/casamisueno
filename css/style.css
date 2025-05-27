@@ -20,6 +20,16 @@
     --color-background-gradient-start: #FFFFFF;
     --color-background-gradient-end: #FDFBF7;
 
+    /* Font Sizes */
+    --font-size-base: 1rem; /* 16px default */
+    --font-size-sm: 0.9rem;
+    --font-size-xs: 0.8rem;
+    --font-size-lg: 1.1rem;
+    --font-size-xl: 1.25rem;
+
+    --line-height-base: 1.6;
+    --line-height-heading: 1.3;
+
     /* Spacing System */
     --spacing-unit: 1rem;
     --spacing-xs: calc(var(--spacing-unit) * 0.5);
@@ -62,13 +72,13 @@ html {
 
 body {
     font-family: var(--font-primary);
-    line-height: 1.6;
+    line-height: var(--line-height-base);
     color: var(--color-dark-text);
     background-color: var(--color-background);
     background-image: 
         linear-gradient(135deg, var(--color-background-gradient-start) 0%, var(--color-background-gradient-end) 100%),
         url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E8A07E' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    font-size: 1rem;
+    font-size: var(--font-size-base); /* Gebruik de variabele hier */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -81,21 +91,67 @@ main {
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-secondary);
     font-weight: 700;
-    line-height: 1.3;
+    line-height: var(--line-height-heading);
     margin-bottom: calc(var(--spacing-unit) * 1.5);
     color: var(--color-dark-text);
     letter-spacing: -0.02em;
 }
 
 h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
-h2 { font-size: clamp(2rem, 4vw, 2.7rem); }
-h3 { font-size: clamp(1.5rem, 3vw, 1.9rem); }
+h2 { font-size: clamp(2rem, 4vw, 2.8rem); } /* Iets kleiner max dan H1 */
+h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); } /* Iets kleiner max dan H2 */
+h4 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+h5 { font-size: clamp(1.1rem, 2vw, 1.5rem); }
+h6 { font-size: clamp(1rem, 1.8vw, 1.2rem); }
 
 p {
     margin-bottom: var(--spacing-unit);
     max-width: 65ch;
+    line-height: var(--line-height-base);
+    font-size: var(--font-size-base); /* Standaard paragraafgrootte */
+}
+
+/* --- Consistentie voor P in specifieke content blokken --- */
+section.hero .hero-content p {
+    font-size: var(--font-size-lg);
     line-height: 1.7;
-    font-size: 1rem;
+    max-width: 700px;
+}
+
+section.about-story .story-text-content p,
+section.about-story .story-text p,
+section.about-story .story-quote p,
+section.gallery-section .gallery-intro p,
+section.cta-section .container p,
+div.practical-details p,
+/* div.amenity-content p, -- Deze wordt hieronder specifiek behandeld */
+div.feature-card p,
+div.inspiration-content p,
+article.testimonial-card .testimonial-quote, /* testimonial-quote is de p */
+section.omgeving-highlights .highlight-card p,
+div.footer-brand p {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+}
+
+/* Uitzondering voor reeds kleiner gemaakte teksten */
+footer.main-footer .footer-content p,
+footer.main-footer .footer-contact p, 
+footer.main-footer .footer-social p,
+footer.main-footer .footer-info p,
+footer.main-footer .copyright,
+div.image-modal figcaption#modalCaption, /* modal-caption is een figcaption */
+div.location-card span.distance, /* .distance is een span binnen location-card */
+div.showcase-item div.showcase-content p,
+div.pricing-info p.price-note {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-base);
+}
+
+div.amenity-item div.amenity-content p { /* Specifiek voor amenities */
+    font-size: 0.9rem; 
+    opacity: 0.7;
+    line-height: var(--line-height-base); 
 }
 
 .text-center {
@@ -130,9 +186,13 @@ ul, ol {
 
 /* Utility Classes */
 .container {
-    width: min(90%, 1300px);
-    margin-inline: auto;
-    padding-inline: var(--spacing-unit);
+    width: 100%;
+    max-width: 1366px; /* Verhoogd voor meer breedte */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+    box-sizing: border-box;
 }
 
 .text-center {
@@ -413,8 +473,6 @@ ul, ol {
 /* General Page Sections */
 .page-section {
     padding: var(--spacing-section-desktop) 0;
-    background-color: var(--color-background);
-    position: relative;
 }
 
 .page-section:nth-child(odd) {
@@ -451,44 +509,64 @@ ul, ol {
     color: var(--color-dark-text);
 }
 
-.page-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(232, 160, 126, 0.2) 50%, 
-        transparent 100%
-    );
-}
+/* Removed automatic lines on page sections - they were causing unwanted visual lines */
 
-.page-section::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(232, 160, 126, 0.2) 50%, 
-        transparent 100%
-    );
-}
-
-.page-section h2 {
+.page-section .container > h2, /* Titels direct in container van page-section */
+.page-section h2 { /* Algemene H2 binnen page-section */
     text-align: center;
-    margin-bottom: calc(var(--spacing-unit) * 3.5);
+    margin-bottom: var(--spacing-xl); /* Ruimere marge onder sectietitels */
+}
+
+/* Zorg ervoor dat de content binnen de page-section container de volle breedte kan gebruiken */
+.page-section .container > *:not(h2):not(.cta-buttons) { /* Uitzondering voor H2 en CTA buttons die eigen centering kunnen hebben */
+    max-width: 100%;
+}
+
+/* Specifieke wrappers binnen page-sections, zorg dat ze de container niet onnodig verkleinen */
+.story-wrapper,
+.amenities-section .container, /* Is al de container */
+.gallery-section .container, /* Is al de container */
+.practical-info-section .container, /* Is al de container */
+.omgeving-highlights .container, /* Is al de container */
+.omgeving-locations .container, /* Is al de container */
+.omgeving-map .container, /* Is al de container */
+.omgeving-showcase .container, /* Is al de container */
+.form-section, /* Heeft eigen max-width, maar moet binnen de hoofdcontainer vallen */
+.cta-section .container, /* Is al de container */
+.special-features .container, /* Is al de container */
+.inspiration-section .container /* Is al de container */
+{
+    /* Geen extra max-width hier, ze moeten de .container's max-width respecteren */
+}
+
+/* Correctie voor .form-section als die te breed wordt of niet centreert */
+.form-section {
+    max-width: 550px !important; /* Increased from 500px to match calendar width */
+    width: 550px !important; /* Force specific width to match calendar */
+    margin-left: auto; /* Centreer het formulier als het smaller is dan de container */
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding-left: var(--spacing-sm);
+        padding-right: var(--spacing-sm);
+    }
+    .page-section {
+        padding-top: var(--spacing-section-mobile);
+        padding-bottom: var(--spacing-section-mobile);
+    }
+    .page-section .container > h2,
+    .page-section h2 {
+        margin-bottom: var(--spacing-lg);
+    }
 }
 
 /* Footer */
 .main-footer {
     background-color: var(--color-footer-bg);
     color: var(--color-dark-text);
-    padding: calc(var(--spacing-unit) * 4) 0;
+    padding: calc(var(--spacing-unit) * 3) 0 calc(var(--spacing-unit) * 1) 0;
     text-align: center;
     margin-top: auto;
     position: relative;
@@ -507,19 +585,7 @@ ul, ol {
     padding: 0 1rem;
 }
 
-.footer-content::after {
-    content: '';
-    position: absolute;
-    bottom: -1.5rem;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(232, 160, 126, 0.2) 50%, 
-        transparent 100%
-    );
-}
+/* Removed footer line - was causing unwanted visual line */
 
 .footer-logo {
     font-family: var(--font-secondary);
@@ -548,7 +614,7 @@ ul, ol {
 }
 
 .footer-contact p, .footer-social p {
-    font-size: 0.95rem;
+    font-size: var(--font-size-sm); /* Gebruik kleinere font size variabele */
     line-height: 1.6;
     margin-bottom: 0.75rem;
 }
@@ -558,7 +624,7 @@ ul, ol {
 }
 
 .footer-info p {
-    font-size: 0.95rem;
+    font-size: var(--font-size-sm); /* Gebruik kleinere font size variabele */
     line-height: 1.6;
     margin-bottom: 0.75rem;
 }
@@ -590,12 +656,17 @@ ul, ol {
 }
 
 .copyright {
-    margin-top: 2rem;
-    font-size: 0.9rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 0;
+    font-size: var(--font-size-sm); /* Gebruik kleinere font size variabele */
     color: #666;
     text-align: center;
     width: 100%;
-    padding: 0 1rem;
+    max-width: 1200px;
+    padding: 0 1rem 0 1rem;
     display: block;
     position: relative;
     grid-column: 1 / -1;
@@ -634,7 +705,8 @@ ul, ol {
     padding: calc(var(--spacing-unit) * 2.5) calc(var(--spacing-unit) * 2);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-medium);
-    max-width: 750px; /* Reduced from 800px */
+    max-width: 550px !important; /* Increased from 500px to match calendar width */
+    width: 550px !important; /* Force specific width to match calendar */
     margin: 0 auto;
 }
 @media (min-width: 768px) {
@@ -776,37 +848,103 @@ ul, ol {
 /* About Page - Amenities Grid */
 .amenities-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: calc(var(--spacing-unit) * 2.5);
-    margin-top: calc(var(--spacing-unit) * 2.5);
-    text-align: left;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Kleinere min-waarde voor meer items */
+    gap: calc(var(--spacing-unit) * 2);
+}
+
+@media (min-width: 992px) {
+    .amenities-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 .amenity-item {
-    background-color: #fff;
-    padding: calc(var(--spacing-unit) * 1.8);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-subtle);
+    background-color: var(--color-background);
+    padding: var(--spacing-sm); /* Verminderde padding */
+    border-radius: 12px; /* Was var(--border-radius) wat 8px is, 12px kan wat mooier zijn */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     gap: var(--spacing-unit);
-    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(209, 122, 82, 0.08);
+    text-align: left; /* Expliciet links voor nu, kan naar center als dat de wens is */
 }
 
 .amenity-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(209, 122, 82, 0.15);
+    border-color: rgba(209, 122, 82, 0.2);
+    background-color: #fff;
 }
 
-.amenity-item i {
-    font-size: 1.9rem;
-    color: var(--color-accent-secondary);
-    min-width: 35px;
-    text-align: center;
+.amenity-icon {
+    font-size: 2rem;
+    color: var(--color-accent);
+    /* margin-bottom: var(--spacing-sm); Verwijderd, want flex gap regelt spacing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px; /* Zorgt dat icoon niet krimpt */
 }
 
-.amenity-item span {
-    font-size: 1.1rem;
+.amenity-icon i {
+    font-size: 2rem;
+}
+
+.amenity-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Voeg dit toe voor expliciete tekstcentrering */
+}
+
+.amenity-content h3 {
+    color: var(--color-dark-text);
+    font-size: var(--font-size-base); /* Terug naar base, was 1.1rem */
+    margin: 0 0 0.25rem 0; /* Kleinere marge onder h3 */
+    font-family: var(--font-secondary);
+    font-weight: 600;
+}
+
+.amenity-content p {
+    color: var(--color-dark-text);
+    font-size: var(--font-size-sm); /* Was 0.9rem */
+    margin: 0; /* Geen marge op p binnen amenity-content */
+    opacity: 0.7;
+    line-height: var(--line-height-base); /* Zorg voor consistente line-height */
+}
+
+@media (max-width: 991px) { 
+    .amenities-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Nog iets kleiner voor tablets */
+    }
+}
+
+@media (max-width: 600px) { 
+    .amenities-grid {
+        grid-template-columns: 1fr; /* 1 kolom op mobiel */
+        gap: var(--spacing-sm);
+    }
+    .amenity-item {
+        padding: var(--spacing-xs); /* Nog minder padding op klein mobiel */
+        gap: var(--spacing-sm);
+}
+    .amenity-icon {
+        font-size: 1.8rem;
+        min-width: 35px;
+    }
+    .amenity-icon i {
+        font-size: 1.8rem;
+    }
+    .amenity-content h3 {
+        font-size: var(--font-size-sm);
+    }
+    .amenity-content p {
+        font-size: var(--font-size-xs);
+    }
 }
 
 /* Gallery Page */
@@ -823,9 +961,14 @@ ul, ol {
 
 .image-gallery-grid {
     display: grid;
-    /* For mobile: 1-2 images. default to 1, allow 2 if space permits */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: calc(var(--spacing-unit) * 1.5);
+}
+
+@media (min-width: 992px) {
+    .image-gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 @media (min-width: 576px) { /* Small devices (landscape phones, 576px and up) */
@@ -918,7 +1061,7 @@ ul, ol {
 
 
 /* Responsive Design */
-@media (max-width: 991px) {
+@media (max-width: 991px) { /* Tablet */
     .contact-info-map-grid {
         grid-template-columns: 1fr;
     }
@@ -926,8 +1069,51 @@ ul, ol {
 
 @media (max-width: 768px) { 
     body {
-        font-size: 0.95rem;
+        font-size: var(--font-size-sm); 
     }
+
+    p {
+        font-size: var(--font-size-sm); /* Paragrafen ook kleiner op mobiel algemeen */
+    }
+
+    section.hero .hero-content p {
+        font-size: var(--font-size-base);
+        line-height: 1.6;
+    }
+
+    section.about-story .story-text-content p,
+    section.about-story .story-text p,
+    section.about-story .story-quote p,
+    section.gallery-section .gallery-intro p,
+    section.cta-section .container p,
+    div.practical-details p,
+    div.feature-card p,
+    div.inspiration-content p,
+    article.testimonial-card .testimonial-quote,
+    section.omgeving-highlights .highlight-card p,
+    div.footer-brand p {
+        font-size: var(--font-size-sm);
+    }
+
+    /* Uitzondering voor reeds kleiner gemaakte teksten op mobiel */
+    footer.main-footer .footer-content p,
+    footer.main-footer .footer-contact p, 
+    footer.main-footer .footer-social p,
+    footer.main-footer .footer-info p,
+    footer.main-footer .copyright,
+    div.image-modal figcaption#modalCaption,
+    div.location-card span.distance,
+    div.showcase-item div.showcase-content p,
+    div.pricing-info p.price-note {
+        font-size: var(--font-size-xs);
+    }
+
+    div.amenity-item div.amenity-content p { /* amenity-content p op mobiel */
+        font-size: 0.85rem; 
+        opacity: 0.7;
+        line-height: var(--line-height-base);
+    }
+
     h1 { font-size: clamp(2.2rem, 6vw, 2.8rem); }
     h2 { font-size: clamp(1.8rem, 5vw, 2.2rem); }
     h3 { font-size: clamp(1.4rem, 4vw, 1.7rem); }
@@ -1152,21 +1338,22 @@ ul, ol {
 /* Omgeving Page - Highlight Section */
 .omgeving-highlights .highlight-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* Behoud 3 kolommen voor desktop */
     gap: calc(var(--spacing-unit) * 2.5);
     margin-top: calc(var(--spacing-unit) * 2.5);
+    align-items: flex-start; /* Behoud om oprekken van kaarten te voorkomen */
 }
 
 .omgeving-highlights .highlight-card {
     background-color: var(--color-background);
-    padding: calc(var(--spacing-unit) * 2.5);
+    padding: var(--spacing-md); /* Behoud padding */
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-subtle);
     transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
     text-align: left;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch; /* Gewijzigd van center naar stretch */
     border-top: 4px solid var(--color-light-blue);
 }
 
@@ -1179,16 +1366,17 @@ ul, ol {
 .omgeving-highlights .highlight-card h3 {
     color: var(--color-accent);
     margin-bottom: calc(var(--spacing-unit) * 1.2);
-    text-align: center;
-    width: 100%;
-    margin-top: calc(var(--spacing-unit) * 1.2);
+    text-align: center; /* Zorg dat h3 gecentreerd blijft */
+    width: 100%; /* Nodig als parent align-items: stretch heeft */
+    margin-top: 0; /* Was calc(var(--spacing-unit) * 1.2), maar nu 0 */
 }
 
-.omgeving-highlights .highlight-icon {
+.omgeving-highlights .highlight-card .highlight-icon {
     font-size: 2.8rem;
     color: var(--color-accent-secondary);
-    text-align: center;
-    margin-bottom: calc(var(--spacing-unit) * 0.5);
+    text-align: center; /* Zorg dat icoon gecentreerd blijft */
+    margin-bottom: calc(var(--spacing-md)); 
+    width: 100%; /* Nodig als parent align-items: stretch heeft */
 }
 
 .omgeving-highlights .highlight-card p {
@@ -1200,12 +1388,12 @@ ul, ol {
 .omgeving-highlights .highlight-card ul {
     list-style-type: none;
     padding-left: 0;
-    margin-top: calc(var(--spacing-unit) * 1.5);
+    margin-top: var(--spacing-md);
     text-align: left;
     width: 100%;
     max-width: 65ch;
     border-top: 1px solid var(--color-border);
-    padding-top: calc(var(--spacing-unit) * 1.5);
+    padding-top: var(--spacing-md);
 }
 
 .omgeving-highlights .highlight-card ul li {
@@ -1232,27 +1420,29 @@ ul, ol {
 
 @media (max-width: 992px) {
     .omgeving-highlights .highlight-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* auto-fit voor tablet, mikt op 2 kolommen */
         gap: calc(var(--spacing-unit) * 2);
+        align-items: stretch; /* Op tablet mogen ze wel stretchen voor gelijke hoogte indien gewenst */
     }
 }
 
 @media (max-width: 768px) {
     .omgeving-highlights .highlight-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* 1 kolom voor mobiel */
         gap: calc(var(--spacing-unit) * 2);
+        /* align-items: stretch; is hier default en prima */
     }
     
     .omgeving-highlights .highlight-card {
-        padding: calc(var(--spacing-unit) * 2);
+        padding: calc(var(--spacing-unit) * 1.5); /* Behoud de iets ruimere padding specifiek voor mobiel van vorige iteratie */
     }
     
     .omgeving-highlights .highlight-card p {
-        font-size: 0.95rem;
+        font-size: var(--font-size-xs); 
     }
     
     .omgeving-highlights .highlight-card ul li {
-        font-size: 0.95rem;
+        font-size: var(--font-size-xs); 
     }
 }
 
@@ -1367,7 +1557,8 @@ ul, ol {
     padding: calc(var(--spacing-unit) * 1.5);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-medium);
-    max-width: 600px; /* Increased from 450px to make calendar wider */
+    max-width: 550px !important; /* Increased from 400px to make calendar slightly wider */
+    width: 550px !important; /* Force specific width to match form */
     margin: calc(var(--spacing-unit) * 2.5) auto; /* Center the calendar */
 }
 
@@ -1464,7 +1655,8 @@ ul, ol {
 @media (max-width: 480px) {
     .calendar-container {
         padding: var(--spacing-unit);
-        max-width: 100%;
+        max-width: 100% !important;
+        width: 100% !important;
     }
     .calendar-header h3 {
         font-size: 1.3rem;
@@ -2364,7 +2556,7 @@ address {
 }
 
 .showcase-content p {
-    font-size: 0.95rem;
+    font-size: var(--font-size-sm); /* Gebruik kleinere font size variabele */
     margin: 0;
     opacity: 0.9;
 }
@@ -2455,12 +2647,14 @@ address {
 
 .story-image img,
 .pool-life-image img {
-    max-width: 650px;
     width: 100%;
+    max-width: 500px; /* Verlaagd naar 500px */
     height: auto;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-medium);
-    margin: 0;
+    display: block;
+    border-radius: 8px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-left: auto; 
+    margin-right: auto;
 }
 
 /* Responsive adjustments for about page */
@@ -2494,7 +2688,8 @@ address {
 }
 
 .page-section .container {
-    max-width: 900px;
+    /* max-width: 900px; VERWIJDERD om secties breder te maken */
+    width: 100%; /* Zorgt dat het de beschikbare breedte neemt tot de max-width van .container */
     margin: 0 auto;
 }
 
@@ -2513,26 +2708,31 @@ address {
 }
 
 .amenities-section .container {
-    max-width: 900px;
+    max-width: 1366px; /* Zorg dat deze consistent is met de hoofdcontainer */
     margin: 0 auto;
 }
 
 .amenities-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: calc(var(--spacing-unit) * 1.2);
+    gap: var(--spacing-lg); /* Gap verkleind */
+    width: 100%;
 }
 
 .amenity-item {
     background-color: var(--color-background);
-    padding: calc(var(--spacing-unit) * 1.5);
+    padding: var(--spacing-md); /* Iets meer padding dan sm, maar minder dan eerst (1.5rem) */
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
-    align-items: center;
-    gap: calc(var(--spacing-unit) * 1);
+    flex-direction: column; /* Icoon boven, tekst eronder voor betere centrering */
+    align-items: center; /* Horizontaal centreren van flex items */
+    justify-content: flex-start; /* Start items aan de bovenkant */
+    gap: var(--spacing-sm); /* Gap tussen icoon en content-blok */
     transition: all 0.3s ease;
     border: 1px solid rgba(209, 122, 82, 0.08);
+    text-align: center; /* Centreer de tekst binnen het item */
+    height: 100%; /* Zorg dat items gelijke hoogte hebben */
 }
 
 .amenity-item:hover {
@@ -2543,62 +2743,64 @@ address {
 }
 
 .amenity-icon {
-    font-size: 2rem;
+    font-size: 2.2rem; /* Iets groter icoon */
     color: var(--color-accent);
-    margin-bottom: var(--spacing-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-bottom: var(--spacing-xs); /* Kleine marge onder icoon */
+    min-width: auto; /* Niet langer vaste min-width */
 }
 
 .amenity-icon i {
-    font-size: 2rem;
+    font-size: inherit; /* Erf grootte van parent */
 }
 
 .amenity-content {
-    flex: 1;
+    flex: 1; /* Laat content groeien indien nodig */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centreer h3 en p binnen content blok */
+    justify-content: center;
+    text-align: center; /* Voeg dit toe voor expliciete tekstcentrering */
 }
 
 .amenity-content h3 {
     color: var(--color-dark-text);
-    font-size: 1.1rem;
-    margin: 0 0 0.5rem 0;
+    font-size: var(--font-size-base);
+    margin: 0 0 0.25rem 0; 
     font-family: var(--font-secondary);
     font-weight: 600;
 }
 
 .amenity-content p {
     color: var(--color-dark-text);
-    font-size: 0.9rem;
-    margin: 0.5rem 0 0 0;
+    font-size: var(--font-size-sm);
+    margin: 0;
     opacity: 0.7;
+    line-height: var(--line-height-base);
 }
 
-@media (max-width: 768px) {
-    .amenities-section {
-        padding: calc(var(--spacing-unit) * 3) 0;
-    }
-    
+@media (max-width: 991px) { 
     .amenities-grid {
-        gap: calc(var(--spacing-unit) * 1);
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--spacing-md);
     }
-    
     .amenity-item {
-        padding: calc(var(--spacing-unit) * 1.2);
+        padding: var(--spacing-sm);
     }
-    
+}
+
+@media (max-width: 600px) { 
+    .amenities-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    .amenity-item {
+        padding: var(--spacing-sm); 
+        gap: var(--spacing-xs);
+    }
     .amenity-icon {
-        font-size: 1.8rem;
-        min-width: 40px;
+        font-size: 2rem;
     }
-    
-    .amenity-content h3 {
-        font-size: 1rem;
-    }
-    
-    .amenity-content p {
-        font-size: 0.85rem;
-    }
+    /* H3 en P voor mobiel blijven de globalere settings gebruiken of erven van desktop */
 }
 
 .amenities-footer {
@@ -2690,8 +2892,8 @@ address {
     margin: 1rem auto;
     text-align: center;
     line-height: 1.2;
-}
-
+    }
+    
 .price-badge {
     background-color: var(--color-accent);
     color: var(--color-light-text);
@@ -2706,27 +2908,23 @@ address {
 @media (max-width: 768px) {
     .practical-info-section .price-badge,
     .practical-info-section .stay-badge {
-        font-size: 1rem;
+    font-size: 1rem;
         padding: 0.5rem 1rem;
         min-width: 250px;
         height: 48px;
     }
 }
 
-/* Story Section Styles */
+/* Story Section Styles - AANPASSING VOOR OPTIE A: BLOKKENSTRUCTUUR */
 .about-story {
     background-color: var(--color-background);
-    padding: 6rem 0;
-    position: relative;
+    padding: 4rem 0;
 }
 
-.story-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
+/* .about-story > .container blijft max-width: 1366px; */
+/* .story-wrapper blijft max-width: 1300px; padding: 0 var(--spacing-md); */
 
-.story-header {
+.story-header { /* Header met H2 "Ons verhaal" */
     text-align: center;
     margin-bottom: 3rem;
 }
@@ -2737,7 +2935,7 @@ address {
     margin-bottom: 1rem;
 }
 
-.story-divider {
+.story-divider { /* Optionele divider onder hoofd H2 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2750,6 +2948,7 @@ address {
     flex: 1;
     height: 1px;
     background: linear-gradient(to right, transparent, var(--color-accent), transparent);
+    max-width: 300px; /* Beperk lengte van de lijnen */
 }
 
 .divider-icon {
@@ -2758,157 +2957,657 @@ address {
     font-size: 1.5rem;
 }
 
-.story-content {
+
+.story-content { /* Wrapper voor de individuele verhaalblokken */
     display: flex;
     flex-direction: column;
-    gap: 4rem;
-    margin-top: 2rem;
+    gap: var(--spacing-xl); /* Ruimte tussen de verhaalblokken (was 4rem) */
 }
 
-.story-columns {
+.story-block { /* Nieuwe class voor elk individueel verhaalblok */
     display: flex;
-    gap: 3rem;
-    align-items: center;
+    flex-direction: column; /* Alles onder elkaar */
+    align-items: center; /* Centreer de inhoud van het blok */
+    gap: var(--spacing-md); /* Ruimte tussen titel, beeld, tekst binnen een blok */
+    text-align: center; /* Tekst in het blok standaard gecentreerd */
+    margin-bottom: 3rem;
 }
 
-.story-columns:nth-child(even) {
-    flex-direction: row-reverse;
-}
-
-.story-text {
-    flex: 1;
-    padding: 0 1rem;
-}
-
-.story-text-content {
-    max-width: 600px;
-}
-
-.story-text h3 {
-    color: var(--color-accent);
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-}
-
-.story-text p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: var(--color-dark-text);
-    margin-bottom: 1.5rem;
-}
-
-.story-image {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.story-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-.story-image:hover img {
-    transform: scale(1.02);
-}
-
-.story-quote {
-    margin-top: 3rem;
-    padding: 2rem;
-    background: linear-gradient(135deg, var(--color-sand) 0%, var(--color-background) 100%);
-    border-radius: 12px;
-    text-align: center;
-    position: relative;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.story-quote i {
-    color: var(--color-accent);
-    font-size: 1.5rem;
-    opacity: 0.5;
-}
-
-.story-quote i.fa-quote-left {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-}
-
-.story-quote i.fa-quote-right {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-}
-
-.story-quote p {
-    font-size: 1.2rem;
-    font-style: italic;
-    color: var(--color-dark-text);
-    margin: 0;
-    line-height: 1.6;
-}
-
-@media (max-width: 992px) {
-    .story-columns {
-        gap: 2rem;
-    }
-    
-    .story-text h3 {
-        font-size: 1.6rem;
-    }
-    
-    .story-text p {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .about-story {
-        padding: 4rem 0;
-    }
-    
-    .story-wrapper {
-        padding: 0 1.5rem;
-    }
-    
-    .story-header h2 {
-        font-size: 2rem;
-    }
-    
-    .story-content {
+/* Desktop layout: side-by-side with alternating pattern */
+@media (min-width: 992px) {
+    .story-block {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         gap: 3rem;
+        align-items: center;
+        margin-bottom: 4rem;
+        text-align: left;
     }
     
-    .story-columns {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    
-    .story-columns:nth-child(even) {
-        flex-direction: column;
-    }
-    
-    .story-text {
-        order: 2;
-        padding: 0;
-    }
-    
-    .story-image {
+    /* First story block: image left, text right */
+    .story-block:first-child .story-image {
         order: 1;
     }
     
-    .story-quote {
-        padding: 1.5rem;
-        margin-top: 2rem;
+    .story-block:first-child .story-text {
+        order: 2;
     }
     
-    .story-quote p {
+    /* Second story block: text left, image right */
+    .story-block:nth-child(2) .story-text {
+        order: 1;
+    }
+    
+    .story-block:nth-child(2) .story-image {
+        order: 2;
+    }
+    
+    /* Handle the standalone h3 in second block */
+    .story-block:nth-child(2) .story-text:first-child {
+        grid-column: 1 / -1;
+        order: 0;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .story-block .story-image {
+        max-width: 100%;
+        margin: 0;
+    }
+    
+    .story-block .story-text {
+        max-width: none;
+    }
+}
+
+.story-block .story-text h3 { /* Subtitel van een verhaalblok */
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-sm); /* Kleinere marge onder H3 */
+    font-size: 2rem; /* Iets groter dan standaard H3 */
+    text-align: center;
+}
+
+.story-block .story-image {
+    width: 100%;
+    max-width: 750px; /* Maximale breedte voor de afbeelding in een blok */
+    margin-top: var(--spacing-sm); /* Ruimte boven de afbeelding */
+    margin-bottom: var(--spacing-sm); /* Ruimte onder de afbeelding */
+}
+
+.story-block .story-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    /* margin-left/right auto is niet meer nodig als .story-image zelf al max-width heeft en gecentreerd wordt door .story-block align-items */
+}
+
+.story-block .story-text {
+    max-width: 70ch; /* Goede leeslengte voor de tekst, gecentreerd door align-items op parent */
+    text-align: left; /* Paragraaftekst zelf links uitgelijnd voor leesbaarheid */
+}
+
+.story-block .story-text p {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    margin-bottom: var(--spacing-unit);
+}
+
+.story-block .story-quote {
+    font-style: italic;
+    padding: var(--spacing-md) 0;
+    max-width: 60ch;
+    margin: var(--spacing-sm) auto; /* Centreer de quote */
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.story-block .story-quote p {
+    margin: 0;
+    font-size: var(--font-size-lg); /* Quote mag iets groter */
+}
+
+.story-block .story-quote i {
+    font-size: 1.2rem;
+    color: var(--color-accent);
+    opacity: 0.7;
+}
+
+/* Verwijder/overschrijf de oude .story-columns flex-row-reverse styling */
+.story-columns {
+    display: none; /* Verberg de oude structuur voor nu, of verwijder als HTML aangepast wordt */
+}
+/* .story-columns:nth-child(even) { flex-direction: row; } */
+
+@media (max-width: 768px) {
+    .story-header h2 {
+        font-size: 2rem;
+    }
+    .story-block .story-text h3 {
+        font-size: 1.8rem;
+    }
+    .story-block .story-image {
+        max-width: 100%; /* Afbeelding volledige breedte op mobiel binnen de padding */
+    }
+     .story-block .story-text {
+        text-align: left; /* Behoud links voor mobiel, was al zo */
+    }
+}
+
+.features-grid,
+.inspiration-grid,
+.highlight-grid,
+.location-grid,
+.amenities-grid,
+.image-gallery-grid,
+.showcase-grid,
+.testimonials-grid {
+    display: grid;
+    gap: var(--spacing-lg); /* Consistent gap using variables */
+    width: 100%;
+}
+
+/* --- Basis Kolomindeling (Desktop-First, aanpasbaar per grid) --- */
+.features-grid,
+.inspiration-grid,
+.location-grid,
+.amenities-grid,
+.testimonials-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Goed voor 3-4 koloms layout */
+}
+
+.highlight-grid, /* 'Onze favoriete plekjes' - vaak 3 kolommen */
+.showcase-grid /* 'Visuele impressie' - vaak 3 kolommen */ {
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); /* Iets bredere min voor 3 kolommen */
+}
+
+.image-gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Kleinere items voor fotogalerij */
+}
+
+/* ========== CARD STYLING ALGEMEEN ========== */
+.feature-card,
+.inspiration-card,
+.highlight-card,
+.location-card,
+.amenity-item, /* amenity-item is al gestyled, maar kan hier algemene overrides krijgen indien nodig */
+.showcase-item, /* showcase-item heeft specifieke styling, dit is een basis */
+.testimonial-card {
+    background-color: var(--color-background);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-subtle);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Zorgt dat cards in een rij even hoog zijn */
+    box-sizing: border-box;
+    text-align: left; /* Standaard links uitgelijnd */
+}
+
+.feature-card:hover,
+.inspiration-card:hover,
+.highlight-card:hover,
+.location-card:hover,
+.amenity-item:hover, 
+.showcase-item:hover,
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+/* --- Specifieke Card Styling: Populaire Bestemmingen (.location-card) --- */
+.location-card {
+    padding: var(--spacing-lg); /* Ruimere padding voor deze cards */
+    text-align: center;
+}
+
+.location-card h3 {
+    font-size: 1.5rem; /* Was 1.4rem, iets groter mag wel */
+    color: var(--color-accent);
+    margin-top: 0; /* Geen marge bovenaan titel binnen card */
+    margin-bottom: var(--spacing-sm);
+}
+
+.location-card p {
+    font-size: 1rem; /* Was 0.95rem */
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+    flex-grow: 1; /* Paragraaf neemt beschikbare ruimte */
+}
+
+.location-card .distance {
+    display: block;
+    font-size: 0.9rem; /* Was 0.85rem */
+    color: var(--color-text-light);
+    margin-top: auto; /* Duwt afstand naar beneden */
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--color-border);
+}
+
+/* --- Specifieke Card Styling: Highlight Cards (.highlight-card) --- */
+.highlight-card {
+    padding: var(--spacing-lg) var(--spacing-xl); /* Meer horizontale padding */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; -- Verwijderd om "uitrekken" te verminderen */
+    /* border-top: 4px solid var(--color-light-blue); */
+    background-color: var(--color-background); /* Zorg voor achtergrondkleur */
+    border-radius: var(--border-radius); /* Zorg voor border-radius */
+    box-shadow: var(--shadow-subtle); /* Zorg voor box-shadow */
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed); /* Zorg voor transitie */
+}
+
+.highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.highlight-card .highlight-icon {
+    font-size: 2.8rem; 
+    color: var(--color-accent-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.highlight-card h3 {
+    font-size: 1.6rem; 
+    color: var(--color-accent);
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+}
+
+.highlight-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+    flex-grow: 1; 
+}
+
+.highlight-card ul {
+    text-align: left; 
+    margin-top: var(--spacing-md);
+    padding-left: 0; 
+    list-style-type: none;
+}
+
+/* Responsive blijft grotendeels hetzelfde, maar de basis minmax is nu breder */
+@media (max-width: 991px) { /* Tablet */
+.highlight-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) { /* Kleinere tablets / Grote Mobiles */
+    .highlight-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+}
+}
+
+/* Mobiel (max-width: 600px) .highlight-grid gaat naar 1fr (zoals andere grids) */
+
+/* --- Specifieke Card Styling: Showcase Items (.showcase-item) --- */
+.showcase-item {
+    padding: 0; /* Geen padding op de kaart zelf */
+    overflow: hidden; 
+    border-radius: var(--border-radius); /* Behoud border-radius */
+    position:relative; /* Nodig voor absolute positionering van showcase-content */
+}
+
+.showcase-item img {
+    width: 100%;
+    height: 250px; /* Vaste hoogte, kan aangepast */
+    object-fit: cover;
+    display: block;
+    border-radius: 0; /* Geen radius op img zelf als parent radius heeft */
+}
+
+.showcase-content { /* Deze class bestaat al en heeft position:absolute etc. */
+    padding: var(--spacing-md) !important; /* Forceer padding voor consistentie */
+    text-align: left;
+    }
+    
+.showcase-content h3 {
+        font-size: 1.3rem;
+    margin-bottom: var(--spacing-xs);
+    }
+    
+.showcase-content p {
+    font-size: var(--font-size-sm); /* Gebruik kleinere font size variabele */
+}
+
+/* ========== RESPONSIVE AANPASSINGEN VOOR GRIDS ========== */
+@media (max-width: 991px) { /* Tablet */
+    .features-grid,
+    .inspiration-grid,
+    .location-grid,
+    .amenities-grid,
+    .image-gallery-grid,
+    .showcase-grid,
+    .testimonials-grid,
+    .highlight-grid {
+        /* Laat auto-fit zijn werk doen met de desktop minmax waarden, 
+           of definieer hier een specifieke minmax voor tablets indien nodig.
+           Bijv. repeat(auto-fit, minmax(260px, 1fr)); om makkelijker 3 kolommen te halen indien mogelijk,
+           of minmax(300px, 1fr) voor gegarandeerd ruimere 2 kolommen. 
+           Voor nu vertrouwen we op de desktop minmax waarden die ook hier gelden. 
+           De specifieke `grid-template-columns: repeat(2, 1fr)` is verwijderd. */
+    }
+
+    /* Als je merkt dat je op tablet specifiek 2 kolommen wilt voor bepaalde grids, kun je dat hier toevoegen, bijv.:
+    .features-grid,
+    .location-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+        Voorkeur voor minimaal 2 items, maar kan naar 1 op smalle tablets
+    }
+    */
+}
+
+@media (max-width: 600px) { /* Mobiel: 1 kolom */
+    .features-grid,
+    .inspiration-grid,
+    .highlight-grid,
+    .location-grid,
+    .amenities-grid,
+    .image-gallery-grid,
+    .showcase-grid,
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .feature-card,
+    .inspiration-card,
+    .highlight-card,
+    .location-card,
+    .amenity-item,
+    .showcase-item,
+    .testimonial-card {
+        padding: var(--spacing-sm); /* Iets minder padding op mobiel */
+    }
+}
+
+.highlight-grid { 
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); /* Verhoogde min-waarde NOG verder */
+    align-items: stretch; /* Default, maar expliciet voor duidelijkheid. Kan ook flex-start zijn. */
+}
+
+/* Price Calculation Styling */
+.price-result-display {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border: 2px solid var(--color-accent);
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: 0 4px 15px rgba(209, 122, 82, 0.15);
+    transition: all 0.3s ease;
+    display: block; /* Always visible now */
+}
+
+.price-result-display.visible {
+    display: block;
+    animation: priceSlideIn 0.4s ease-out;
+}
+
+.price-breakdown h4 {
+    color: var(--color-accent);
+    font-family: var(--font-secondary);
+    font-size: 1.2rem;
+    margin: 0 0 0.75rem 0;
+    text-align: center;
+    position: relative;
+}
+
+.price-breakdown h4::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-light-terracotta));
+    border-radius: 1px;
+}
+
+.price-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.price-details p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(209, 122, 82, 0.1);
+    font-size: 0.95rem;
+    line-height: 1.2;
+    min-height: 2rem;
+}
+
+.price-details p:last-child {
+    border-bottom: none;
+}
+
+.price-details p span {
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.total-price {
+    background: linear-gradient(135deg, var(--color-sand) 0%, rgba(232, 160, 126, 0.2) 100%);
+    border-radius: 8px;
+    padding: 0.75rem !important;
+    margin-top: 0.5rem !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    border: 2px solid var(--color-accent) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    min-height: 2.5rem !important;
+}
+
+.total-price span {
+    font-size: 1.3rem;
+    color: var(--color-accent) !important;
+    font-weight: 700;
+}
+
+/* Price calculation animations */
+@keyframes priceSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 300px;
+    }
+}
+
+.price-highlight {
+    animation: priceHighlight 0.6s ease-in-out;
+}
+
+@keyframes priceHighlight {
+    0%, 100% { 
+        background-color: transparent; 
+    }
+    50% { 
+        background-color: rgba(232, 160, 126, 0.3); 
+    }
+}
+
+/* Enhanced form inputs */
+.enhanced-input {
+    transition: all 0.3s ease;
+    border: 2px solid var(--color-border);
+}
+
+.enhanced-input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(209, 122, 82, 0.15);
+    transform: translateY(-1px);
+}
+
+.enhanced-submit-btn {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.enhanced-submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.enhanced-submit-btn:hover::before {
+    left: 100%;
+}
+
+/* Center submit button */
+.submit-container {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+/* Mobile responsive adjustments for price calculation */
+@media (max-width: 768px) {
+    .price-result-display {
+        padding: 0.75rem;
+        margin: 0.75rem 0;
+    }
+    
+    .price-breakdown h4 {
         font-size: 1.1rem;
+        margin: 0 0 0.5rem 0;
+    }
+    
+    .price-details p {
+        font-size: 0.85rem;
+        padding: 0.25rem 0;
+    }
+    
+    .total-price {
+        padding: 0.6rem !important;
+        font-size: 0.95rem !important;
+    }
+    
+    .total-price span {
+        font-size: 1.1rem;
+    }
+}
+
+/* Mobile overrides for narrow calendar and form */
+/* Lightbox styling to fix the weird buttons */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.lightbox-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    max-width: 1200px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus {
+    color: #bbb;
+    text-decoration: none;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10000;
+}
+
+.lightbox-prev {
+    left: 0;
+}
+
+.lightbox-next {
+    right: 0;
+}
+
+.lightbox-nav:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 768px) {
+    .calendar-container {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    .form-section {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    .lightbox-close {
+        top: 10px;
+        right: 15px;
+        font-size: 30px;
+    }
+    
+    .lightbox-nav {
+        font-size: 16px;
+        padding: 12px;
     }
 }
