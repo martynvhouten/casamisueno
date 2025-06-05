@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Routebeschrijving naar Casa Mi Sueño - Een luxe vakantiehuis aan de Costa Blanca met privézwembad, moderne voorzieningen en een prachtige tuin">
-    <meta name="keywords" content="routebeschrijving vakantiehuis Costa Blanca, routebeschrijving vakantiehuis Spanje, vakantiehuis met zwembad, vakantiehuis met tuin">
-    <title>Routebeschrijving - Casa Mi Sueño</title>
+    <meta name="description" content="Wegbeschrijving naar Casa Mi Sueño in L'Alfàs del Pi, Costa Blanca. Eenvoudig te vinden vanaf het vliegveld Alicante of andere locaties.">
+    <meta name="keywords" content="wegbeschrijving, route, Casa Mi Sueño, L'Alfàs del Pi, vliegveld Alicante, Costa Blanca, navigatie">
+    <title>Wegbeschrijving - Casa Mi Sueño | Hoe te bereiken</title>
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://casamisueno.nl/wegbeschrijving.html">
@@ -13,28 +13,161 @@
     <meta name="theme-color" content="#e8a07e">
     
     <!-- OpenGraph tags for social sharing -->
-    <meta property="og:title" content="Routebeschrijving - Casa Mi Sueño">
-    <meta property="og:description" content="Routebeschrijving naar Casa Mi Sueño - Een luxe vakantiehuis aan de Costa Blanca met privézwembad, moderne voorzieningen en een prachtige tuin">
-    <meta property="og:image" content="images/optimized/Huis_en_tuin.jpg">
-    <meta property="og:url" content="https://casamisueno.nl/wegbeschrijving.html">
+    <meta property="og:title" content="" data-translate="meta.og.title">
+    <meta property="og:description" content="" data-translate="meta.og.description">
+    <meta property="og:image" content="images/optimized/Omgeving/Albir_panorama.jpg">
+    <meta property="og:url" content="https://casamisueno.nl">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="nl_NL">
 
     <link rel="icon" href="images/favicon.png" type="image/png">
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(err => {
-                        console.log('ServiceWorker registration failed: ', err);
-                    });
-            });
+    <script src="js/translations.js"></script>
+    
+    <style>
+        .directions-container {
+            max-width: 900px;
+            margin: 0 auto;
         }
-    </script>
+        
+        .route-section {
+            margin-bottom: 3rem;
+            background: var(--color-sand);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .route-section:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .route-section h3 {
+            color: var(--color-accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .route-section h3 i {
+            font-size: 1.2rem;
+        }
+        
+        .step-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .step-list li {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            position: relative;
+            padding-left: 3rem;
+            line-height: 1.6;
+        }
+        
+        .step-list li:before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            background: var(--color-accent);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .step-list {
+            counter-reset: step-counter;
+        }
+        
+        .info-box {
+            background: var(--color-background);
+            border: 2px solid var(--color-accent);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-box h4 {
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .coordinates {
+            background: var(--color-deep-terracotta);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .coordinates strong {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .transport-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .transport-card {
+            background: var(--color-sand);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .transport-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .transport-card i {
+            font-size: 2rem;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+        
+        .transport-card h4 {
+            color: var(--color-text);
+            margin-bottom: 1rem;
+        }
+        
+        .landmark {
+            background: rgba(232, 160, 126, 0.2);
+            border-left: 4px solid var(--color-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .landmark strong {
+            color: var(--color-accent);
+        }
+    </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Spring naar hoofdinhoud</a>
@@ -55,113 +188,182 @@
                     <li><a href="fotos.html">Foto's</a></li>
                     <li><a href="reserveren.html">Reserveren</a></li>
                     <li><a href="contact.html">Contact</a></li>
+                    <li><a href="wegbeschrijving.html" class="active">Wegbeschrijving</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main id="main-content">
-        <section class="hero" style="background-image: url('images/optimized/Huis_en_tuin.jpg');">
+        <section class="hero" style="background-image: url('images/optimized/Tuinkant_snapchat.jpg');">
             <div class="hero-content">
-                <h1>Routebeschrijving</h1>
-                <p>Hoe kom je bij Casa Mi Sueño?</p>
+                <h1>Wegbeschrijving</h1>
+                <p>Casa Mi Sueño is eenvoudig te bereiken vanaf het vliegveld Alicante of andere locaties. Hier vind je gedetailleerde routebeschrijvingen en handige tips voor je reis.</p>
             </div>
         </section>
 
         <section class="page-section">
             <div class="container">
-                <h2 class="text-center">Vanaf de luchthaven</h2>
-                <p class="text-center" style="max-width: 800px; margin-left: auto; margin-right: auto; margin-bottom: 2rem;">
-                    Casa Mi Sueño ligt op ongeveer 45 minuten rijden van de luchthaven van Alicante. Hieronder vind je gedetailleerde routebeschrijvingen voor verschillende vervoersmiddelen.
-                </p>
-                <div class="directions-grid">
-                    <div class="direction-card">
-                        <h3><i class="fas fa-car"></i> Met de auto</h3>
-                        <ol>
-                            <li>Verlaat de luchthaven via de AP-7 (Autopista del Mediterráneo)</li>
-                            <li>Rijd richting Valencia/Benidorm</li>
-                            <li>Neem afrit 64 (L'Alfàs del Pi)</li>
-                            <li>Volg de borden naar L'Alfàs del Pi</li>
-                            <li>Bij de rotonde, neem de derde afslag (Carrer de les Petúnies)</li>
-                            <li>Casa Mi Sueño is het laatste huis aan de rechterkant</li>
-                        </ol>
-                        <p class="note">Reistijd: ongeveer 45 minuten</p>
-                    </div>
-                    <div class="direction-card">
-                        <h3><i class="fas fa-taxi"></i> Met de taxi</h3>
-                        <p>Je kunt een taxi nemen vanaf de luchthaven. De rit duurt ongeveer 45 minuten en kost ongeveer €80-€100.</p>
-                        <p>Belangrijke taxi-bedrijven:</p>
-                        <ul>
-                            <li>Radio Taxi Alicante: +34 965 25 25 25</li>
-                            <li>Taxi Benidorm: +34 965 85 13 13</li>
-                        </ul>
-                    </div>
-                    <div class="direction-card">
-                        <h3><i class="fas fa-bus"></i> Met het openbaar vervoer</h3>
-                        <ol>
-                            <li>Neem bus C6 vanaf de luchthaven naar Alicante busstation</li>
-                            <li>Vanaf Alicante busstation, neem bus naar L'Alfàs del Pi</li>
-                            <li>Uitstappen bij halte "Carrer de les Petúnies"</li>
-                            <li>Loop 5 minuten naar Casa Mi Sueño</li>
-                        </ol>
-                        <p class="note">Reistijd: ongeveer 1,5 uur</p>
-                    </div>
-                    <div class="direction-card">
-                        <h3><i class="fas fa-shuttle-van"></i> Transfer service</h3>
-                        <p>We kunnen een transfer service voor je regelen. Dit is inclusief:</p>
-                        <ul>
-                            <li>Ophalen vanaf de luchthaven</li>
-                            <li>Direct vervoer naar Casa Mi Sueño</li>
-                            <li>Hulp met bagage</li>
-                            <li>Vaste prijs zonder verborgen kosten</li>
-                        </ul>
-                        <p>Neem contact met ons op voor meer informatie en prijzen.</p>
-                    </div>
+                <div class="directions-container">
+                    
+                    <div class="info-box">
+                        <h4><i class="fas fa-map-marker-alt"></i> Ons adres</h4>
+                        <p><strong>Casa Mi Sueño</strong><br>
+                        Carrer de les Petúnies 16<br>
+                        03580 L'Alfàs del Pi<br>
+                        Alicante, Spanje</p>
+                        
+                        <div class="coordinates">
+                            <strong><i class="fas fa-crosshairs"></i> GPS Coördinaten</strong>
+                            38.5789° N, 0.1067° W<br>
+                            <small>(Kopieer deze naar je navigatie voor de meest nauwkeurige route)</small>
                         </div>
                     </div>
-        </section>
 
-        <section class="page-section">
-            <div class="container">
-                <h2 class="text-center">Locatie op de kaart</h2>
-                <p class="text-center" style="max-width: 800px; margin-left: auto; margin-right: auto; margin-bottom: 2rem;">
-                    Bekijk hier de exacte locatie van Casa Mi Sueño. Je kunt de kaart gebruiken om je route te plannen.
-                </p>
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3129.1234567890123!2d-0.12345678901234567!3d38.12345678901234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDA3JzI0LjQiTiAwMMKwMDcnMjQuNCJX!5e0!3m2!1snl!2snl!4v1234567890123!5m2!1snl!2snl" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div class="route-section">
+                        <h3><i class="fas fa-plane"></i> Vanaf Vliegveld Alicante (ALC)</h3>
+                        <p>Afstand: ongeveer 65 km | Rijdtijd: 45-60 minuten</p>
+                        
+                        <ol class="step-list">
+                            <li>Verlaat het vliegveld en volg de borden richting <strong>A-7 / Autopista del Mediterráneo</strong></li>
+                            <li>Rij ongeveer 20 km op de A-7 richting <strong>Valencia/Denia</strong></li>
+                            <li>Neem afslag 65 richting <strong>Benidorm/Altea (N-332)</strong></li>
+                            <li>Volg de N-332 voor ongeveer 35 km door Benidorm</li>
+                            <li>Na Benidorm zie je borden voor <strong>L'Alfàs del Pi</strong></li>
+                            <li>Neem de afslag naar <strong>L'Alfàs del Pi centro</strong></li>
+                            <li>Rij het dorp in via de Avenida del Albir</li>
+                            <li>Sla rechtsaf de <strong>Calle Valencia</strong> in</li>
+                            <li>Na ongeveer 200m linksaf de <strong>Carrer de les Petúnies</strong> in</li>
+                            <li>Casa Mi Sueño bevindt zich op nummer 16 aan de rechterkant</li>
+                        </ol>
+
+                        <div class="landmark">
+                            <strong><i class="fas fa-eye"></i> Herkenningspunten:</strong>
+                            Vlak voor Carrer de les Petúnies passeer je een kleine supermarkt (Consum) aan je rechterhand. Het huis heeft een karakteristieke tuin met palmbomen en een houten poort.
+                        </div>
+                    </div>
+
+                    <div class="route-section">
+                        <h3><i class="fas fa-car"></i> Vanaf Valencia</h3>
+                        <p>Afstand: ongeveer 130 km | Rijdtijd: 1 uur 30 minuten</p>
+                        
+                        <ol class="step-list">
+                            <li>Verlaat Valencia via de <strong>A-7 richting Alicante</strong></li>
+                            <li>Blijf op de A-7 voor ongeveer 110 km</li>
+                            <li>Neem afslag 65 richting <strong>Benidorm/Altea (N-332)</strong></li>
+                            <li>Volg vanaf hier de route zoals beschreven vanaf het vliegveld (stap 4-10)</li>
+                        </ol>
+                    </div>
+
+                    <div class="route-section">
+                        <h3><i class="fas fa-route"></i> Alternatieve route via de bergen</h3>
+                        <p>Scenic route via Guadalest (iets langer maar prachtig uitzicht)</p>
+                        
+                        <ol class="step-list">
+                            <li>Vanaf de A-7, neem afslag bij <strong>Callosa d'en Sarrià</strong></li>
+                            <li>Volg de borden naar <strong>Guadalest</strong></li>
+                            <li>Geniet van het berglandschap en het pittoreske dorpje</li>
+                            <li>Vanaf Guadalest richting <strong>Altea/L'Alfàs del Pi</strong></li>
+                            <li>Daal af naar de kust en volg de borden naar L'Alfàs del Pi</li>
+                        </ol>
+                        
+                        <div class="landmark">
+                            <strong><i class="fas fa-camera"></i> Tip:</strong>
+                            Deze route duurt iets langer (extra 30 minuten) maar biedt spectaculaire uitzichten over de Costa Blanca. Perfect als je vroeg aankomt en van de omgeving wilt genieten!
+                        </div>
+                    </div>
+
+                    <div class="transport-grid">
+                        <div class="transport-card">
+                            <i class="fas fa-taxi"></i>
+                            <h4>Taxi</h4>
+                            <p>Vanaf vliegveld Alicante: ongeveer €70-90<br>
+                            Vooraf reserveren aanbevolen</p>
+                            <p><strong>Tel:</strong> +34 965 10 50 60</p>
+                        </div>
+
+                        <div class="transport-card">
+                            <i class="fas fa-bus"></i>
+                            <h4>Openbaar Vervoer</h4>
+                            <p>Bus C-6 van vliegveld naar Benidorm, dan lokale bus naar L'Alfàs del Pi<br>
+                            Totale reistijd: 2-3 uur</p>
+                        </div>
+
+                        <div class="transport-card">
+                            <i class="fas fa-car-alt"></i>
+                            <h4>Huurauto</h4>
+                            <p>Beschikbaar op het vliegveld<br>
+                            Aanbevolen voor vrijheid om de omgeving te verkennen</p>
+                            <p><strong>Parkeren:</strong> Gratis op ons terrein (2 auto's)</p>
+                        </div>
+
+                        <div class="transport-card">
+                            <i class="fas fa-shuttle-van"></i>
+                            <h4>Transfer Service</h4>
+                            <p>Privé transfer vanaf vliegveld<br>
+                            Op aanvraag kunnen we een betrouwbare service aanbevelen</p>
+                        </div>
+                    </div>
+
+                    <div class="route-section">
+                        <h3><i class="fas fa-info-circle"></i> Belangrijke informatie</h3>
+                        
+                        <div class="info-box">
+                            <h4><i class="fas fa-clock"></i> Check-in tijd</h4>
+                            <p>Check-in is vanaf 16:00 uur. We zorgen ervoor dat we of onze lokale contactpersoon aanwezig is om je te verwelkomen. Bij een latere aankomst dan 20:00 uur, geef dit van tevoren door.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4><i class="fas fa-phone"></i> Contact onderweg</h4>
+                            <p>Als je verdwaald bent of vragen hebt onderweg:</p>
+                            <p><strong>Telefoon:</strong> <a href="tel:+31683645489">+31 6 8364 5489</a><br>
+                            <strong>WhatsApp:</strong> <a href="https://wa.me/31683645489">+31 6 8364 5489</a><br>
+                            <strong>Email:</strong> <a href="mailto:esversteeg@hotmail.com">esversteeg@hotmail.com</a></p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4><i class="fas fa-gas-pump"></i> Handige stops onderweg</h4>
+                            <ul style="list-style: disc; margin-left: 2rem;">
+                                <li><strong>Tankstation:</strong> Bij afslag Benidorm (laatste kans voor goedkope brandstof)</li>
+                                <li><strong>Supermarkt:</strong> Mercadona in Benidorm of Consum in L'Alfàs del Pi</li>
+                                <li><strong>Restaurant:</strong> Stop in Altea voor lunch met zeezicht</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="route-section">
+                        <h3><i class="fas fa-map"></i> Interactieve kaart</h3>
+                        <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3144.1234567890!2d0.10671234567890!3d38.57894567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x129f8b1234567890%3A0x1234567890abcdef!2sCarrer%20de%20les%20Petúnies%2016%2C%2003580%20L'Alfàs%20del%20Pi%2C%20Alicante%2C%20Spain!5e0!3m2!1sen!2snl!4v1234567890123"
+                                width="100%" 
+                                height="400" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="Interactieve kaart naar Casa Mi Sueño">
+                            </iframe>
+                        </div>
+                        <p style="text-align: center; margin-top: 1rem; color: var(--color-text-light);">
+                            <a href="https://goo.gl/maps/..." target="_blank" style="color: var(--color-accent);">
+                                <i class="fas fa-external-link-alt"></i> Open in Google Maps
+                            </a>
+                        </p>
+                    </div>
+
                 </div>
             </div>
         </section>
 
-        <section class="page-section">
+        <section class="page-section cta-section text-center fade-in">
             <div class="container">
-                <h2 class="text-center">Handige informatie</h2>
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h3><i class="fas fa-parking"></i> Parkeren</h3>
-                        <p>Er is voldoende parkeerruimte voor meerdere auto's voor het huis. De parkeerplaats is gratis en beveiligd.</p>
-                    </div>
-                    <div class="info-card">
-                        <h3><i class="fas fa-shopping-cart"></i> Boodschappen</h3>
-                        <p>Op 5 minuten rijden vind je een grote Carrefour supermarkt. Er zijn ook verschillende lokale winkels in het dorp.</p>
-                    </div>
-                    <div class="info-card">
-                        <h3><i class="fas fa-gas-pump"></i> Tankstations</h3>
-                        <p>Er zijn verschillende tankstations in de buurt. De dichtstbijzijnde is op 2 minuten rijden.</p>
-                    </div>
-                    <div class="info-card">
-                        <h3><i class="fas fa-utensils"></i> Restaurants</h3>
-                        <p>In het dorp zijn verschillende restaurants te vinden. We hebben een lijst met onze favorieten voor je klaarliggen.</p>
-                    </div>
+                <h2>Onderweg naar Casa Mi Sueño?</h2>
+                <p>Heb je vragen over de route of ben je verdwaald? We helpen je graag!</p>
+                <div class="cta-buttons">
+                    <a href="tel:+31683645489" class="cta-button" style="margin-right: 10px;"><i class="fas fa-phone"></i> Bel ons direct</a>
+                    <a href="https://wa.me/31683645489" class="cta-button"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                 </div>
-            </div>
-        </section>
-
-        <section class="page-section cta-section">
-            <div class="container text-center">
-                <h2>Nog vragen over de route?</h2>
-                <p>Neem gerust contact met ons op voor meer informatie of hulp bij het plannen van je reis.</p>
-                <a href="contact.html" class="cta-button">Neem contact op</a>
             </div>
         </section>
     </main>

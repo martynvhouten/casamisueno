@@ -3611,3 +3611,91 @@ address {
         padding: 12px;
     }
 }
+
+/* History Section Styling */
+.history-section .history-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.history-section .history-card:hover {
+    transform: translateY(-5px);
+}
+
+.history-section .history-card:hover .history-icon {
+    transform: scale(1.1);
+}
+
+.history-section .history-card .history-icon {
+    transition: transform 0.3s ease;
+}
+
+/* Responsive styling voor history section */
+@media (max-width: 768px) {
+    .history-section .history-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+
+    .history-section .history-card {
+        padding: 2rem !important;
+    }
+
+    .history-section .history-highlight {
+        padding: 2rem !important;
+    }
+
+    .history-section .history-highlight > div {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem !important;
+    }
+
+    .history-section .history-highlight > div > div:first-child {
+        margin: 0 auto;
+    }
+}
+
+.location-card {
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.location-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+/* Specifiek alleen voor de icon container */
+.location-card:hover div[style*="background: var(--color-accent-light)"][style*="width: 70px"] {
+    transform: scale(1.1);
+}
+
+/* Specifiek alleen voor de icon zelf */
+.location-card:hover div[style*="background: var(--color-accent-light)"][style*="width: 70px"] i {
+    transform: scale(1.1);
+}
+
+/* Alleen transitie voor de icon */
+.location-card div[style*="background: var(--color-accent-light)"][style*="width: 70px"] i {
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .location-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .location-card {
+        padding: 2rem;
+    }
+    
+    .location-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .location-card p {
+        font-size: 1rem;
+    }
+}

@@ -935,6 +935,14 @@ function navigateLightbox(direction) {
     lightboxImg.alt = newImg.alt;
 }
 
+// Set copyright year dynamically
+document.addEventListener('DOMContentLoaded', function() {
+    const yearSpan = document.getElementById('current-year');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
+});
+
 // Remove language switcher code
 document.addEventListener('DOMContentLoaded', function() {
     // Other initialization code
