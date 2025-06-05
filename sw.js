@@ -1,11 +1,12 @@
-const CACHE_NAME = 'casa-mi-sueno-v1';
+const CACHE_NAME = 'casa-mi-sueno-cache-v1';
 const urlsToCache = [
     '/',
     '/index.html',
     '/css/style.css',
-    '/js/script.js',
-    '/js/translations.js',
-    '/images/favicon.png'
+    '/js/main.js',
+    '/js/contact-form.js',
+    '/js/image-gallery.js',
+    '/manifest.json'
 ];
 
 // Install event - cache assets

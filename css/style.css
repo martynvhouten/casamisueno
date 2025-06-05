@@ -21,11 +21,14 @@
     --color-background-gradient-end: #FDFBF7;
 
     /* Font Sizes */
-    --font-size-base: 1rem; /* 16px default */
-    --font-size-sm: 0.9rem;
-    --font-size-xs: 0.8rem;
-    --font-size-lg: 1.1rem;
-    --font-size-xl: 1.25rem;
+    --font-size-base: 1rem;      /* 16px - Basis tekst */
+    --font-size-sm: 0.875rem;    /* 14px - Kleinere tekst */
+    --font-size-xs: 0.75rem;     /* 12px - Zeer kleine tekst */
+    --font-size-lg: 1.125rem;    /* 18px - Grotere tekst */
+    --font-size-xl: 1.25rem;     /* 20px - Extra grote tekst */
+    --font-size-2xl: 1.5rem;     /* 24px - Voor subtitels */
+    --font-size-3xl: 2rem;       /* 32px - Voor grote titels */
+    --font-size-4xl: 2.5rem;     /* 40px - Voor hero titels */
 
     --line-height-base: 1.6;
     --line-height-heading: 1.3;
@@ -53,6 +56,14 @@
     --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.1);
     --shadow-strong: 0 6px 16px rgba(0, 0, 0, 0.12);
     --transition-speed: 0.3s ease;
+
+    /* Verbeterde Heading Sizes met clamp voor responsive scaling */
+    --heading-1: clamp(2.5rem, 5vw, var(--font-size-4xl));
+    --heading-2: clamp(2rem, 4vw, var(--font-size-3xl));
+    --heading-3: clamp(1.5rem, 3vw, var(--font-size-2xl));
+    --heading-4: clamp(1.25rem, 2.5vw, var(--font-size-xl));
+    --heading-5: clamp(1.125rem, 2vw, var(--font-size-lg));
+    --heading-6: clamp(1rem, 1.8vw, var(--font-size-base));
 }
 
 /* Reset and Base Styles */
@@ -78,7 +89,7 @@ body {
     background-image: 
         linear-gradient(135deg, var(--color-background-gradient-start) 0%, var(--color-background-gradient-end) 100%),
         url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E8A07E' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    font-size: var(--font-size-base); /* Gebruik de variabele hier */
+    font-size: var(--font-size-base);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -97,18 +108,18 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: -0.02em;
 }
 
-h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
-h2 { font-size: clamp(2rem, 4vw, 2.8rem); } /* Iets kleiner max dan H1 */
-h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); } /* Iets kleiner max dan H2 */
-h4 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
-h5 { font-size: clamp(1.1rem, 2vw, 1.5rem); }
-h6 { font-size: clamp(1rem, 1.8vw, 1.2rem); }
+h1 { font-size: var(--heading-1); }
+h2 { font-size: var(--heading-2); }
+h3 { font-size: var(--heading-3); }
+h4 { font-size: var(--heading-4); }
+h5 { font-size: var(--heading-5); }
+h6 { font-size: var(--heading-6); }
 
 p {
     margin-bottom: var(--spacing-unit);
-    max-width: 65ch;
+    max-width: 70ch;
     line-height: var(--line-height-base);
-    font-size: var(--font-size-base); /* Standaard paragraafgrootte */
+    font-size: var(--font-size-base);
 }
 
 /* --- Consistentie voor P in specifieke content blokken --- */
@@ -187,11 +198,11 @@ ul, ol {
 /* Utility Classes */
 .container {
     width: 100%;
-    max-width: 1366px; /* Verhoogd voor meer breedte */
+    max-width: min(1366px, 90%); /* Gebruik min() voor betere responsive scaling */
     margin-left: auto;
     margin-right: auto;
-    padding-left: var(--spacing-md);
-    padding-right: var(--spacing-md);
+    padding-left: clamp(1rem, 3vw, 2rem); /* Responsive padding met clamp */
+    padding-right: clamp(1rem, 3vw, 2rem);
     box-sizing: border-box;
 }
 
@@ -306,7 +317,7 @@ ul, ol {
     padding: calc(var(--spacing-unit) * 0.6) calc(var(--spacing-unit) * 0.8);
     border-radius: var(--border-radius);
     transition: color var(--transition-speed), background-color var(--transition-speed);
-    font-size: 1.1rem;
+    font-size: var(--font-size-base);
 }
 
 .main-nav a:hover,
@@ -427,12 +438,13 @@ ul, ol {
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 800px;
-    padding: 0 var(--spacing-unit);
+    max-width: min(800px, 90%);
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2rem);
 }
 
 .hero h1 {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: clamp(2.5rem, 7vw, var(--font-size-4xl));
     margin-bottom: var(--spacing-md);
     line-height: 1.2;
     font-weight: 700;
@@ -440,9 +452,8 @@ ul, ol {
 }
 
 .hero p {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    margin-bottom: var(--spacing-lg);
-    line-height: 1.6;
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
@@ -456,16 +467,16 @@ ul, ol {
     }
     
     .hero-content {
-        padding: 0 var(--spacing-md);
+        padding: 0 1rem;
     }
     
     .hero h1 { 
-        font-size: clamp(2.2rem, 8vw, 3rem);
+        font-size: clamp(2.2rem, 6vw, var(--font-size-3xl));
         margin-bottom: var(--spacing-sm);
     }
     
     .hero p { 
-        font-size: 1.1rem;
+        font-size: var(--font-size-base);
         margin-bottom: var(--spacing-md);
     }
 }
@@ -725,6 +736,7 @@ ul, ol {
     font-weight: bold;
     margin-bottom: calc(var(--spacing-unit) * 0.6);
     color: var(--color-dark-text);
+    font-size: var(--font-size-base);
 }
 
 .form-section input[type="text"],
@@ -738,7 +750,7 @@ ul, ol {
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     font-family: var(--font-primary);
-    font-size: 1rem;
+    font-size: var(--font-size-base);
     transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
@@ -807,7 +819,7 @@ ul, ol {
 }
 
 .testimonial-quote {
-    font-size: 1.1rem;
+    font-size: var(--font-size-base);
     line-height: 1.7;
     color: var(--color-dark-text);
     margin-bottom: var(--spacing-md);
@@ -819,7 +831,7 @@ ul, ol {
     margin-top: auto;
     font-weight: 600;
     color: var(--color-accent);
-    font-size: 1.1rem;
+    font-size: var(--font-size-sm);
 }
 
 @media (max-width: 768px) {
@@ -889,7 +901,7 @@ ul, ol {
 }
 
 .amenity-icon i {
-    font-size: 2rem;
+    font-size: var(--font-size-2xl);
 }
 
 .amenity-content {
@@ -1114,9 +1126,9 @@ ul, ol {
         line-height: var(--line-height-base);
     }
 
-    h1 { font-size: clamp(2.2rem, 6vw, 2.8rem); }
-    h2 { font-size: clamp(1.8rem, 5vw, 2.2rem); }
-    h3 { font-size: clamp(1.4rem, 4vw, 1.7rem); }
+    h1 { font-size: clamp(2.2rem, 6vw, var(--font-size-3xl)); }
+    h2 { font-size: clamp(1.8rem, 5vw, var(--font-size-2xl)); }
+    h3 { font-size: clamp(1.4rem, 4vw, var(--font-size-xl)); }
 
     .page-section {
         padding: var(--spacing-section-mobile) 0;
@@ -1126,8 +1138,8 @@ ul, ol {
         min-height: 70vh;
         padding: var(--spacing-section-mobile) var(--spacing-unit);
     }
-    .hero h1 { font-size: clamp(2.5rem, 7vw, 3.2rem); }
-    .hero p { font-size: 1rem; }
+    .hero h1 { font-size: clamp(2.5rem, 7vw, var(--font-size-4xl)); }
+    .hero p { font-size: var(--font-size-base); }
 
     .main-nav {
         display: none; /* This is for the mobile view where it's toggled */
@@ -2132,14 +2144,14 @@ address {
 }
 
 .feature-card h3 {
-    font-size: 1.5rem;
+    font-size: var(--heading-3);
     margin-bottom: var(--spacing-sm);
     color: var(--color-dark-text);
 }
 
 .feature-card p {
     color: var(--color-dark-text);
-    font-size: 1.05rem;
+    font-size: var(--font-size-base);
     line-height: 1.6;
     margin: 0;
 }
@@ -3697,5 +3709,58 @@ address {
     
     .location-card p {
         font-size: 1rem;
+    }
+}
+
+/* Verbeterde content breedtes voor verschillende elementen */
+p {
+    margin-bottom: var(--spacing-unit);
+    max-width: 70ch; /* Iets ruimer voor betere leesbaarheid */
+    line-height: var(--line-height-base);
+    font-size: var(--font-size-base);
+}
+
+/* Hero content optimalisatie */
+.hero-content {
+    max-width: min(800px, 90%);
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2rem);
+}
+
+/* Verbeterde grid layouts voor grote schermen */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1440px; /* Maximum breedte voor zeer grote schermen */
+    }
+
+    .features-grid,
+    .inspiration-grid,
+    .testimonials-grid {
+        gap: 2rem; /* Meer ruimte tussen grid items op grote schermen */
+    }
+
+    /* Verbeterde leesbaarheid voor tekst op grote schermen */
+    p, 
+    .feature-card p,
+    .inspiration-content p,
+    .testimonial-quote {
+        font-size: 1.1rem; /* Iets grotere tekst op grote schermen */
+        line-height: 1.7;
+    }
+}
+
+/* Verbeterde mobiele ervaring */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    p {
+        max-width: 100%; /* Volledige breedte op mobiel voor betere leesbaarheid */
+    }
+
+    .hero-content {
+        padding: 0 1rem;
     }
 }

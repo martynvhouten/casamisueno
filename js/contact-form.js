@@ -1,3 +1,15 @@
+// Verwijder de data-translate-form gerelateerde code
+document.addEventListener('DOMContentLoaded', function() {
+    // Form validatie en verzending logica
+    const form = document.querySelector('.contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Form validatie en verzending logica hier
+    });
+});
+
 // Contact form translations
 const contactFormTranslations = {
     nl: {
